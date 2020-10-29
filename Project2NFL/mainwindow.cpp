@@ -16,7 +16,7 @@ void MainWindow::on_show_Data_clicked()
        data.removeDatabase("first");
 
        QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE", "first");
-       database.setDatabaseName("/Users/jblue/Documents/College shit/CS1D/NFL/Project-2-LetsPlayNFLFootball/Project Files/Project2NFL/NFL Information.db");
+       database.setDatabaseName("C:/Users/pu12d/OneDrive/Documents/GitHub/Project-2-LetsPlayNFLFootball/Project2NFL/NFL Information.db");
 
        if(database.open())
        {
