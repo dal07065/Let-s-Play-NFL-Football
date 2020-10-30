@@ -25,12 +25,22 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
+
     ~MainWindow();
+
+    // This function will change all of the adminFuncs features visiblility
+    // to true.
+    void userIsAdmin();
 
 private slots:
 
     void on_show_Data_clicked();
 
+    void on_actionExit_triggered();
+
+    void on_actionAdmin_triggered();
+
+    void on_actionLogOut_triggered();
 
 private:
     Ui::MainWindow *ui;
