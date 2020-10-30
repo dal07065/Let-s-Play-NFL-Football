@@ -52,7 +52,7 @@ QVector<user*> login::getUsers()
 {
     QVector<user*>fromFile;
 
-    QFile file("Users.txt");
+    QFile file(":/txt/txt/Users.txt");
 
     file.open(QIODevice::ReadOnly | QIODevice::Text);
 

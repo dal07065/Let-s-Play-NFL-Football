@@ -4,4 +4,7 @@
         <file>img/Team Icon.png</file>
         <file>img/UnicornBarfing.png</file>
     </qresource>
+    <qresource prefix="/txt">
+        <file>txt/Users.txt</file>
+    </qresource>
 </RCC>
