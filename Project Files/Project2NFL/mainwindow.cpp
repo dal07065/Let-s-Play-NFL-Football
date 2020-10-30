@@ -1,12 +1,16 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "login.h"
+
+//const QString filePath = "C:\\Users\\jblue\\Documents\\College shit\\CS1D\\NFL\\Project-2-LetsPlayNFLFootball\\Project Files\\Project2NFL\\NFL Information.db";
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    setWindowIcon(QIcon(":/img/img/UnicornBarfing.png"));
+    ui->actionLogOut->setVisible(false);
 }
 
 void MainWindow::on_show_Data_clicked()
@@ -15,11 +19,15 @@ void MainWindow::on_show_Data_clicked()
     data.close();
        data.removeDatabase("first");
 
+       QString filePath = QFileInfo(".").absolutePath();
+       filePath += "/Project2NFL/NFL Information.db";
+
        QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE", "first");
-       database.setDatabaseName("/Users/jblue/Documents/College shit/CS1D/NFL/Project-2-LetsPlayNFLFootball/Project Files/Project2NFL/NFL Information.db");
+       database.setDatabaseName(filePath);
 
        if(database.open())
        {
+
             QSqlQuery query(database);
 
 
@@ -59,3 +67,30 @@ MainWindow::~MainWindow()
 }
 
 
+
+void MainWindow::on_actionExit_triggered()
+{
+    QApplication::quit();
+}
+
+void MainWindow::on_actionAdmin_triggered()
+{
+    login logWindow;
+    connect(&logWindow, &login::userIsAdmin, this, &MainWindow::userIsAdmin);
+    logWindow.setModal(true);
+    logWindow.exec();
+}
+
+void MainWindow::userIsAdmin()
+{
+    QMessageBox::information(this, "Login", "Username and Password is Correct");
+
+    ui->actionLogOut->setVisible(true);
+    ui->actionAdmin->setVisible(false);
+}
+
+void MainWindow::on_actionLogOut_triggered()
+{
+    ui->actionAdmin->setVisible(true);
+    ui->actionLogOut->setVisible(false);
+}
