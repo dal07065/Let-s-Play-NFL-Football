@@ -52,6 +52,7 @@
      <string>File</string>
     </property>
     <addaction name="actionAdmin"/>
+    <addaction name="actionLogOut"/>
     <addaction name="actionExit"/>
    </widget>
    <addaction name="menuFile"/>
@@ -60,6 +61,11 @@
   <action name="actionAdmin">
    <property name="text">
     <string>Admin...</string>
+   </property>
+  </action>
+  <action name="actionLogOut">
+   <property name="text">
+    <string>Log Out...</string>
    </property>
   </action>
   <action name="actionExit">

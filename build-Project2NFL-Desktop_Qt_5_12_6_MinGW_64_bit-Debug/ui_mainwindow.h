@@ -10,9 +10,11 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
+#include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
@@ -24,10 +26,14 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
+    QAction *actionAdmin;
+    QAction *actionLogOut;
+    QAction *actionExit;
     QWidget *centralwidget;
     QTableView *tableView;
     QPushButton *show_Data;
     QMenuBar *menubar;
+    QMenu *menuFile;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -35,6 +41,12 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(1600, 800);
+        actionAdmin = new QAction(MainWindow);
+        actionAdmin->setObjectName(QString::fromUtf8("actionAdmin"));
+        actionLogOut = new QAction(MainWindow);
+        actionLogOut->setObjectName(QString::fromUtf8("actionLogOut"));
+        actionExit = new QAction(MainWindow);
+        actionExit->setObjectName(QString::fromUtf8("actionExit"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         tableView = new QTableView(centralwidget);
@@ -47,10 +59,17 @@ public:
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
         menubar->setGeometry(QRect(0, 0, 1600, 21));
+        menuFile = new QMenu(menubar);
+        menuFile->setObjectName(QString::fromUtf8("menuFile"));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
         MainWindow->setStatusBar(statusbar);
+
+        menubar->addAction(menuFile->menuAction());
+        menuFile->addAction(actionAdmin);
+        menuFile->addAction(actionLogOut);
+        menuFile->addAction(actionExit);
 
         retranslateUi(MainWindow);
 
@@ -60,7 +79,11 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
+        actionAdmin->setText(QApplication::translate("MainWindow", "Admin...", nullptr));
+        actionLogOut->setText(QApplication::translate("MainWindow", "Log Out...", nullptr));
+        actionExit->setText(QApplication::translate("MainWindow", "Exit", nullptr));
         show_Data->setText(QApplication::translate("MainWindow", "Show Data", nullptr));
+        menuFile->setTitle(QApplication::translate("MainWindow", "File", nullptr));
     } // retranslateUi
 
 };
