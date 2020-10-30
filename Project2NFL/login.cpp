@@ -74,11 +74,5 @@ QVector<user*> login::getUsers()
 
     file.close();
 
-    qDebug() << "Users:";
-    for(int i = 0; i < fromFile.size(); ++i)
-    {
-        qDebug() << fromFile[i]->getName() << ' ' << fromFile[i]->getPassword() << endl;
-    }
-
     return fromFile;
 }
