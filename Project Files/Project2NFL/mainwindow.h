@@ -34,7 +34,14 @@ public:
 
 private slots:
 
-    void on_show_Data_clicked();
+    //void on_show_Data_clicked();
+
+    void on_show_Teams_clicked();
+
+    void on_show_NFC_Teams_clicked();
+    void on_show_AFC_Teams_clicked();
+
+    void on_show_NFCNorth_clicked();
 
     void on_actionExit_triggered();
 
