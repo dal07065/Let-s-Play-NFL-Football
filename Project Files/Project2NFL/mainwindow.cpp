@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "login.h"
+#include "adminwindow.h"
+
 
 //const QString filePath = "C:\\Users\\jblue\\Documents\\College shit\\CS1D\\NFL\\Project-2-LetsPlayNFLFootball\\Project Files\\Project2NFL\\NFL Information.db";
 
@@ -10,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     setWindowIcon(QIcon(":/img/img/UnicornBarfing.png"));
+    on_actionLogOut_triggered();
     ui->actionLogOut->setVisible(false);
 }
 
@@ -233,6 +236,7 @@ void MainWindow::userIsAdmin()
     QMessageBox::information(this, "Login", "Username and Password is Correct");
 
     ui->actionLogOut->setVisible(true);
+    ui->actionAdmin_Functions->setVisible(true);
     ui->actionAdmin->setVisible(false);
 }
 
@@ -240,4 +244,13 @@ void MainWindow::on_actionLogOut_triggered()
 {
     ui->actionAdmin->setVisible(true);
     ui->actionLogOut->setVisible(false);
+
+    ui->actionAdmin_Functions->setVisible(false);
+}
+
+void MainWindow::on_actionAdmin_Functions_triggered()
+{
+    adminWindow aWindow;
+    aWindow.setModal(true);
+    aWindow.exec();
 }
