@@ -126,6 +126,7 @@
     <string>Exit</string>
    </property>
   </action>
+
   <action name="actionAdmin_Functions">
    <property name="text">
     <string>Admin Functions</string>

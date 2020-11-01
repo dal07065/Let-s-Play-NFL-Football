@@ -3,6 +3,7 @@
 #include "login.h"
 #include "adminwindow.h"
 
+
 //const QString filePath = "C:\\Users\\jblue\\Documents\\College shit\\CS1D\\NFL\\Project-2-LetsPlayNFLFootball\\Project Files\\Project2NFL\\NFL Information.db";
 
 MainWindow::MainWindow(QWidget *parent)
@@ -12,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     setWindowIcon(QIcon(":/img/img/UnicornBarfing.png"));
     on_actionLogOut_triggered();
+    ui->actionLogOut->setVisible(false);
 }
 
 
@@ -242,6 +244,7 @@ void MainWindow::on_actionLogOut_triggered()
 {
     ui->actionAdmin->setVisible(true);
     ui->actionLogOut->setVisible(false);
+
     ui->actionAdmin_Functions->setVisible(false);
 }
 
