@@ -59,3 +59,8 @@ void adminWindow::loadTeams()
        }
 
 }
+
+void adminWindow::loadTeamData()
+{
+
+}

@@ -199,6 +199,8 @@ public:
 
         doubleSpinBox_NewSouvenir_Price = new QDoubleSpinBox(widget1);
         doubleSpinBox_NewSouvenir_Price->setObjectName(QString::fromUtf8("doubleSpinBox_NewSouvenir_Price"));
+        doubleSpinBox_NewSouvenir_Price->setMaximum(500.000000000000000);
+        doubleSpinBox_NewSouvenir_Price->setSingleStep(0.250000000000000);
 
         horizontalLayout_5->addWidget(doubleSpinBox_NewSouvenir_Price);
 
@@ -268,10 +270,10 @@ public:
         label_SelectStadium->setText(QApplication::translate("adminWindow", "Select Stadium:", nullptr));
         label_SelectStadium_Capacity->setText(QApplication::translate("adminWindow", "Capacity", nullptr));
         pushButton_SelectStadium_SetCapacity->setText(QApplication::translate("adminWindow", "Set New Capacity", nullptr));
-        label_NewSouvenir->setText(QApplication::translate("adminWindow", "Enter Name of new Souvenir:", nullptr));
+        label_NewSouvenir->setText(QApplication::translate("adminWindow", "Enter Name of New Souvenir:", nullptr));
         label_NewSouvenir_Price->setText(QApplication::translate("adminWindow", "Price", nullptr));
         pushButton_NewSouvenir_Add->setText(QApplication::translate("adminWindow", "Add New Souvenir", nullptr));
-        label_NewStadium->setText(QApplication::translate("adminWindow", "Enter Name of new Stadium:", nullptr));
+        label_NewStadium->setText(QApplication::translate("adminWindow", "Enter Name of New Stadium:", nullptr));
         label_NewStadium_Capacity->setText(QApplication::translate("adminWindow", "Capacity", nullptr));
         pushButton_NewStadium_Add->setText(QApplication::translate("adminWindow", "Add New Stadium", nullptr));
     } // retranslateUi

@@ -19,7 +19,13 @@ class adminWindow : public QDialog
 public:
     explicit adminWindow(QWidget *parent = nullptr);
     ~adminWindow();
+    // This function loads all of the NFL Teams from the database
+    // into combo box comboBox_Team_Selection
     void loadTeams();
+
+    // This function loads all stadium and souvenir data from the
+    // database into the respective feilds
+    void loadTeamData();
 
 private:
     Ui::adminWindow *ui;
