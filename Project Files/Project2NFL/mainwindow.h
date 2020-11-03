@@ -4,18 +4,14 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QTableView>
-
-#include <QSqlDatabase>
-#include <QSqlQuery>
 #include <QVariant>
 #include <QtDebug>
-#include <QFileInfo>
-#include <QSqlError>
-#include <QSqlQueryModel>
-#include <QSqlRecord>
 #include <QSqlTableModel>
+#include <team.h>
+#include <CustomVacation.h>
 
 QT_BEGIN_NAMESPACE
+using namespace unicorn;
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
@@ -49,8 +45,13 @@ private slots:
 
     void on_actionLogOut_triggered();
 
+
+    void on_pushButton_clicked();
+
+
     void on_actionAdmin_Functions_triggered();
     
+
 private:
     Ui::MainWindow *ui;
     QString teamName;

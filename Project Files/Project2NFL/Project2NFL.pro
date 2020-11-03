@@ -10,24 +10,47 @@ CONFIG += c++11
 
 SOURCES += \
 
+    CustomVacation.cpp \
+    database.cpp \
+
+    CustomVacation.cpp \
+    database.cpp \
     adminwindow.cpp \
+
     login.cpp \
     main.cpp \
     mainwindow.cpp \
-    user.cpp
+    stadium.cpp \
+    team.cpp \
+    user.cpp \
+    vacationinfo.cpp
 
 HEADERS += \
 
+    CustomVacation.h \
+    database.h \
+
+
     adminwindow.h \
+
     login.h \
     mainwindow.h \
-    user.h
+    stadium.h \
+    structures.h \
+    team.h \
+    user.h \
+    vacationinfo.h
 
 FORMS += \
 
+    CustomVacation.ui \
+
+
     adminwindow.ui \
+
     login.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    vacationinfo.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
