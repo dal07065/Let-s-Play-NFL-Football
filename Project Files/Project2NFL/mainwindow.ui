@@ -89,6 +89,7 @@
      <string>Show NFC Teams</string>
     </property>
    </widget>
+
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
@@ -102,6 +103,8 @@
      <string>Plan Vacation</string>
     </property>
    </widget>
+
+
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -119,6 +122,7 @@
     <addaction name="actionAdmin"/>
     <addaction name="actionLogOut"/>
     <addaction name="actionExit"/>
+    <addaction name="actionAdmin_Functions"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -136,6 +140,12 @@
   <action name="actionExit">
    <property name="text">
     <string>Exit</string>
+   </property>
+  </action>
+
+  <action name="actionAdmin_Functions">
+   <property name="text">
+    <string>Admin Functions</string>
    </property>
   </action>
  </widget>

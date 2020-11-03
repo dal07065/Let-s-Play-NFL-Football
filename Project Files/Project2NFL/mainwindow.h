@@ -45,7 +45,12 @@ private slots:
 
     void on_actionLogOut_triggered();
 
+
     void on_pushButton_clicked();
+
+
+    void on_actionAdmin_Functions_triggered();
+    
 
 private:
     Ui::MainWindow *ui;
