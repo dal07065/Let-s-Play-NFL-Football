@@ -9,19 +9,32 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    CustomVacation.cpp \
+    database.cpp \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
-    user.cpp
+    stadium.cpp \
+    team.cpp \
+    user.cpp \
+    vacationinfo.cpp
 
 HEADERS += \
+    CustomVacation.h \
+    database.h \
     login.h \
     mainwindow.h \
-    user.h
+    stadium.h \
+    structures.h \
+    team.h \
+    user.h \
+    vacationinfo.h
 
 FORMS += \
+    CustomVacation.ui \
     login.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    vacationinfo.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
