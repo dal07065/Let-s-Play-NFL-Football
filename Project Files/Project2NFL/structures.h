@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <iostream>
-#include<strings.h>
+//#include<strings.h>
 #include<vector>
 #include "database.h"
 #include <iomanip>

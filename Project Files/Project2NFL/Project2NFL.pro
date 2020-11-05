@@ -9,14 +9,21 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-
+    CustomVacation.cpp \
+    adminwindow.cpp \
+    database.cpp \
+    login.cpp \
+    main.cpp \
+    mainwindow.cpp \
+    stadium.cpp \
+    team.cpp \
+    user.cpp \
+    vacationinfo.cpp \
     CustomVacation.cpp \
     database.cpp \
-
     CustomVacation.cpp \
     database.cpp \
     adminwindow.cpp \
-
     login.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -26,13 +33,20 @@ SOURCES += \
     vacationinfo.cpp
 
 HEADERS += \
-
+    CustomVacation.h \
+    adminwindow.h \
+    database.h \
+    login.h \
+    mainwindow.h \
+    moc_predefs.h \
+    stadium.h \
+    structures.h \
+    team.h \
+    user.h \
+    vacationinfo.h \
     CustomVacation.h \
     database.h \
-
-
     adminwindow.h \
-
     login.h \
     mainwindow.h \
     stadium.h \
@@ -42,12 +56,13 @@ HEADERS += \
     vacationinfo.h
 
 FORMS += \
-
     CustomVacation.ui \
-
-
     adminwindow.ui \
-
+    login.ui \
+    mainwindow.ui \
+    vacationinfo.ui \
+    CustomVacation.ui \
+    adminwindow.ui \
     login.ui \
     mainwindow.ui \
     vacationinfo.ui
@@ -58,4 +73,13 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    resource.qrc
+    resource.qrc \
+    resource.qrc \
+
+DISTFILES += \
+    .gitignore \
+    img/Team Icon.png \
+    img/Team Logo.png \
+    img/UnicornBarfing.png \
+    nfl.db \
+    txt/Users.txt
