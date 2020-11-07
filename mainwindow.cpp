@@ -50,19 +50,9 @@ void MainWindow::on_show_Teams_clicked()
 
 {
 
-    data.close();
-       data.removeDatabase("first");
 
-       QString filePath = QFileInfo(".").absolutePath();
-       filePath += "/Project2NFL/nfl.db";
 
-       QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE", "first");
-       database.setDatabaseName(filePath);
-
-       if(database.open())
-       {
-
-            QSqlQuery query(database);
+            QSqlQuery query;
 
 
             query.prepare(QString("SELECT TeamName FROM teams"));
@@ -87,11 +77,6 @@ void MainWindow::on_show_Teams_clicked()
                 ui->tableView->show();
                 ui->tableView->setModel(search);
             }
-       }
-       else
-       {
-           QMessageBox::warning(this, "Fail", "Database not connected!");
-       }
 
 }
 
@@ -102,8 +87,6 @@ void MainWindow::on_show_AFC_Teams_clicked()
 
 
 
-       QString filePath = QFileInfo(".").absolutePath();
-       filePath += "/Project2NFL/nfl.db";
 
 
             QSqlQuery query;
@@ -136,19 +119,9 @@ void MainWindow::on_show_AFC_Teams_clicked()
 void MainWindow::on_show_NFC_Teams_clicked()
 {
 
-    data.close();
-       data.removeDatabase("first");
 
-       QString filePath = QFileInfo(".").absolutePath();
-       filePath += "/Project2NFL/nfl.db";
 
-       QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE", "first");
-       database.setDatabaseName(filePath);
-
-       if(database.open())
-       {
-
-            QSqlQuery query(database);
+            QSqlQuery query;
 
 
             query.prepare(QString("SELECT StadiumName,SeatingCapacity,Location,Conference,Division,SurfaceType,StadiumRoofType,DateOpened FROM stadiums WHERE Conference LIKE 'National%'"));
@@ -173,11 +146,8 @@ void MainWindow::on_show_NFC_Teams_clicked()
                 ui->tableView->show();
                 ui->tableView->setModel(search);
             }
-       }
-       else
-       {
-           QMessageBox::warning(this, "Fail", "Database not connected!");
-       }
+
+
 
 }
 
@@ -185,19 +155,9 @@ void MainWindow::on_show_NFC_Teams_clicked()
 void MainWindow::on_show_NFCNorth_clicked()
 {
 
-    data.close();
-       data.removeDatabase("first");
 
-       QString filePath = QFileInfo(".").absolutePath();
-       filePath += "/Project2NFL/nfl.db";
 
-       QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE", "first");
-       database.setDatabaseName(filePath);
-
-       if(database.open())
-       {
-
-            QSqlQuery query(database);
+            QSqlQuery query;
 
 
             query.prepare(QString("SELECT StadiumName,SeatingCapacity,Location,Conference,Division,SurfaceType,StadiumRoofType,DateOpened FROM stadiums WHERE Division LIKE 'NFC  North'"));
@@ -224,7 +184,7 @@ void MainWindow::on_show_NFCNorth_clicked()
                 ui->tableView->setModel(search);
             }
 
-}
+
 }
 
 

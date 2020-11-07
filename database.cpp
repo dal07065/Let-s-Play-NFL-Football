@@ -5,14 +5,11 @@ Database* Database::instance = nullptr;
 Database::Database() : QSqlDatabase(addDatabase("QSQLITE"))
 {
     this->setDatabaseName(qApp->applicationDirPath()
-                          + QDir::separator()
-                          + "nfl.db");
+                          + "/nfl.db");
     QFileInfo databaseInfo(qApp->applicationDirPath()
-                          + QDir::separator()
-                          + "nfl.db");
+                          + "/nfl.db");
     qDebug() << "database path:" << qApp->applicationDirPath()
-                              + QDir::separator()
-                              + "nfl.db";
+                              + "/nfl.db";
    if (databaseInfo.exists())
    {
         qDebug() << "Database file is open.\n";
