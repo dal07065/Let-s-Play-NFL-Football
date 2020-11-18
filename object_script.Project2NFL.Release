@@ -1,0 +1,16 @@
+release/CustomVacation.o
+release/adminwindow.o
+release/database.o
+release/login.o
+release/main.o
+release/mainwindow.o
+release/stadium.o
+release/team.o
+release/user.o
+release/vacationinfo.o
+release/qrc_resource.o
+release/moc_CustomVacation.o
+release/moc_adminwindow.o
+release/moc_login.o
+release/moc_mainwindow.o
+release/moc_vacationinfo.o
