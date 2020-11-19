@@ -9,14 +9,10 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-
     CustomVacation.cpp \
-    database.cpp \
-
-    CustomVacation.cpp \
-    database.cpp \
     adminwindow.cpp \
-
+    database.cpp \
+    displaydata.cpp \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -26,13 +22,13 @@ SOURCES += \
     vacationinfo.cpp
 
 HEADERS += \
-
+    BSTMap.h \
     CustomVacation.h \
-    database.h \
-
-
+    GraphBFS.h \
+    GraphDFS.h \
     adminwindow.h \
-
+    database.h \
+    displaydata.h \
     login.h \
     mainwindow.h \
     stadium.h \
@@ -42,12 +38,9 @@ HEADERS += \
     vacationinfo.h
 
 FORMS += \
-
     CustomVacation.ui \
-
-
     adminwindow.ui \
-
+    displaydata.ui \
     login.ui \
     mainwindow.ui \
     vacationinfo.ui

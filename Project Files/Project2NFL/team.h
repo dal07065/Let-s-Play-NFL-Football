@@ -4,6 +4,7 @@
 #include"structures.h"
 #include"stadium.h"
 
+
 using namespace std;
 
 namespace unicorn  {
@@ -19,11 +20,12 @@ public:
     /**
      * @brief Default constructor
      */
-    Team(){
+    Team() {
         TeamID=0;
         TeamName="";
         vector<Distance> distanceFromOthers;
         vector <SouvenirType>souvenir;
+        teamStadium = new Stadium;
 
     }
     /**
@@ -39,6 +41,8 @@ public:
      * @brief Static vector containing all the team information
      */
     static vector<Team> teams;
+
+    static BST<Team> teamsBSTMap;
 
     /**
      * @brief Function to return a static vector containing all the teams information
@@ -59,7 +63,7 @@ public:
      * @param id: team id
      * @return: the static vector of SouvenirType from the specific team
      */
-    static vector<SouvenirType> getSouvenirByTeamId(int id);
+    static vector<SouvenirType*> getSouvenirByTeamId(int id);
 
     /**
      * @brief Function to format a float number with 2 decimal places
@@ -108,7 +112,7 @@ public:
      * @brief Function to get the vector containing all the food
      * @return: vector of foodType
      */
-    vector<SouvenirType> getSouvenirType(){
+    vector<SouvenirType*> getSouvenirType(){
         return souvenir;
     }
 
@@ -125,8 +129,8 @@ public:
      * @brief Function to add the food into the food vector
      * @param food: SouvenirType object to add into food vector
      */
-    void addSouvenir(SouvenirType food){
-        souvenir.push_back(food);
+    void addSouvenir(SouvenirType* souv){
+        souvenir.push_back(souv);
 
     }
 
@@ -158,15 +162,37 @@ public:
      * @brief Function to return the team name
      * @return team name
      */
-    Stadium getTeamStadium(){ return teamStadium;}
+    Stadium* getTeamStadium(){ return teamStadium;}
+
+    void setTeamStadium(Stadium * std){
+        teamStadium = std;
+    }
+
+    static int getStadiumByTeamId(int id)
+    {
+        Team* ptr = Team::teamsBSTMap.getTreeNodes();
+        Team::teamsBSTMap.display();
+        int max = Team::teamsBSTMap.getBSTSize();
+        int stadium=0;
+            for(int i=0;i<max;i++)
+            {
+                if((ptr+i)->getTeamId() == id)
+                {
+                   stadium =  (ptr+i)->getTeamStadium()->getStadiumId();
+                    break;
+                }
+            }
+            return stadium;
+    }
+
 
 
 private:
    int TeamID;
    string TeamName;
-
-   vector <SouvenirType>souvenir;
-   Stadium teamStadium;
+   vector <SouvenirType*>souvenir;
+   Stadium * teamStadium;
+   int MapKey;
 
 
 };
