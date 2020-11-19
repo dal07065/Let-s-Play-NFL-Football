@@ -331,7 +331,7 @@ void CustomVacation::updateCartDistance()
          container->setLayout(formLayout);
          ui->scrollArea_2->setWidget(container);
          QLabel *firstLabel = new QLabel;
-         firstLabel->setText("<h3>Your food cart</h3>");
+         firstLabel->setText("<h3>Your Souvenirs Cart</h3>");
          formLayout->addRow(firstLabel);
          float total=0;
          if(ui->listWidgetSecond->count()>0)
