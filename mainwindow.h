@@ -39,6 +39,8 @@ private slots:
 
     void on_show_NFCNorth_clicked();
 
+    void on_show_Stadiums_clicked();
+
     void on_actionExit_triggered();
 
     void on_actionAdmin_triggered();

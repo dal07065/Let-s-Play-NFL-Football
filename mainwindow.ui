@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>953</width>
+    <width>1206</width>
     <height>816</height>
    </rect>
   </property>
@@ -19,8 +19,8 @@
      <rect>
       <x>270</x>
       <y>150</y>
-      <width>641</width>
-      <height>431</height>
+      <width>901</width>
+      <height>511</height>
      </rect>
     </property>
    </widget>
@@ -28,7 +28,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>340</y>
+      <y>550</y>
       <width>241</width>
       <height>51</height>
      </rect>
@@ -41,59 +41,59 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>240</y>
-      <width>241</width>
+      <y>150</y>
+      <width>111</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>Show Teams</string>
+     <string>3. Show Teams</string>
     </property>
    </widget>
    <widget class="QPushButton" name="show_NFCNorth">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>290</y>
-      <width>241</width>
+      <y>270</y>
+      <width>111</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>Show NFC North</string>
+     <string>7. Show NFC North</string>
     </property>
    </widget>
    <widget class="QPushButton" name="show_AFC_Teams">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>140</y>
-      <width>241</width>
+      <y>210</y>
+      <width>111</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>Show AFC Teams</string>
+     <string>5. Show AFC Teams</string>
     </property>
    </widget>
    <widget class="QPushButton" name="show_NFC_Teams">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>190</y>
-      <width>241</width>
+      <x>140</x>
+      <y>210</y>
+      <width>111</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>Show NFC Teams</string>
+     <string>6. Show NFC Teams</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>390</y>
+      <y>610</y>
       <width>241</width>
       <height>51</height>
      </rect>
@@ -119,6 +119,97 @@
     </property>
     <property name="scaledContents">
      <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="show_Stadiums">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>150</y>
+      <width>111</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>4. Show Stadiums</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="show_StadiumsByDate">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>270</y>
+      <width>111</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>8. Stadiums by Date</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="show_openRoof">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>330</y>
+      <width>111</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>9. Open Roof</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="show_SeatingCapacity">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>330</y>
+      <width>111</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>10. Seating Capacity</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="show_11">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>400</y>
+      <width>111</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>11</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="show_12">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>400</y>
+      <width>111</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>12</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="show_13">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>460</y>
+      <width>111</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>13</string>
     </property>
    </widget>
   </widget>
