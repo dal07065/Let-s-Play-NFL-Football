@@ -114,7 +114,7 @@ void MainWindow::on_show_AFC_Teams_clicked()
 
 
             QSqlQuery query;
-            query.prepare(QString("SELECT TeamName FROM teams"));
+            query.prepare(QString("SELECT StadiumName,SeatingCapacity,Location,Conference,Division,SurfaceType,StadiumRoofType,DateOpened FROM stadiums WHERE Conference LIKE 'American%'"));
 
 
             //Error check
@@ -211,7 +211,35 @@ void MainWindow::on_show_NFCNorth_clicked()
 
 }
 
+void MainWindow::on_show_Stadiums_clicked()
+{
+    QSqlQuery query;
 
+
+    query.prepare(QString("SELECT stadiums.StadiumName, teams.TeamName, teams.StadiumID FROM stadiums INNER JOIN TeamName ON teams.StadiumID=stadiums._id"));
+
+
+
+    //Error check
+    if (!query.exec())
+    {
+        QMessageBox::warning(this, "Fail", "Query did not execute");
+    }
+    else
+    {
+
+        while(query.next())
+        {
+            QString teamN = query.value(0).toString();
+            QString stadiumN = query.value(1).toString();
+        }
+
+        QSqlQueryModel *search = new QSqlTableModel;
+        search->setQuery(query);
+        ui->tableView->show();
+        ui->tableView->setModel(search);
+    }
+}
 
 
 
