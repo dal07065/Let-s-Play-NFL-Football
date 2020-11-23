@@ -17,6 +17,7 @@ int Team::getTotalDistance(vector<Team> &vacTeams)
 //    }
 //    return total;
 
+    return 0;
 }
 
 

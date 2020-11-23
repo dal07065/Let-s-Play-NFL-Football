@@ -8,7 +8,7 @@
 #include <QDebug>
 #include <QApplication>
 #include <QDir>
-#include <strings.h>
+//#include <strings.h>
 
 #include <QFileInfo>
 #include <QSqlError>
