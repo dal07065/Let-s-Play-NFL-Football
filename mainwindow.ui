@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1206</width>
-    <height>816</height>
+    <width>1240</width>
+    <height>804</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,22 +19,9 @@
      <rect>
       <x>270</x>
       <y>150</y>
-      <width>901</width>
-      <height>511</height>
+      <width>951</width>
+      <height>531</height>
      </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="show_Data">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>550</y>
-      <width>241</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Show Data</string>
     </property>
    </widget>
    <widget class="QPushButton" name="show_Teams">
@@ -93,7 +80,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>610</y>
+      <y>630</y>
       <width>241</width>
       <height>51</height>
      </rect>
@@ -173,7 +160,7 @@
      <string>10. Seating Capacity</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="show_11">
+   <widget class="QPushButton" name="show_Conference">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -183,10 +170,10 @@
      </rect>
     </property>
     <property name="text">
-     <string>11</string>
+     <string>11. Teams by Conference</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="show_12">
+   <widget class="QPushButton" name="show_BermudaGrass">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -196,20 +183,67 @@
      </rect>
     </property>
     <property name="text">
-     <string>12</string>
+     <string>12. Bermuda Grass</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="show_13">
+   <widget class="QPushButton" name="show_Selection_S">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>460</y>
-      <width>111</width>
+      <y>560</y>
+      <width>241</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>13</string>
+     <string>Show Selected Team's  Souvenirs</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="numberLabel">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>90</y>
+      <width>451</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Comic Sans MS</family>
+      <pointsize>20</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::RightToLeft</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="teamComboBox">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>470</y>
+      <width>201</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="show_Selection">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>500</y>
+      <width>241</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Show Selected Team</string>
     </property>
    </widget>
   </widget>

@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
@@ -31,7 +32,6 @@ public:
     QAction *actionAdmin_Functions;
     QWidget *centralwidget;
     QTableView *tableView;
-    QPushButton *show_Data;
     QPushButton *show_Teams;
     QPushButton *show_NFCNorth;
     QPushButton *show_AFC_Teams;
@@ -42,16 +42,19 @@ public:
     QPushButton *show_StadiumsByDate;
     QPushButton *show_openRoof;
     QPushButton *show_SeatingCapacity;
-    QPushButton *show_11;
-    QPushButton *show_12;
-    QPushButton *show_13;
+    QPushButton *show_Conference;
+    QPushButton *show_BermudaGrass;
+    QPushButton *show_Selection_S;
+    QLabel *numberLabel;
+    QComboBox *teamComboBox;
+    QPushButton *show_Selection;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(1206, 816);
+        MainWindow->resize(1240, 804);
         actionAdmin = new QAction(MainWindow);
         actionAdmin->setObjectName(QString::fromUtf8("actionAdmin"));
         actionLogOut = new QAction(MainWindow);
@@ -64,10 +67,7 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         tableView = new QTableView(centralwidget);
         tableView->setObjectName(QString::fromUtf8("tableView"));
-        tableView->setGeometry(QRect(270, 150, 901, 511));
-        show_Data = new QPushButton(centralwidget);
-        show_Data->setObjectName(QString::fromUtf8("show_Data"));
-        show_Data->setGeometry(QRect(10, 550, 241, 51));
+        tableView->setGeometry(QRect(270, 150, 951, 531));
         show_Teams = new QPushButton(centralwidget);
         show_Teams->setObjectName(QString::fromUtf8("show_Teams"));
         show_Teams->setGeometry(QRect(10, 150, 111, 51));
@@ -82,7 +82,7 @@ public:
         show_NFC_Teams->setGeometry(QRect(140, 210, 111, 51));
         pushButton = new QPushButton(centralwidget);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setGeometry(QRect(10, 610, 241, 51));
+        pushButton->setGeometry(QRect(10, 630, 241, 51));
         label = new QLabel(centralwidget);
         label->setObjectName(QString::fromUtf8("label"));
         label->setGeometry(QRect(10, 20, 200, 95));
@@ -100,15 +100,31 @@ public:
         show_SeatingCapacity = new QPushButton(centralwidget);
         show_SeatingCapacity->setObjectName(QString::fromUtf8("show_SeatingCapacity"));
         show_SeatingCapacity->setGeometry(QRect(140, 330, 111, 51));
-        show_11 = new QPushButton(centralwidget);
-        show_11->setObjectName(QString::fromUtf8("show_11"));
-        show_11->setGeometry(QRect(10, 400, 111, 51));
-        show_12 = new QPushButton(centralwidget);
-        show_12->setObjectName(QString::fromUtf8("show_12"));
-        show_12->setGeometry(QRect(140, 400, 111, 51));
-        show_13 = new QPushButton(centralwidget);
-        show_13->setObjectName(QString::fromUtf8("show_13"));
-        show_13->setGeometry(QRect(10, 460, 111, 51));
+        show_Conference = new QPushButton(centralwidget);
+        show_Conference->setObjectName(QString::fromUtf8("show_Conference"));
+        show_Conference->setGeometry(QRect(10, 400, 111, 51));
+        show_BermudaGrass = new QPushButton(centralwidget);
+        show_BermudaGrass->setObjectName(QString::fromUtf8("show_BermudaGrass"));
+        show_BermudaGrass->setGeometry(QRect(140, 400, 111, 51));
+        show_Selection_S = new QPushButton(centralwidget);
+        show_Selection_S->setObjectName(QString::fromUtf8("show_Selection_S"));
+        show_Selection_S->setGeometry(QRect(10, 560, 241, 51));
+        numberLabel = new QLabel(centralwidget);
+        numberLabel->setObjectName(QString::fromUtf8("numberLabel"));
+        numberLabel->setGeometry(QRect(760, 90, 451, 51));
+        QFont font;
+        font.setFamily(QString::fromUtf8("Comic Sans MS"));
+        font.setPointSize(20);
+        font.setBold(false);
+        font.setWeight(50);
+        numberLabel->setFont(font);
+        numberLabel->setLayoutDirection(Qt::RightToLeft);
+        teamComboBox = new QComboBox(centralwidget);
+        teamComboBox->setObjectName(QString::fromUtf8("teamComboBox"));
+        teamComboBox->setGeometry(QRect(30, 470, 201, 22));
+        show_Selection = new QPushButton(centralwidget);
+        show_Selection->setObjectName(QString::fromUtf8("show_Selection"));
+        show_Selection->setGeometry(QRect(10, 500, 241, 51));
         MainWindow->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -126,7 +142,6 @@ public:
         actionLogOut->setText(QCoreApplication::translate("MainWindow", "Log Out...", nullptr));
         actionExit->setText(QCoreApplication::translate("MainWindow", "Exit", nullptr));
         actionAdmin_Functions->setText(QCoreApplication::translate("MainWindow", "Admin Functions", nullptr));
-        show_Data->setText(QCoreApplication::translate("MainWindow", "Show Data", nullptr));
         show_Teams->setText(QCoreApplication::translate("MainWindow", "3. Show Teams", nullptr));
         show_NFCNorth->setText(QCoreApplication::translate("MainWindow", "7. Show NFC North", nullptr));
         show_AFC_Teams->setText(QCoreApplication::translate("MainWindow", "5. Show AFC Teams", nullptr));
@@ -137,9 +152,11 @@ public:
         show_StadiumsByDate->setText(QCoreApplication::translate("MainWindow", "8. Stadiums by Date", nullptr));
         show_openRoof->setText(QCoreApplication::translate("MainWindow", "9. Open Roof", nullptr));
         show_SeatingCapacity->setText(QCoreApplication::translate("MainWindow", "10. Seating Capacity", nullptr));
-        show_11->setText(QCoreApplication::translate("MainWindow", "11", nullptr));
-        show_12->setText(QCoreApplication::translate("MainWindow", "12", nullptr));
-        show_13->setText(QCoreApplication::translate("MainWindow", "13", nullptr));
+        show_Conference->setText(QCoreApplication::translate("MainWindow", "11. Teams by Conference", nullptr));
+        show_BermudaGrass->setText(QCoreApplication::translate("MainWindow", "12. Bermuda Grass", nullptr));
+        show_Selection_S->setText(QCoreApplication::translate("MainWindow", "Show Selected Team's  Souvenirs", nullptr));
+        numberLabel->setText(QString());
+        show_Selection->setText(QCoreApplication::translate("MainWindow", "Show Selected Team", nullptr));
     } // retranslateUi
 
 };
