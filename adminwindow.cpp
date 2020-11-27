@@ -2,7 +2,6 @@
 #include "ui_adminwindow.h"
 
 
-
 adminWindow::adminWindow(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::adminWindow)
@@ -10,6 +9,7 @@ adminWindow::adminWindow(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowTitle("Unicorn Admin Functions");
     this->setWindowIcon(QIcon(":/img/img/UnicornBarfing.png"));
+
     loadTeams();
 }
 
@@ -55,8 +55,7 @@ void adminWindow::loadTeams()
 }
 
 void adminWindow::loadTeamData(int index)
-{   
-
+{
     ui->comboBox_SelectSouvenir->clear();
     ui->comboBox_SelectStadium->clear();
 
@@ -107,5 +106,5 @@ void adminWindow::loadTeamData(int index)
 
 void adminWindow::on_comboBox_Team_Selection_activated(int index)
 {
-    loadTeamData(index+1);
+     loadTeamData(index+1);
 }

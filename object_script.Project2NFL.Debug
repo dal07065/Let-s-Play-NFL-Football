@@ -1,6 +1,7 @@
 debug/CustomVacation.o
 debug/adminwindow.o
 debug/database.o
+debug/displaydata.o
 debug/login.o
 debug/main.o
 debug/mainwindow.o
@@ -11,6 +12,7 @@ debug/vacationinfo.o
 debug/qrc_resource.o
 debug/moc_CustomVacation.o
 debug/moc_adminwindow.o
+debug/moc_displaydata.o
 debug/moc_login.o
 debug/moc_mainwindow.o
 debug/moc_vacationinfo.o

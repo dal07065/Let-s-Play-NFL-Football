@@ -4,7 +4,6 @@
 #include <QIcon>
 #include <QDialog>
 #include <QSqlDatabase>
-#include <QSqlTableModel>
 #include <QSqlQuery>
 #include <QFileInfo>
 #include <QMessageBox>

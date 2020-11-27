@@ -12,33 +12,38 @@ SOURCES += \
     CustomVacation.cpp \
     adminwindow.cpp \
     database.cpp \
+    displaydata.cpp \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
     stadium.cpp \
     team.cpp \
     user.cpp \
-    vacationinfo.cpp \
+    vacationinfo.cpp
 
 HEADERS += \
+    BSTMap.h \
     CustomVacation.h \
+    GraphBFS.h \
+    GraphDFS.h \
     adminwindow.h \
     database.h \
+    displaydata.h \
     login.h \
     mainwindow.h \
-    moc_predefs.h \
     stadium.h \
     structures.h \
     team.h \
     user.h \
-    vacationinfo.h \
+    vacationinfo.h
 
 FORMS += \
     CustomVacation.ui \
     adminwindow.ui \
+    displaydata.ui \
     login.ui \
     mainwindow.ui \
-    vacationinfo.ui \
+    vacationinfo.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -46,13 +51,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    resource.qrc \
-
-
-DISTFILES += \
-    .gitignore \
-    img/Team Icon.png \
-    img/Team Logo.png \
-    img/UnicornBarfing.png \
-    nfl.db \
-    txt/Users.txt
+    resource.qrc

@@ -34,6 +34,7 @@ public:
 private:
     /**
      * @brief Class constructor
+     *
      * Set the path and open the database file for the program
      */
     Database();

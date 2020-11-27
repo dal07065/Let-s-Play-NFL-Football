@@ -1,7 +1,7 @@
 #ifndef CUSTOMVACATION_H
 #define CUSTOMVACATION_H
 #include <QWidget>
-#include "team.h"
+
 #include <QListWidgetItem>
 #include<qtimer.h>
 #include<QLabel>
@@ -11,6 +11,7 @@
 #include <QLineEdit>
 
 #include "vacationinfo.h"
+#include "displaydata.h"
 
 using namespace unicorn;
 namespace Ui {
@@ -73,6 +74,7 @@ public:
      * Vacation info will be shown if there is a trip currently stored for tourist
      */
     void showVacationInfo();
+    void showDisplayData(QString  str);
 
 
 private slots:
@@ -156,11 +158,20 @@ void on_bookYourTrip_clicked();
  */
 void on_NumberTripPushButton_clicked();
 
+void performDFS(int vert);
+void performBFS(int vert);
+
+void on_pushButton_clicked();
+
+void on_pushButton_2_clicked();
+
 private:
 std::vector<Team> selectedTeams;
     Ui::CustomVacation *ui;
     VacationInfo* currentVacation;
+    DisplayData* dataToBeDisplayed;
     int userID; // id of the currrent user
+
 };
 
 #endif // CUSTOMVACATION_H

@@ -11,8 +11,19 @@
 
 #include <map>
 #include <deque>
+#include<list>
+#include<set>
+#include <stack>
+
+
 
 using namespace std;
+namespace unicorn {
+class Stadium;
+
+
+
+
 /**
  * @brief The souvenirType struct represents the souvenir items
  *
@@ -31,12 +42,25 @@ struct SouvenirType{
 /**
  * @brief The Distance struct represents the distance from a souviner
  *
- * Distance containing the name, id, and distance to the other souviner
+ * Distance containing the name, id, and distance to the other stadium id
  */
 struct Distance{
+    int StadiumID;
     int OtherStaduimID;
     string OtherStaduimName;
     int distance;
+    int StartPoint;
+    int endPoint;
+    bool Discovered;
+    Stadium * StadiumIDPtr;
+    Stadium * OtherStaduimIDPtr;
+
+    Distance(){
+        StartPoint=0;
+        endPoint = 0;
+        Discovered = false;
+    }
+
 };
 
 /**
@@ -78,5 +102,8 @@ struct TeamType
    string teamName;
 
 };
+
+
+}
 
 #endif // souvenirTYPE_H

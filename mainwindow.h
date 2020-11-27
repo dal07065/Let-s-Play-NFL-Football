@@ -36,8 +36,15 @@ private slots:
 
     void on_show_NFC_Teams_clicked();
     void on_show_AFC_Teams_clicked();
-
     void on_show_NFCNorth_clicked();
+    void on_show_Stadiums_clicked();
+    void on_show_StadiumsByDate_clicked();
+    void on_show_Selection_clicked();
+    void on_show_openRoof_clicked();
+    void on_show_SeatingCapacity_clicked();
+    void on_show_Conference_clicked();
+    void on_show_BermudaGrass_clicked();
+    void on_show_Selection_S_clicked();
 
     void on_actionExit_triggered();
 
@@ -46,16 +53,9 @@ private slots:
     void on_actionLogOut_triggered();
 
 
-
     void on_pushButton_clicked();
 
-
     void on_actionAdmin_Functions_triggered();
-    
-
-
-
-
 
 private:
     Ui::MainWindow *ui;

@@ -5,7 +5,6 @@
 class user
 {   
 private:
-
     // This is the data memeber that stores the username of a user
     QString username;
     // This is the data memeber that stores the password of a user

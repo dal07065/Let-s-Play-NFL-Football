@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'vacationinfo.ui'
 **
-** Created by: Qt User Interface Compiler version 5.12.6
+** Created by: Qt User Interface Compiler version 5.15.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -49,8 +49,8 @@ public:
 
     void retranslateUi(QWidget *VacationInfo)
     {
-        VacationInfo->setWindowTitle(QApplication::translate("VacationInfo", "Your Trip Summary", nullptr));
-        pushButton->setText(QApplication::translate("VacationInfo", "Delete Trip", nullptr));
+        VacationInfo->setWindowTitle(QCoreApplication::translate("VacationInfo", "Your Trip Summary", nullptr));
+        pushButton->setText(QCoreApplication::translate("VacationInfo", "Delete Trip", nullptr));
     } // retranslateUi
 
 };

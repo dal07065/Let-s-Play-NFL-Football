@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'adminwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.12.6
+** Created by: Qt User Interface Compiler version 5.15.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -261,21 +261,21 @@ public:
 
     void retranslateUi(QDialog *adminWindow)
     {
-        adminWindow->setWindowTitle(QApplication::translate("adminWindow", "Dialog", nullptr));
+        adminWindow->setWindowTitle(QCoreApplication::translate("adminWindow", "Dialog", nullptr));
         label_2->setText(QString());
-        label->setText(QApplication::translate("adminWindow", "Select Team to Edit", nullptr));
-        label_SelectSouvenir->setText(QApplication::translate("adminWindow", "Select Souvenir to Edit Price", nullptr));
-        pushButton_SelectSouvenir_SetPrice->setText(QApplication::translate("adminWindow", "Set Price", nullptr));
-        pushButton_SelectSouvenir_Delete->setText(QApplication::translate("adminWindow", "Delete Souvenir", nullptr));
-        label_SelectStadium->setText(QApplication::translate("adminWindow", "Select Stadium:", nullptr));
-        label_SelectStadium_Capacity->setText(QApplication::translate("adminWindow", "Capacity", nullptr));
-        pushButton_SelectStadium_SetCapacity->setText(QApplication::translate("adminWindow", "Set New Capacity", nullptr));
-        label_NewSouvenir->setText(QApplication::translate("adminWindow", "Enter Name of New Souvenir:", nullptr));
-        label_NewSouvenir_Price->setText(QApplication::translate("adminWindow", "Price", nullptr));
-        pushButton_NewSouvenir_Add->setText(QApplication::translate("adminWindow", "Add New Souvenir", nullptr));
-        label_NewStadium->setText(QApplication::translate("adminWindow", "Enter Name of New Stadium:", nullptr));
-        label_NewStadium_Capacity->setText(QApplication::translate("adminWindow", "Capacity", nullptr));
-        pushButton_NewStadium_Add->setText(QApplication::translate("adminWindow", "Add New Stadium", nullptr));
+        label->setText(QCoreApplication::translate("adminWindow", "Select Team to Edit", nullptr));
+        label_SelectSouvenir->setText(QCoreApplication::translate("adminWindow", "Select Souvenir to Edit Price", nullptr));
+        pushButton_SelectSouvenir_SetPrice->setText(QCoreApplication::translate("adminWindow", "Set Price", nullptr));
+        pushButton_SelectSouvenir_Delete->setText(QCoreApplication::translate("adminWindow", "Delete Souvenir", nullptr));
+        label_SelectStadium->setText(QCoreApplication::translate("adminWindow", "Select Stadium:", nullptr));
+        label_SelectStadium_Capacity->setText(QCoreApplication::translate("adminWindow", "Capacity", nullptr));
+        pushButton_SelectStadium_SetCapacity->setText(QCoreApplication::translate("adminWindow", "Set New Capacity", nullptr));
+        label_NewSouvenir->setText(QCoreApplication::translate("adminWindow", "Enter Name of New Souvenir:", nullptr));
+        label_NewSouvenir_Price->setText(QCoreApplication::translate("adminWindow", "Price", nullptr));
+        pushButton_NewSouvenir_Add->setText(QCoreApplication::translate("adminWindow", "Add New Souvenir", nullptr));
+        label_NewStadium->setText(QCoreApplication::translate("adminWindow", "Enter Name of New Stadium:", nullptr));
+        label_NewStadium_Capacity->setText(QCoreApplication::translate("adminWindow", "Capacity", nullptr));
+        pushButton_NewStadium_Add->setText(QCoreApplication::translate("adminWindow", "Add New Stadium", nullptr));
     } // retranslateUi
 
 };

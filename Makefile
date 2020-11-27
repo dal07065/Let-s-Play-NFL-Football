@@ -223,7 +223,6 @@ Makefile: Project2NFL.pro D:/Qt/5.12.6/mingw73_32/mkspecs/win32-g++/qmake.conf D
 		D:/Qt/5.12.6/mingw73_32/mkspecs/features/qt_config.prf \
 		D:/Qt/5.12.6/mingw73_32/mkspecs/win32-g++/qmake.conf \
 		D:/Qt/5.12.6/mingw73_32/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		D:/Qt/5.12.6/mingw73_32/mkspecs/features/exclusive_builds.prf \
 		D:/Qt/5.12.6/mingw73_32/mkspecs/features/toolchain.prf \
 		D:/Qt/5.12.6/mingw73_32/mkspecs/features/default_pre.prf \
@@ -413,7 +412,6 @@ D:/Qt/5.12.6/mingw73_32/mkspecs/features/qt_functions.prf:
 D:/Qt/5.12.6/mingw73_32/mkspecs/features/qt_config.prf:
 D:/Qt/5.12.6/mingw73_32/mkspecs/win32-g++/qmake.conf:
 D:/Qt/5.12.6/mingw73_32/mkspecs/features/spec_post.prf:
-.qmake.stash:
 D:/Qt/5.12.6/mingw73_32/mkspecs/features/exclusive_builds.prf:
 D:/Qt/5.12.6/mingw73_32/mkspecs/features/toolchain.prf:
 D:/Qt/5.12.6/mingw73_32/mkspecs/features/default_pre.prf:
