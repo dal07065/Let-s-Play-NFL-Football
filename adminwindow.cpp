@@ -152,27 +152,30 @@ void adminWindow::on_comboBox_SelectSouvenir_activated(const QString &arg1)
 
 void adminWindow::on_pushButton_SelectSouvenir_SetPrice_clicked()
 {
-    if(ui->doubleSpinBox_SelectSouvenir_Price->value() != 0)
+    if(ui->doubleSpinBox_SelectSouvenir_Price->value() == 0)
     {
-        QString souvenirName = ui->comboBox_SelectSouvenir->currentText();
-        QString newPrice = QString::number(ui->doubleSpinBox_SelectSouvenir_Price->value());
-        QString teamNum = QString::number(ui->comboBox_Team_Selection->currentIndex());
-
-        QSqlQuery query;
-        query.prepare(QString("UPDATE teams_souvenir"
-                           " SET Price = " + newPrice +
-                           " WHERE SouvenirName = '" +souvenirName+
-                           " AND TeamId = " + teamNum));
-        if (!query.exec())
-        {
-            QMessageBox::warning(this, "Fail", "Query did not execute");
-        }
-        while(query.next())
-        {
-
-        }
-
+        QMessageBox::warning(this, "Fail", "You need to input a new souvenir price.");
+        return;
     }
+    if(ui->comboBox_SelectSouvenir->currentText() == "")
+    {
+        QMessageBox::warning(this, "Fail", "You need to select a souvenir to delete.");
+        return;
+    }
+
+    QSqlQuery query;
+    query.prepare(QString("UPDATE teams_souvenir SET Price = :Price WHERE SouvenirName = :SouvenirName AND TeamId = :TeamId"));
+    query.bindValue(":SouvenirName", ui->comboBox_SelectSouvenir->currentText());
+    query.bindValue(":TeamId", ui->comboBox_Team_Selection->currentIndex() + 1);
+    query.bindValue(":Price", ui->doubleSpinBox_SelectSouvenir_Price->value());
+
+    if (!query.exec())
+    {
+        QMessageBox::warning(this, "Fail", "Query did not execute");
+    }
+
+    ui->comboBox_SelectSouvenir->clear();
+    ui->doubleSpinBox_SelectSouvenir_Price->clear();
 }
 
 void adminWindow::on_pushButton_SelectSouvenir_Delete_clicked()
@@ -183,15 +186,45 @@ void adminWindow::on_pushButton_SelectSouvenir_Delete_clicked()
         return;
     }
 
+    QSqlQuery query;
+    query.prepare(QString("DELETE FROM teams_souvenir WHERE TeamId = :TeamId AND SouvenirName = :SouvenirName"));
+    query.bindValue(":TeamId", ui->comboBox_Team_Selection->currentIndex() + 1);
+    query.bindValue(":SouvenirName",ui->comboBox_SelectSouvenir->currentText());
+
+    if (!query.exec())
+    {
+        QMessageBox::warning(this, "Fail", "Query did not execute");
+    }
+
+    ui->comboBox_SelectSouvenir->clear();
+    ui->doubleSpinBox_SelectSouvenir_Price->clear();
 }
 
 void adminWindow::on_pushButton_SelectStadium_SetCapacity_clicked()
 {
     if(ui->comboBox_SelectStadium->currentText() == "")
     {
-        QMessageBox::warning(this, "Fail", "You need to select a stadium to change the capacity.");
+        QMessageBox::warning(this, "Fail", "You need to select a stadium to change the capacity of.");
         return;
     }
+    if(ui->spinBox_SelectStadium_SetCapacity->value() == 0)
+    {
+        QMessageBox::warning(this, "Fail", "You need to enter a new stadium capacity.");
+        return;
+    }
+
+    QSqlQuery query;
+    query.prepare(QString("UPDATE stadiums SET SeatingCapacity = :SeatingCapacity WHERE StadiumName = :StadiumName"));
+    query.bindValue(":SeatingCapacity", ui->spinBox_SelectStadium_SetCapacity->value());
+    query.bindValue(":StadiumName", ui->comboBox_SelectStadium->currentText());
+
+    if (!query.exec())
+    {
+        QMessageBox::warning(this, "Fail", "Query did not execute");
+    }
+
+    ui->comboBox_SelectStadium->clear();
+    ui->spinBox_SelectStadium_SetCapacity->clear();
 }
 
 void adminWindow::on_pushButton_NewSouvenir_Add_clicked()
@@ -207,50 +240,20 @@ void adminWindow::on_pushButton_NewSouvenir_Add_clicked()
         return;
     }
 
-    QString teamID = QString::number(ui->comboBox_Team_Selection->currentIndex() + 1);
-    QString newSouvenirName = ui->lineEdit_NewSouvenir_Name->text();
-    QString newSouvenirPrice = QString::number(ui->doubleSpinBox_NewSouvenir_Price->value());
-
-    int idNumber = 0;
     QSqlQuery query;
 
-    query.exec(QString("SELECT _id FROM teams_souvenir"));
+    query.prepare(QString("INSERT INTO teams_souvenir(SouvenirName, TeamId, Price) VALUES (:SouvenirName, :TeamId, :Price)"));
 
-    while(query.next())
+    query.bindValue(":SouvenirName", ui->lineEdit_NewSouvenir_Name->text());
+    query.bindValue(":TeamId", ui->comboBox_Team_Selection->currentIndex() + 1);
+    query.bindValue(":Price", ui->doubleSpinBox_NewSouvenir_Price->value());
+
+
+    if (!query.exec())
     {
-        if(query.value(0).toInt() > idNumber)
-        {
-            idNumber = query.value(0).toInt();
-        }
+        QMessageBox::warning(this, "Fail", "Query did not execute");
     }
 
-
-    QString _id = QString::number(idNumber);
-
-    // INSERTION INTO THE DATABASE
-    query.prepare(QString("INSERT INTO teams_souvenir(_id, SouvenirName, TeamId, Price) VALUES ( 166, 'TEST', 1, 3.50)"));
-
-//    query.bindValue(":_id", idNumber);
-//    query.bindValue(":_id", _id);
-//    query.bindValue(":SouvenirName", newSouvenirName);
-//    query.bindValue(":TeamId", ui->comboBox_Team_Selection->currentIndex() + 1);
-//    query.bindValue(":TeamId", teamID);
-//    query.bindValue(":Price", ui->doubleSpinBox_NewSouvenir_Price->value());
-//    query.bindValue(":Price", newSouvenirPrice);
-
-    query.exec();
-
-
-//    if (!query.exec())
-//    {
-//        QMessageBox::warning(this, "Fail", "Query did not execute");
-//    }
-
-
-//    query.exec(QString("INSERT INTO "
-//                       "teams_souvenir(_id, SouvenirName, TeamId, Price)"
-//                       " VALUES(" +_id + ", '" +newSouvenirName+ "', " +teamID+ ", "
-//                          +newSouvenirPrice+ ")"));
 
     ui->lineEdit_NewSouvenir_Name->clear();
     ui->doubleSpinBox_NewSouvenir_Price->clear();
@@ -268,6 +271,42 @@ void adminWindow::on_pushButton_NewStadium_Add_clicked()
         QMessageBox::warning(this, "Fail", "You need to enter a value for the new stadium capacity.");
         return;
     }
+
+
+
+    QSqlQuery query;
+    int stadiumID;
+    query.prepare(QString("SELECT _id, StadiumID FROM teams"));
+    if (!query.exec())
+    {
+        QMessageBox::warning(this, "Fail", "Query did not execute");
+    }
+    else
+    {
+        while(query.next())
+        {
+            if(query.value(0) == ui->comboBox_Team_Selection->currentIndex() + 1)
+            {
+                stadiumID = query.value(1).toInt();
+            }
+        }
+    }
+
+    query.prepare(QString("INSERT INTO stadiums(_id, StadiumName, SeatingCapacity, DateOpened) VALUES (:_id, :StadiumName, :SeatingCapacity, :DateOpened)"));
+
+    query.bindValue(":_id", stadiumID);
+    query.bindValue(":StadiumName", ui->lineEdit_NewStadium->text());
+    query.bindValue(":SeatingCapacity", ui->spinBox_NewStadium_Capacity->value());
+    query.bindValue(":DateOpened", ui->spinBox_NewStadium_Date->value());
+
+    if (!query.exec())
+    {
+        QMessageBox::warning(this, "Fail", "Query did not execute");
+    }
+
+    ui->lineEdit_NewStadium->clear();
+    ui->spinBox_NewStadium_Date->clear();
+    ui->spinBox_NewStadium_Capacity->clear();
 }
 
 

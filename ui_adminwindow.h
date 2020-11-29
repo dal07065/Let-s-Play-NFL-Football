@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'adminwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.15.1
+** Created by: Qt User Interface Compiler version 5.12.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -14,12 +14,12 @@
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QDoubleSpinBox>
-#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpinBox>
+#include <QtWidgets/QSplitter>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -30,228 +30,243 @@ class Ui_adminWindow
 public:
     QLabel *label_2;
     QWidget *widget;
-    QVBoxLayout *Layout_SelectTeam;
+    QVBoxLayout *verticalLayout;
     QLabel *label;
     QComboBox *comboBox_Team_Selection;
     QWidget *widget1;
-    QGridLayout *gridLayout;
+    QVBoxLayout *verticalLayout_2;
+    QLabel *label_NewStadium;
+    QLineEdit *lineEdit_NewStadium;
+    QSplitter *splitter;
+    QLabel *label_NewStadium_Capacity;
+    QSpinBox *spinBox_NewStadium_Capacity;
     QHBoxLayout *horizontalLayout;
-    QVBoxLayout *Layout_SelectSouvenir;
+    QLabel *label_NewStadium_OpenDate;
+    QSpinBox *spinBox_NewStadium_Date;
+    QPushButton *pushButton_NewStadium_Add;
+    QWidget *widget2;
+    QVBoxLayout *verticalLayout_4;
     QLabel *label_SelectSouvenir;
     QComboBox *comboBox_SelectSouvenir;
-    QHBoxLayout *horizontalLayout_2;
+    QHBoxLayout *horizontalLayout_3;
     QDoubleSpinBox *doubleSpinBox_SelectSouvenir_Price;
     QPushButton *pushButton_SelectSouvenir_SetPrice;
     QPushButton *pushButton_SelectSouvenir_Delete;
-    QVBoxLayout *Layout_SelectStadium;
-    QLabel *label_SelectStadium;
-    QComboBox *comboBox_SelectStadium;
-    QHBoxLayout *horizontalLayout_4;
-    QLabel *label_SelectStadium_Capacity;
-    QSpinBox *spinBox_SelectStadium_SetCapacity;
-    QPushButton *pushButton_SelectStadium_SetCapacity;
-    QHBoxLayout *horizontalLayout_6;
-    QVBoxLayout *verticalLayout;
+    QWidget *widget3;
+    QVBoxLayout *verticalLayout_5;
     QLabel *label_NewSouvenir;
     QLineEdit *lineEdit_NewSouvenir_Name;
-    QHBoxLayout *horizontalLayout_5;
+    QHBoxLayout *horizontalLayout_4;
     QLabel *label_NewSouvenir_Price;
     QDoubleSpinBox *doubleSpinBox_NewSouvenir_Price;
     QPushButton *pushButton_NewSouvenir_Add;
-    QVBoxLayout *Layout_NewStadium;
-    QLabel *label_NewStadium;
-    QLineEdit *lineEdit_NewStadium;
-    QHBoxLayout *horizontalLayout_3;
-    QLabel *label_NewStadium_Capacity;
-    QSpinBox *spinBox_NewStadium_Capacity;
-    QPushButton *pushButton_NewStadium_Add;
+    QWidget *widget4;
+    QVBoxLayout *verticalLayout_3;
+    QLabel *label_SelectStadium;
+    QComboBox *comboBox_SelectStadium;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *label_SelectStadium_Capacity;
+    QSpinBox *spinBox_SelectStadium_SetCapacity;
+    QPushButton *pushButton_SelectStadium_SetCapacity;
 
     void setupUi(QDialog *adminWindow)
     {
         if (adminWindow->objectName().isEmpty())
             adminWindow->setObjectName(QString::fromUtf8("adminWindow"));
-        adminWindow->resize(412, 419);
+        adminWindow->resize(583, 444);
         label_2 = new QLabel(adminWindow);
         label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setGeometry(QRect(40, 10, 331, 51));
+        label_2->setGeometry(QRect(42, 12, 496, 90));
         label_2->setPixmap(QPixmap(QString::fromUtf8(":/img/img/Team Logo.png")));
         label_2->setScaledContents(true);
         widget = new QWidget(adminWindow);
         widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(90, 70, 231, 41));
-        Layout_SelectTeam = new QVBoxLayout(widget);
-        Layout_SelectTeam->setObjectName(QString::fromUtf8("Layout_SelectTeam"));
-        Layout_SelectTeam->setContentsMargins(0, 0, 0, 0);
+        widget->setGeometry(QRect(190, 110, 201, 41));
+        verticalLayout = new QVBoxLayout(widget);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
         label = new QLabel(widget);
         label->setObjectName(QString::fromUtf8("label"));
+        label->setFrameShape(QFrame::NoFrame);
+        label->setFrameShadow(QFrame::Plain);
+        label->setLineWidth(1);
 
-        Layout_SelectTeam->addWidget(label);
+        verticalLayout->addWidget(label);
 
         comboBox_Team_Selection = new QComboBox(widget);
         comboBox_Team_Selection->setObjectName(QString::fromUtf8("comboBox_Team_Selection"));
 
-        Layout_SelectTeam->addWidget(comboBox_Team_Selection);
+        verticalLayout->addWidget(comboBox_Team_Selection);
 
         widget1 = new QWidget(adminWindow);
         widget1->setObjectName(QString::fromUtf8("widget1"));
-        widget1->setGeometry(QRect(40, 127, 331, 241));
-        gridLayout = new QGridLayout(widget1);
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        gridLayout->setContentsMargins(0, 0, 0, 0);
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        Layout_SelectSouvenir = new QVBoxLayout();
-        Layout_SelectSouvenir->setObjectName(QString::fromUtf8("Layout_SelectSouvenir"));
-        label_SelectSouvenir = new QLabel(widget1);
-        label_SelectSouvenir->setObjectName(QString::fromUtf8("label_SelectSouvenir"));
-
-        Layout_SelectSouvenir->addWidget(label_SelectSouvenir);
-
-        comboBox_SelectSouvenir = new QComboBox(widget1);
-        comboBox_SelectSouvenir->setObjectName(QString::fromUtf8("comboBox_SelectSouvenir"));
-
-        Layout_SelectSouvenir->addWidget(comboBox_SelectSouvenir);
-
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        doubleSpinBox_SelectSouvenir_Price = new QDoubleSpinBox(widget1);
-        doubleSpinBox_SelectSouvenir_Price->setObjectName(QString::fromUtf8("doubleSpinBox_SelectSouvenir_Price"));
-        doubleSpinBox_SelectSouvenir_Price->setMaximum(500.000000000000000);
-        doubleSpinBox_SelectSouvenir_Price->setSingleStep(0.250000000000000);
-
-        horizontalLayout_2->addWidget(doubleSpinBox_SelectSouvenir_Price);
-
-        pushButton_SelectSouvenir_SetPrice = new QPushButton(widget1);
-        pushButton_SelectSouvenir_SetPrice->setObjectName(QString::fromUtf8("pushButton_SelectSouvenir_SetPrice"));
-
-        horizontalLayout_2->addWidget(pushButton_SelectSouvenir_SetPrice);
-
-
-        Layout_SelectSouvenir->addLayout(horizontalLayout_2);
-
-        pushButton_SelectSouvenir_Delete = new QPushButton(widget1);
-        pushButton_SelectSouvenir_Delete->setObjectName(QString::fromUtf8("pushButton_SelectSouvenir_Delete"));
-
-        Layout_SelectSouvenir->addWidget(pushButton_SelectSouvenir_Delete);
-
-
-        horizontalLayout->addLayout(Layout_SelectSouvenir);
-
-        Layout_SelectStadium = new QVBoxLayout();
-        Layout_SelectStadium->setObjectName(QString::fromUtf8("Layout_SelectStadium"));
-        label_SelectStadium = new QLabel(widget1);
-        label_SelectStadium->setObjectName(QString::fromUtf8("label_SelectStadium"));
-
-        Layout_SelectStadium->addWidget(label_SelectStadium);
-
-        comboBox_SelectStadium = new QComboBox(widget1);
-        comboBox_SelectStadium->setObjectName(QString::fromUtf8("comboBox_SelectStadium"));
-
-        Layout_SelectStadium->addWidget(comboBox_SelectStadium);
-
-        horizontalLayout_4 = new QHBoxLayout();
-        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
-        label_SelectStadium_Capacity = new QLabel(widget1);
-        label_SelectStadium_Capacity->setObjectName(QString::fromUtf8("label_SelectStadium_Capacity"));
-
-        horizontalLayout_4->addWidget(label_SelectStadium_Capacity);
-
-        spinBox_SelectStadium_SetCapacity = new QSpinBox(widget1);
-        spinBox_SelectStadium_SetCapacity->setObjectName(QString::fromUtf8("spinBox_SelectStadium_SetCapacity"));
-        spinBox_SelectStadium_SetCapacity->setMaximum(1000000);
-
-        horizontalLayout_4->addWidget(spinBox_SelectStadium_SetCapacity);
-
-
-        Layout_SelectStadium->addLayout(horizontalLayout_4);
-
-        pushButton_SelectStadium_SetCapacity = new QPushButton(widget1);
-        pushButton_SelectStadium_SetCapacity->setObjectName(QString::fromUtf8("pushButton_SelectStadium_SetCapacity"));
-
-        Layout_SelectStadium->addWidget(pushButton_SelectStadium_SetCapacity);
-
-
-        horizontalLayout->addLayout(Layout_SelectStadium);
-
-
-        gridLayout->addLayout(horizontalLayout, 0, 0, 1, 1);
-
-        horizontalLayout_6 = new QHBoxLayout();
-        horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
-        verticalLayout = new QVBoxLayout();
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        label_NewSouvenir = new QLabel(widget1);
-        label_NewSouvenir->setObjectName(QString::fromUtf8("label_NewSouvenir"));
-
-        verticalLayout->addWidget(label_NewSouvenir);
-
-        lineEdit_NewSouvenir_Name = new QLineEdit(widget1);
-        lineEdit_NewSouvenir_Name->setObjectName(QString::fromUtf8("lineEdit_NewSouvenir_Name"));
-
-        verticalLayout->addWidget(lineEdit_NewSouvenir_Name);
-
-        horizontalLayout_5 = new QHBoxLayout();
-        horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
-        label_NewSouvenir_Price = new QLabel(widget1);
-        label_NewSouvenir_Price->setObjectName(QString::fromUtf8("label_NewSouvenir_Price"));
-
-        horizontalLayout_5->addWidget(label_NewSouvenir_Price);
-
-        doubleSpinBox_NewSouvenir_Price = new QDoubleSpinBox(widget1);
-        doubleSpinBox_NewSouvenir_Price->setObjectName(QString::fromUtf8("doubleSpinBox_NewSouvenir_Price"));
-        doubleSpinBox_NewSouvenir_Price->setMaximum(500.000000000000000);
-        doubleSpinBox_NewSouvenir_Price->setSingleStep(0.250000000000000);
-
-        horizontalLayout_5->addWidget(doubleSpinBox_NewSouvenir_Price);
-
-
-        verticalLayout->addLayout(horizontalLayout_5);
-
-        pushButton_NewSouvenir_Add = new QPushButton(widget1);
-        pushButton_NewSouvenir_Add->setObjectName(QString::fromUtf8("pushButton_NewSouvenir_Add"));
-
-        verticalLayout->addWidget(pushButton_NewSouvenir_Add);
-
-
-        horizontalLayout_6->addLayout(verticalLayout);
-
-        Layout_NewStadium = new QVBoxLayout();
-        Layout_NewStadium->setObjectName(QString::fromUtf8("Layout_NewStadium"));
+        widget1->setGeometry(QRect(290, 290, 241, 101));
+        verticalLayout_2 = new QVBoxLayout(widget1);
+        verticalLayout_2->setSpacing(1);
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
         label_NewStadium = new QLabel(widget1);
         label_NewStadium->setObjectName(QString::fromUtf8("label_NewStadium"));
+        label_NewStadium->setFrameShadow(QFrame::Sunken);
 
-        Layout_NewStadium->addWidget(label_NewStadium);
+        verticalLayout_2->addWidget(label_NewStadium);
 
         lineEdit_NewStadium = new QLineEdit(widget1);
         lineEdit_NewStadium->setObjectName(QString::fromUtf8("lineEdit_NewStadium"));
 
-        Layout_NewStadium->addWidget(lineEdit_NewStadium);
+        verticalLayout_2->addWidget(lineEdit_NewStadium);
 
-        horizontalLayout_3 = new QHBoxLayout();
-        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
-        label_NewStadium_Capacity = new QLabel(widget1);
+        splitter = new QSplitter(widget1);
+        splitter->setObjectName(QString::fromUtf8("splitter"));
+        splitter->setOrientation(Qt::Horizontal);
+        label_NewStadium_Capacity = new QLabel(splitter);
         label_NewStadium_Capacity->setObjectName(QString::fromUtf8("label_NewStadium_Capacity"));
-
-        horizontalLayout_3->addWidget(label_NewStadium_Capacity);
-
-        spinBox_NewStadium_Capacity = new QSpinBox(widget1);
+        splitter->addWidget(label_NewStadium_Capacity);
+        spinBox_NewStadium_Capacity = new QSpinBox(splitter);
         spinBox_NewStadium_Capacity->setObjectName(QString::fromUtf8("spinBox_NewStadium_Capacity"));
+        spinBox_NewStadium_Capacity->setMinimum(1);
+        spinBox_NewStadium_Capacity->setMaximum(100000);
+        splitter->addWidget(spinBox_NewStadium_Capacity);
 
-        horizontalLayout_3->addWidget(spinBox_NewStadium_Capacity);
+        verticalLayout_2->addWidget(splitter);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        label_NewStadium_OpenDate = new QLabel(widget1);
+        label_NewStadium_OpenDate->setObjectName(QString::fromUtf8("label_NewStadium_OpenDate"));
+
+        horizontalLayout->addWidget(label_NewStadium_OpenDate);
+
+        spinBox_NewStadium_Date = new QSpinBox(widget1);
+        spinBox_NewStadium_Date->setObjectName(QString::fromUtf8("spinBox_NewStadium_Date"));
+        spinBox_NewStadium_Date->setMinimum(2020);
+        spinBox_NewStadium_Date->setMaximum(9999);
+
+        horizontalLayout->addWidget(spinBox_NewStadium_Date);
 
 
-        Layout_NewStadium->addLayout(horizontalLayout_3);
+        verticalLayout_2->addLayout(horizontalLayout);
 
         pushButton_NewStadium_Add = new QPushButton(widget1);
         pushButton_NewStadium_Add->setObjectName(QString::fromUtf8("pushButton_NewStadium_Add"));
 
-        Layout_NewStadium->addWidget(pushButton_NewStadium_Add);
+        verticalLayout_2->addWidget(pushButton_NewStadium_Add);
+
+        widget2 = new QWidget(adminWindow);
+        widget2->setObjectName(QString::fromUtf8("widget2"));
+        widget2->setGeometry(QRect(31, 171, 241, 101));
+        verticalLayout_4 = new QVBoxLayout(widget2);
+        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
+        verticalLayout_4->setContentsMargins(0, 0, 0, 0);
+        label_SelectSouvenir = new QLabel(widget2);
+        label_SelectSouvenir->setObjectName(QString::fromUtf8("label_SelectSouvenir"));
+        label_SelectSouvenir->setFrameShadow(QFrame::Raised);
+
+        verticalLayout_4->addWidget(label_SelectSouvenir);
+
+        comboBox_SelectSouvenir = new QComboBox(widget2);
+        comboBox_SelectSouvenir->setObjectName(QString::fromUtf8("comboBox_SelectSouvenir"));
+
+        verticalLayout_4->addWidget(comboBox_SelectSouvenir);
+
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
+        doubleSpinBox_SelectSouvenir_Price = new QDoubleSpinBox(widget2);
+        doubleSpinBox_SelectSouvenir_Price->setObjectName(QString::fromUtf8("doubleSpinBox_SelectSouvenir_Price"));
+        doubleSpinBox_SelectSouvenir_Price->setMaximum(500.000000000000000);
+        doubleSpinBox_SelectSouvenir_Price->setSingleStep(0.010000000000000);
+
+        horizontalLayout_3->addWidget(doubleSpinBox_SelectSouvenir_Price);
+
+        pushButton_SelectSouvenir_SetPrice = new QPushButton(widget2);
+        pushButton_SelectSouvenir_SetPrice->setObjectName(QString::fromUtf8("pushButton_SelectSouvenir_SetPrice"));
+
+        horizontalLayout_3->addWidget(pushButton_SelectSouvenir_SetPrice);
 
 
-        horizontalLayout_6->addLayout(Layout_NewStadium);
+        verticalLayout_4->addLayout(horizontalLayout_3);
+
+        pushButton_SelectSouvenir_Delete = new QPushButton(widget2);
+        pushButton_SelectSouvenir_Delete->setObjectName(QString::fromUtf8("pushButton_SelectSouvenir_Delete"));
+
+        verticalLayout_4->addWidget(pushButton_SelectSouvenir_Delete);
+
+        widget3 = new QWidget(adminWindow);
+        widget3->setObjectName(QString::fromUtf8("widget3"));
+        widget3->setGeometry(QRect(30, 290, 241, 101));
+        verticalLayout_5 = new QVBoxLayout(widget3);
+        verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
+        verticalLayout_5->setContentsMargins(0, 0, 0, 0);
+        label_NewSouvenir = new QLabel(widget3);
+        label_NewSouvenir->setObjectName(QString::fromUtf8("label_NewSouvenir"));
+        label_NewSouvenir->setFrameShadow(QFrame::Sunken);
+
+        verticalLayout_5->addWidget(label_NewSouvenir);
+
+        lineEdit_NewSouvenir_Name = new QLineEdit(widget3);
+        lineEdit_NewSouvenir_Name->setObjectName(QString::fromUtf8("lineEdit_NewSouvenir_Name"));
+
+        verticalLayout_5->addWidget(lineEdit_NewSouvenir_Name);
+
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
+        label_NewSouvenir_Price = new QLabel(widget3);
+        label_NewSouvenir_Price->setObjectName(QString::fromUtf8("label_NewSouvenir_Price"));
+
+        horizontalLayout_4->addWidget(label_NewSouvenir_Price);
+
+        doubleSpinBox_NewSouvenir_Price = new QDoubleSpinBox(widget3);
+        doubleSpinBox_NewSouvenir_Price->setObjectName(QString::fromUtf8("doubleSpinBox_NewSouvenir_Price"));
+        doubleSpinBox_NewSouvenir_Price->setMaximum(500.000000000000000);
+        doubleSpinBox_NewSouvenir_Price->setSingleStep(0.250000000000000);
+
+        horizontalLayout_4->addWidget(doubleSpinBox_NewSouvenir_Price);
 
 
-        gridLayout->addLayout(horizontalLayout_6, 1, 0, 1, 1);
+        verticalLayout_5->addLayout(horizontalLayout_4);
+
+        pushButton_NewSouvenir_Add = new QPushButton(widget3);
+        pushButton_NewSouvenir_Add->setObjectName(QString::fromUtf8("pushButton_NewSouvenir_Add"));
+
+        verticalLayout_5->addWidget(pushButton_NewSouvenir_Add);
+
+        widget4 = new QWidget(adminWindow);
+        widget4->setObjectName(QString::fromUtf8("widget4"));
+        widget4->setGeometry(QRect(291, 171, 241, 101));
+        verticalLayout_3 = new QVBoxLayout(widget4);
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        verticalLayout_3->setContentsMargins(0, 0, 0, 0);
+        label_SelectStadium = new QLabel(widget4);
+        label_SelectStadium->setObjectName(QString::fromUtf8("label_SelectStadium"));
+        label_SelectStadium->setFrameShadow(QFrame::Raised);
+
+        verticalLayout_3->addWidget(label_SelectStadium);
+
+        comboBox_SelectStadium = new QComboBox(widget4);
+        comboBox_SelectStadium->setObjectName(QString::fromUtf8("comboBox_SelectStadium"));
+
+        verticalLayout_3->addWidget(comboBox_SelectStadium);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        label_SelectStadium_Capacity = new QLabel(widget4);
+        label_SelectStadium_Capacity->setObjectName(QString::fromUtf8("label_SelectStadium_Capacity"));
+
+        horizontalLayout_2->addWidget(label_SelectStadium_Capacity);
+
+        spinBox_SelectStadium_SetCapacity = new QSpinBox(widget4);
+        spinBox_SelectStadium_SetCapacity->setObjectName(QString::fromUtf8("spinBox_SelectStadium_SetCapacity"));
+        spinBox_SelectStadium_SetCapacity->setMaximum(1000000);
+
+        horizontalLayout_2->addWidget(spinBox_SelectStadium_SetCapacity);
+
+
+        verticalLayout_3->addLayout(horizontalLayout_2);
+
+        pushButton_SelectStadium_SetCapacity = new QPushButton(widget4);
+        pushButton_SelectStadium_SetCapacity->setObjectName(QString::fromUtf8("pushButton_SelectStadium_SetCapacity"));
+
+        verticalLayout_3->addWidget(pushButton_SelectStadium_SetCapacity);
 
 
         retranslateUi(adminWindow);
@@ -261,21 +276,22 @@ public:
 
     void retranslateUi(QDialog *adminWindow)
     {
-        adminWindow->setWindowTitle(QCoreApplication::translate("adminWindow", "Dialog", nullptr));
+        adminWindow->setWindowTitle(QApplication::translate("adminWindow", "Dialog", nullptr));
         label_2->setText(QString());
-        label->setText(QCoreApplication::translate("adminWindow", "Select Team to Edit", nullptr));
-        label_SelectSouvenir->setText(QCoreApplication::translate("adminWindow", "Select Souvenir to Edit Price", nullptr));
-        pushButton_SelectSouvenir_SetPrice->setText(QCoreApplication::translate("adminWindow", "Set Price", nullptr));
-        pushButton_SelectSouvenir_Delete->setText(QCoreApplication::translate("adminWindow", "Delete Souvenir", nullptr));
-        label_SelectStadium->setText(QCoreApplication::translate("adminWindow", "Select Stadium:", nullptr));
-        label_SelectStadium_Capacity->setText(QCoreApplication::translate("adminWindow", "Capacity", nullptr));
-        pushButton_SelectStadium_SetCapacity->setText(QCoreApplication::translate("adminWindow", "Set New Capacity", nullptr));
-        label_NewSouvenir->setText(QCoreApplication::translate("adminWindow", "Enter Name of New Souvenir:", nullptr));
-        label_NewSouvenir_Price->setText(QCoreApplication::translate("adminWindow", "Price", nullptr));
-        pushButton_NewSouvenir_Add->setText(QCoreApplication::translate("adminWindow", "Add New Souvenir", nullptr));
-        label_NewStadium->setText(QCoreApplication::translate("adminWindow", "Enter Name of New Stadium:", nullptr));
-        label_NewStadium_Capacity->setText(QCoreApplication::translate("adminWindow", "Capacity", nullptr));
-        pushButton_NewStadium_Add->setText(QCoreApplication::translate("adminWindow", "Add New Stadium", nullptr));
+        label->setText(QApplication::translate("adminWindow", "Select Team to Edit", nullptr));
+        label_NewStadium->setText(QApplication::translate("adminWindow", "Enter Name of New Stadium:", nullptr));
+        label_NewStadium_Capacity->setText(QApplication::translate("adminWindow", "Capacity", nullptr));
+        label_NewStadium_OpenDate->setText(QApplication::translate("adminWindow", "Open Date (year)", nullptr));
+        pushButton_NewStadium_Add->setText(QApplication::translate("adminWindow", "Add New Stadium", nullptr));
+        label_SelectSouvenir->setText(QApplication::translate("adminWindow", "Select Souvenir to Edit Price", nullptr));
+        pushButton_SelectSouvenir_SetPrice->setText(QApplication::translate("adminWindow", "Set Price", nullptr));
+        pushButton_SelectSouvenir_Delete->setText(QApplication::translate("adminWindow", "Delete Souvenir", nullptr));
+        label_NewSouvenir->setText(QApplication::translate("adminWindow", "Enter Name of New Souvenir:", nullptr));
+        label_NewSouvenir_Price->setText(QApplication::translate("adminWindow", "Price", nullptr));
+        pushButton_NewSouvenir_Add->setText(QApplication::translate("adminWindow", "Add New Souvenir", nullptr));
+        label_SelectStadium->setText(QApplication::translate("adminWindow", "Select Stadium:", nullptr));
+        label_SelectStadium_Capacity->setText(QApplication::translate("adminWindow", "Capacity", nullptr));
+        pushButton_SelectStadium_SetCapacity->setText(QApplication::translate("adminWindow", "Set New Capacity", nullptr));
     } // retranslateUi
 
 };
