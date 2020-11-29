@@ -265,6 +265,7 @@
     <addaction name="actionLogOut"/>
     <addaction name="actionExit"/>
     <addaction name="actionAdmin_Functions"/>
+    <addaction name="actionExpansion_File"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -286,6 +287,11 @@
   <action name="actionAdmin_Functions">
    <property name="text">
     <string>Admin Functions</string>
+   </property>
+  </action>
+  <action name="actionExpansion_File">
+   <property name="text">
+    <string>Expansion File...</string>
    </property>
   </action>
  </widget>

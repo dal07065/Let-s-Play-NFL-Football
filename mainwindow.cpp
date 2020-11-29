@@ -30,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     on_actionLogOut_triggered();
     ui->actionLogOut->setVisible(false);
+    ui->actionExpansion_File->setVisible(false);
 
 
     QSqlQueryModel* model = new QSqlQueryModel();
@@ -481,14 +482,15 @@ void MainWindow::userIsAdmin()
 
     ui->actionLogOut->setVisible(true);
     ui->actionAdmin_Functions->setVisible(true);
-    ui->actionAdmin->setVisible(false);
+    ui->actionExpansion_File->setVisible(true);
+    ui->actionAdmin->setVisible(false); 
 }
 
 void MainWindow::on_actionLogOut_triggered()
 {
     ui->actionAdmin->setVisible(true);
     ui->actionLogOut->setVisible(false);
-
+    ui->actionExpansion_File->setVisible(false);
     ui->actionAdmin_Functions->setVisible(false);
 }
 
@@ -503,5 +505,10 @@ void MainWindow::on_pushButton_clicked()
 {
      CustomVacation *vacWindow = new CustomVacation();
      vacWindow->show();
+
+}
+
+void MainWindow::on_actionExpansion_File_triggered()
+{
 
 }

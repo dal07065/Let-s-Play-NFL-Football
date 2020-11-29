@@ -57,6 +57,8 @@ private slots:
 
     void on_actionAdmin_Functions_triggered();
 
+    void on_actionExpansion_File_triggered();
+
 private:
     Ui::MainWindow *ui;
     QString teamName;

@@ -32,6 +32,7 @@ public:
     QAction *actionLogOut;
     QAction *actionExit;
     QAction *actionAdmin_Functions;
+    QAction *actionExpansion_File;
     QWidget *centralwidget;
     QTableView *tableView;
     QPushButton *show_Teams;
@@ -67,6 +68,8 @@ public:
         actionExit->setObjectName(QString::fromUtf8("actionExit"));
         actionAdmin_Functions = new QAction(MainWindow);
         actionAdmin_Functions->setObjectName(QString::fromUtf8("actionAdmin_Functions"));
+        actionExpansion_File = new QAction(MainWindow);
+        actionExpansion_File->setObjectName(QString::fromUtf8("actionExpansion_File"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         tableView = new QTableView(centralwidget);
@@ -145,6 +148,7 @@ public:
         menuFile->addAction(actionLogOut);
         menuFile->addAction(actionExit);
         menuFile->addAction(actionAdmin_Functions);
+        menuFile->addAction(actionExpansion_File);
 
         retranslateUi(MainWindow);
 
@@ -158,6 +162,7 @@ public:
         actionLogOut->setText(QApplication::translate("MainWindow", "Log Out...", nullptr));
         actionExit->setText(QApplication::translate("MainWindow", "Exit", nullptr));
         actionAdmin_Functions->setText(QApplication::translate("MainWindow", "Admin Functions", nullptr));
+        actionExpansion_File->setText(QApplication::translate("MainWindow", "Expansion File...", nullptr));
         show_Teams->setText(QApplication::translate("MainWindow", "3. Show Teams", nullptr));
         show_NFCNorth->setText(QApplication::translate("MainWindow", "7. Show NFC North", nullptr));
         show_AFC_Teams->setText(QApplication::translate("MainWindow", "5. Show AFC Teams", nullptr));
