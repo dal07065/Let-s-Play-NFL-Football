@@ -42,8 +42,8 @@ void adminWindow::loadTeams()
             teamNames.push_back(teamN);
         }
 
-        QSqlQueryModel *search = new QSqlTableModel;
-        search->setQuery(query);
+//        QSqlQueryModel *search = new QSqlTableModel;
+//        search->setQuery(query);
     }
 
     for(int i = 0; i < int(teamNames.size()); ++i){
@@ -182,6 +182,7 @@ void adminWindow::on_pushButton_SelectSouvenir_Delete_clicked()
         QMessageBox::warning(this, "Fail", "You need to select a souvenir to delete.");
         return;
     }
+
 }
 
 void adminWindow::on_pushButton_SelectStadium_SetCapacity_clicked()
@@ -206,14 +207,50 @@ void adminWindow::on_pushButton_NewSouvenir_Add_clicked()
         return;
     }
 
-    QString teamID = QString::number(ui->comboBox_Team_Selection->currentIndex());
+    QString teamID = QString::number(ui->comboBox_Team_Selection->currentIndex() + 1);
     QString newSouvenirName = ui->lineEdit_NewSouvenir_Name->text();
     QString newSouvenirPrice = QString::number(ui->doubleSpinBox_NewSouvenir_Price->value());
 
+    int idNumber = 0;
     QSqlQuery query;
-    query.exec(QString("INSERT INTO teams_souvenir (SouvenirName, TeamId, Price)"
-                          " VALUES ('" +newSouvenirName+ "', " +teamID+ ", "
-                          +newSouvenirPrice+ ")"));
+
+    query.exec(QString("SELECT _id FROM teams_souvenir"));
+
+    while(query.next())
+    {
+        if(query.value(0).toInt() > idNumber)
+        {
+            idNumber = query.value(0).toInt();
+        }
+    }
+
+
+    QString _id = QString::number(idNumber);
+
+    // INSERTION INTO THE DATABASE
+    query.prepare(QString("INSERT INTO teams_souvenir(_id, SouvenirName, TeamId, Price) VALUES ( 166, 'TEST', 1, 3.50)"));
+
+//    query.bindValue(":_id", idNumber);
+//    query.bindValue(":_id", _id);
+//    query.bindValue(":SouvenirName", newSouvenirName);
+//    query.bindValue(":TeamId", ui->comboBox_Team_Selection->currentIndex() + 1);
+//    query.bindValue(":TeamId", teamID);
+//    query.bindValue(":Price", ui->doubleSpinBox_NewSouvenir_Price->value());
+//    query.bindValue(":Price", newSouvenirPrice);
+
+    query.exec();
+
+
+//    if (!query.exec())
+//    {
+//        QMessageBox::warning(this, "Fail", "Query did not execute");
+//    }
+
+
+//    query.exec(QString("INSERT INTO "
+//                       "teams_souvenir(_id, SouvenirName, TeamId, Price)"
+//                       " VALUES(" +_id + ", '" +newSouvenirName+ "', " +teamID+ ", "
+//                          +newSouvenirPrice+ ")"));
 
     ui->lineEdit_NewSouvenir_Name->clear();
     ui->doubleSpinBox_NewSouvenir_Price->clear();
@@ -232,5 +269,9 @@ void adminWindow::on_pushButton_NewStadium_Add_clicked()
         return;
     }
 }
+
+
+
+
 
 

@@ -11,7 +11,7 @@
 #include <QString>
 using std::vector;
 #include <QPair>
-
+#include <QDebug>
 #include "team.h"
 
 namespace Ui {
