@@ -30,8 +30,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     on_actionLogOut_triggered();
     ui->actionLogOut->setVisible(false);
-    ui->actionExpansion_File->setVisible(false);
-
+    ui->actionLoad_Team->setVisible(false);
+    ui->actionReset_Database->setVisible(false);
 
     QSqlQueryModel* model = new QSqlQueryModel();
     model->setQuery(QString("SELECT TeamName FROM teams"));
@@ -482,16 +482,19 @@ void MainWindow::userIsAdmin()
 
     ui->actionLogOut->setVisible(true);
     ui->actionAdmin_Functions->setVisible(true);
-    ui->actionExpansion_File->setVisible(true);
+    ui->actionLoad_Team->setVisible(true);
+    ui->actionReset_Database->setVisible(true);
     ui->actionAdmin->setVisible(false); 
+
 }
 
 void MainWindow::on_actionLogOut_triggered()
 {
     ui->actionAdmin->setVisible(true);
     ui->actionLogOut->setVisible(false);
-    ui->actionExpansion_File->setVisible(false);
     ui->actionAdmin_Functions->setVisible(false);
+    ui->actionLoad_Team->setVisible(false);
+    ui->actionReset_Database->setVisible(false);
 }
 
 void MainWindow::on_actionAdmin_Functions_triggered()
@@ -508,7 +511,47 @@ void MainWindow::on_pushButton_clicked()
 
 }
 
-void MainWindow::on_actionExpansion_File_triggered()
+void MainWindow::on_actionReset_Database_triggered()
 {
+    QSqlQuery query;
+    query.prepare(QString("DELETE FROM stadiums_distances WHERE _id>=117 AND _id<= 122"));
+    if (!query.exec())
+    {
+        QMessageBox::warning(this, "Fail", "Query did not execute");
+    }
 
+    query.prepare(QString("DELETE FROM teams WHERE _id=33"));
+    if (!query.exec())
+    {
+        QMessageBox::warning(this, "Fail", "Query did not execute");
+    }
+
+    query.prepare(QString("DELETE FROM stadiums WHERE _id=33"));
+    if (!query.exec())
+    {
+        QMessageBox::warning(this, "Fail", "Query did not execute");
+    }
 }
+
+void MainWindow::on_actionLoad_Team_triggered()
+{
+    QSqlQuery query;
+    query.prepare(QString("INSERT INTO teams SELECT * FROM teams_sanDeigo"));
+    if (!query.exec())
+    {
+        QMessageBox::warning(this, "Fail", "Query did not execute");
+    }
+
+    query.prepare(QString("INSERT INTO stadiums SELECT * FROM stadiums_sanDeigo"));
+    if (!query.exec())
+    {
+        QMessageBox::warning(this, "Fail", "Query did not execute");
+    }
+
+    query.prepare(QString("INSERT INTO stadiums_distances SELECT * FROM stadiums_distances_sanDeigo;"));
+    if (!query.exec())
+    {
+        QMessageBox::warning(this, "Fail", "Query did not execute");
+    }
+}
+

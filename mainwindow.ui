@@ -265,7 +265,8 @@
     <addaction name="actionLogOut"/>
     <addaction name="actionExit"/>
     <addaction name="actionAdmin_Functions"/>
-    <addaction name="actionExpansion_File"/>
+    <addaction name="actionLoad_Team"/>
+    <addaction name="actionReset_Database"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -289,9 +290,14 @@
     <string>Admin Functions</string>
    </property>
   </action>
-  <action name="actionExpansion_File">
+  <action name="actionLoad_Team">
    <property name="text">
-    <string>Expansion File...</string>
+    <string>Load Team</string>
+   </property>
+  </action>
+  <action name="actionReset_Database">
+   <property name="text">
+    <string>Reset Database</string>
    </property>
   </action>
  </widget>

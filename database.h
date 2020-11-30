@@ -17,7 +17,6 @@
 #include <QtDebug>
 #include <QSqlTableModel>
 
-
 /**
  * @brief The Database class
  * is used to access the database to use in the program
