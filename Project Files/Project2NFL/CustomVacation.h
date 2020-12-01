@@ -18,6 +18,8 @@ namespace Ui {
 class CustomVacation;
 }
 
+
+
 /**
  * @brief The CustomVacation class
  *
@@ -28,6 +30,7 @@ class CustomVacation : public QWidget
     Q_OBJECT
 
 public:
+
     /**
      * @brief Class Constructor
      * @param parent: QWidget pointer
@@ -69,6 +72,19 @@ public:
     void setUserID(int i);
 
     /**
+     * @brief Function to apply Dijkestra between two points
+     * @param teams: teams selected
+     */
+    void applyDijkestraTwoPoints(vector<int> teams);
+
+    /**
+     * @brief Function to apply Dijkestra recursively
+     * @param teams: teams selected
+     */
+    void applyDijkestraRecursively(vector<int> teams);
+
+
+    /**
      * @brief Function to show the vacation info for tourist
      *
      * Vacation info will be shown if there is a trip currently stored for tourist
@@ -77,9 +93,16 @@ public:
     void showDisplayData(QString  str);
 
 
+
 private slots:
 void on_listWidgetFirst_itemDoubleClicked(QListWidgetItem *item);
-
+/**
+ * @brief Function to plan a trip with all teams
+ *
+ * After the tourist presses "All Teams Trip", all teams will be selected for the trip,
+ * and "new england" will be selected as the starting team
+ */
+void on_allTeamPlan_clicked();
 /**
  * @brief Function to reset the UI of the plan trip page
  *
@@ -94,6 +117,8 @@ void resetUI();
  * be moved to the selected teams widget
  */
 void pushButtonFirst_clicked();
+
+
 
 /**
  * @brief Function to remove a team from the trip
@@ -134,13 +159,7 @@ void populateStartTeam(QListWidgetItem* item);
  */
 void updateTotal();
 
-/**
- * @brief Function to plan a trip with all teams
- *
- * After the tourist presses "All Cities Trip", all teams will be selected for the trip,
- * and "Berlin" will be selected as the starting team
- */
-void on_thirteenTeamPlan_clicked();
+
 
 /**
  * @brief Function to finalize the trip for tourist
@@ -156,7 +175,7 @@ void on_bookYourTrip_clicked();
  * After the tourist has selected the number of teams they want to visit, the list of teams in the
  * correct order of shortest distance will be generated for tourist, with "Paris" as the starting team
  */
-void on_NumberTripPushButton_clicked();
+//void on_NumberTripPushButton_clicked();
 
 void performDFS(int vert);
 void performBFS(int vert);
@@ -165,8 +184,15 @@ void on_pushButton_clicked();
 
 void on_pushButton_2_clicked();
 
+void on_pushButton_3_clicked();
+
+
+
+
+
 private:
 std::vector<Team> selectedTeams;
+std::vector<int> associatedDistance;
     Ui::CustomVacation *ui;
     VacationInfo* currentVacation;
     DisplayData* dataToBeDisplayed;

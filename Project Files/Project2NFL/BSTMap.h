@@ -163,13 +163,15 @@ public:
     void destroyTree() {
         makeEmpty(root);
         root = NULL;
-       // delete [] treeNodes;
+        delete [] treeNodes;
         size =0;
     }
 
     int getBSTSize(){
         return size;
     }
+
+    int getSize(){return size;}
 
     elemType* getTreeNodes()
     {

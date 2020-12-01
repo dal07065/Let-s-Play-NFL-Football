@@ -67,6 +67,7 @@ GraphDFS::GraphDFS(int v)
     totalDistance =0;
     for (int i = 0; i < V; i++)
             visited[i] = false;
+    visited[0] = true;
 }
 
 
@@ -111,7 +112,7 @@ int GraphDFS::visitedVert(){
 
 void GraphDFS::addEdge(int v, Stadium& w)
 {
-    adj[v-1].push_back(w); // Add w to v’s list.
+    adj[v].push_back(w); // Add w to v’s list.
 }
 
 
@@ -127,8 +128,8 @@ void GraphDFS::DFSUtil(int v)
 
     vector<Distance*> avEdges;
     vector<Distance*> dist;
-    visited[v-1] = true;
-        for (i = adj[v-1].begin(); i != adj[v-1].end(); ++i)
+    visited[v] = true;
+        for (i = adj[v].begin(); i != adj[v].end(); ++i)
         {
 
             dist =  (*i).getDistanceFromOthers();
@@ -137,7 +138,7 @@ void GraphDFS::DFSUtil(int v)
             {
                 //cout<<"ididid" << (*ed)->StadiumID<<endl;
 
-                if((*ed)->Discovered==false && (!visited[(*ed)->StadiumID-1] || !visited[(*ed)->OtherStaduimID-1] )&& ((*ed)->StadiumID == v || (*ed)->OtherStaduimID == v ) )
+                if((*ed)->Discovered==false && (!visited[(*ed)->StadiumID] || !visited[(*ed)->OtherStaduimID] )&& ((*ed)->StadiumID == v || (*ed)->OtherStaduimID == v ) )
                 {
                     allEdgs.insert(*ed);
                     avEdges.push_back(*ed);
@@ -160,7 +161,7 @@ void GraphDFS::DFSUtil(int v)
     int minKey= (*minElem)->StadiumID == v ? (*minElem)->OtherStaduimID : (*minElem)->StadiumID;
 
        // cout<<"minkey===="<<minKey<<"-" << v <<endl;
-        if (!visited[minKey-1] )
+        if (!visited[minKey] )
         {
            // cout<< (*minElem)->StadiumID;
 
@@ -178,7 +179,7 @@ void GraphDFS::DFSUtil(int v)
             visitedEdgesStack.push(*minElem);
 
             (*minElem)->Discovered = true; // lable edge as discovery
-            if(visitedVert()+1<V)
+            if(visitedVert()<V)
             {
                 DFSUtil(minKey);
             }
@@ -186,7 +187,7 @@ void GraphDFS::DFSUtil(int v)
         }
         else
         {
-            if(visitedVert()<V)
+            if(visitedVert()<V && visitedEdgesStack.size()>0)
             {
                 int std = visitedEdgesStack.top()->StadiumID;
                 visitedEdgesStack.pop();
@@ -196,7 +197,7 @@ void GraphDFS::DFSUtil(int v)
             }
         }
     }
-    else if(visitedVert()<V)
+    else if(visitedVert()<V && visitedEdgesStack.size()>0)
     {
         //cout<< "stack"<<visitedEdgesStack.size();
         int std = visitedEdgesStack.top()->StadiumID;

@@ -17,6 +17,7 @@ DisplayData::DisplayData(QString str,QWidget *parent) :
     formLayout1->addRow(hBoxLayout1);
     ui->scrollArea->setWidget(container1);
     container1->setLayout(formLayout1);
+
 }
 
 DisplayData::~DisplayData()
@@ -27,6 +28,6 @@ void DisplayData::on_pushButton_clicked()
 {
 
 
-   // emit backToCustomVacation();
+    emit backToCustomVacation();
     this->close();
 }

@@ -26,7 +26,7 @@ public:
     explicit DisplayData(QString str="" , QWidget *parent = nullptr);
     ~DisplayData();
 signals:
-   // void backToCustomVacation();
+    void backToCustomVacation();
 private slots:
     /**
      * @brief Function to let the tourist plan another trip

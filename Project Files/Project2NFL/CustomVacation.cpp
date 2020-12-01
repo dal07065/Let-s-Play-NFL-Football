@@ -2,6 +2,7 @@
 #include "ui_CustomVacation.h"
 #include <GraphDFS.h>
 #include <GraphBFS.h>
+#include <DijkestraMST.h>
 
 
 CustomVacation::CustomVacation(QWidget *parent) :
@@ -20,10 +21,10 @@ CustomVacation::CustomVacation(QWidget *parent) :
     connect(ui->pushButtonSouv1,SIGNAL(clicked()),this, SLOT(pushButtonSouv1_clicked()));
     connect(ui->pushButtonSouv2,SIGNAL(clicked()),this, SLOT(pushButtonSouv2_clicked()));
     connect(ui->listWidgetSecond, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(populateStartTeam(QListWidgetItem*)));
-
+    connect(ui->allTeamPlan ,SIGNAL(clicked()),this, SLOT(on_allTeamPlan_clicked()));
     int maximumChoice = Team::getTeams().size();
-    ui->numberOfCitiesSpinBox->setMinimum(2);
-    ui->numberOfCitiesSpinBox->setMaximum(maximumChoice);
+    //ui->numberOfCitiesSpinBox->setMinimum(2);
+    //ui->numberOfCitiesSpinBox->setMaximum(maximumChoice);
 
 
 
@@ -52,7 +53,6 @@ void CustomVacation::populateListWidget()
            item->setText(text);
 
            ui->listWidgetFirst->addItem(item);
-
            row++;
      }
 
@@ -83,7 +83,7 @@ void CustomVacation::pushButtonFirst_clicked()
              newItem2->setData( Qt::UserRole, (*it)->TeamID);
              newItem2->setData( Qt::UserRole+1, (*it)->souvenirID);
              newItem2->setData( Qt::UserRole+2, (*it)->price);
-             newItem2->setText(QString::fromStdString( (*it)->SouvenirName)+" ($"+QString::fromStdString(Team::formateNumbers((*it)->price))+")");
+             newItem2->setText(QString::fromStdString( (*it)->SouvenirName)+ " - " +Team::getTeamNameById(TeamID)+ " - " +" ($"+QString::fromStdString(Team::formateNumbers((*it)->price))+")");
              ui->souvAvailable->insertItem(  ui->souvAvailable->count(),newItem2);
          }
      ui->souvAvailable->sortItems();
@@ -95,7 +95,6 @@ void CustomVacation::pushButtonFirst_clicked()
      newItem->setFlags( newItem->flags() | Qt::ItemIsUserCheckable); // set checkable flag
      newItem->setCheckState(Qt::Unchecked);
      ui->listWidgetSecond->insertItem( ui->listWidgetSecond->count()  ,newItem);
-     ui->listWidgetSecond->sortItems();
      ui->listWidgetFirst->takeItem(ui->listWidgetFirst->currentRow());
      ui->listWidgetFirst->update();
 updateCartDistance();
@@ -155,8 +154,6 @@ void CustomVacation::pushButtonSouv1_clicked()
     newItem->setData( Qt::UserRole+1, ui->souvAvailable->currentItem()->data(Qt::UserRole+1).toInt());
     newItem->setData( Qt::UserRole+2, ui->souvAvailable->currentItem()->data(Qt::UserRole+2).toFloat());
     newItem->setText(ui->souvAvailable->currentItem()->text());
-
-
     ui->souvSelected->insertItem( ui->souvSelected->count()  ,newItem);
     ui->souvSelected->sortItems();
     ui->souvAvailable->takeItem(ui->souvAvailable->currentRow());
@@ -173,6 +170,7 @@ void CustomVacation::pushButtonSouv2_clicked()
         newItem->setData( Qt::UserRole+1, ui->souvSelected->currentItem()->data(Qt::UserRole+1).toInt());
         newItem->setData( Qt::UserRole+2, ui->souvSelected->currentItem()->data(Qt::UserRole+2).toFloat());
         newItem->setText(ui->souvSelected->currentItem()->text());
+
         ui->souvAvailable->insertItem( ui->souvAvailable->count()  ,newItem);
         ui->souvSelected->takeItem(ui->souvSelected->currentRow());
     }
@@ -183,15 +181,17 @@ void CustomVacation::pushButtonSouv2_clicked()
 
 void CustomVacation::populateStartTeam(QListWidgetItem* item)
 {
-
+vector<int> currentTeams;
     if( ui->listWidgetSecond->count()>=1)
     {
         int length = ui->listWidgetSecond->count()-1;
         for(int ii = 0; ii <=length ; ii++)
         {
+
             if(ui->listWidgetSecond->item(ii))
             {
                QListWidgetItem* itemX = ui->listWidgetSecond->item(ii);
+               currentTeams.push_back( itemX->data( Qt::UserRole).toInt());
                if(item != itemX && item->checkState()== Qt::Checked)
                {
                   itemX->setCheckState(Qt::Unchecked);
@@ -199,7 +199,122 @@ void CustomVacation::populateStartTeam(QListWidgetItem* item)
             }
         }
     }
+
+    if(ui->offer->checkState()== Qt::Checked)
+    {
+        applyDijkestraRecursively(currentTeams);
+    }
+    else
+    {
+           applyDijkestraTwoPoints(currentTeams);
+    }
     updateCartDistance();
+
+}
+
+void CustomVacation::applyDijkestraRecursively(vector<int> teams)
+{
+    selectedTeams.clear();
+    associatedDistance.clear();
+
+
+    Team startedTeam;
+
+
+
+
+         int size_ =( (int)unicorn::Stadium::stadiums.size())+1;
+         Graph dijk(size_);
+         for(auto i = Stadium::stadiums.begin(); i != Stadium::stadiums.end();++i)
+         {
+             vector<Distance*> dist = (*i)->getDistanceFromOthers();
+             for( auto  it= dist.begin() ;it!=dist.end();++it  )
+             {
+                  dijk.addEdge((*i)->getStadiumId(), (*it)->OtherStaduimID, *(*it)->StadiumIDPtr , *(*it)->OtherStaduimIDPtr );
+
+             }
+
+          }
+         vector<int> visitedStadiums;
+         Team nextKey ;
+         int distance;
+         int vertex = teams[0];
+         int i=0;
+         int initialSize = (int)teams.size();
+         int minKey;
+         teams.erase(std::remove(teams.begin(), teams.end(), vertex), teams.end());
+        while( (int)visitedStadiums.size()<initialSize )
+        {
+             dijk.reset();
+             dijk.dijkstra(vertex);
+
+             visitedStadiums.push_back(vertex);
+             int * res = dijk.getDist();
+             int minDistance = INT_MAX;
+             for(auto it= teams.begin();it!= teams.end();++it)
+             {
+                   if(res[*it]<minDistance)
+                   {
+                       minKey =*it;
+                       distance = res[*it];
+                       minDistance = res[*it];
+                   }
+             }
+             nextKey = Team::getTeamByIdByValue(vertex);
+             selectedTeams.push_back(nextKey);
+             associatedDistance.push_back(distance);
+             vertex = minKey;
+          teams.erase(std::remove(teams.begin(), teams.end(), vertex), teams.end());
+
+        }
+
+
+     updateCartDistance();
+
+}
+
+void CustomVacation::applyDijkestraTwoPoints(vector<int> currentTeams)
+{
+    associatedDistance.clear();
+    selectedTeams.clear();
+    int size_ =( (int)unicorn::Stadium::stadiums.size())+1;
+    Graph dijk(size_);
+    for(auto i = Stadium::stadiums.begin(); i != Stadium::stadiums.end();++i)
+    {
+        vector<Distance*> dist = (*i)->getDistanceFromOthers();
+        for( auto  it= dist.begin() ;it!=dist.end();++it  )
+        {
+             dijk.addEdge((*i)->getStadiumId(), (*it)->OtherStaduimID, *(*it)->StadiumIDPtr , *(*it)->OtherStaduimIDPtr );
+
+        }
+
+     }
+
+    //int startVert = *currentTeams.begin();
+
+   // vector<int> visitedStadiums;
+
+    int vertex ;
+    for (int i=0; i< (int)currentTeams.size(); i++)
+    {
+        vertex = currentTeams[i];
+        if(i<(int)currentTeams.size()-1)
+        {
+            dijk.reset();
+            dijk.dijkstra(vertex);
+            associatedDistance.push_back(dijk.distancFromStartToDest(currentTeams[i+1]));
+        }
+        else
+        {
+            associatedDistance.push_back(0);
+        }
+        Team tm = Team::getTeamByIdByValue(vertex);
+        selectedTeams.push_back(tm);
+
+
+     }
+
+updateCartDistance();
 
 }
 
@@ -292,37 +407,36 @@ void CustomVacation::updateCartDistance()
 
     if(teamsSelected())
     {
-        selectedTeams.clear();
+
         int length = ui->listWidgetSecond->count()-1;
         int teamStart=0;
         for(int ii = 0; ii <=length ; ii++)
         {
            QListWidgetItem* itemX = ui->listWidgetSecond->item(ii);
            Team team= Team::getTeamById(itemX->data(Qt::UserRole).toInt());
-           selectedTeams.push_back(team);
+           //selectedTeams.push_back(team);
            if(itemX->checkState()== Qt::Checked){ teamStart = itemX->data(Qt::UserRole).toInt();}
         }
         QString str="<h3>Your vacation visit order:</h3><ol>";
 
         if(ui->listWidgetSecond->count() >1)
         {
-             Team::orderTeamsByDistance(selectedTeams, teamStart);
-             auto it = selectedTeams.begin();
-             for (; it != selectedTeams.end(); ++it)
+
+             float distance =0;
+
+             for (int i=0; i < (int)selectedTeams.size(); ++i)
              {
-                 str+="<li>"+QString::fromStdString(it->getTeamName())+"<li>";
+                 str+="<li>"+QString::fromStdString(selectedTeams[i].getTeamName())+"<li>";
+
+             distance+= associatedDistance[i];
              }
-             float distance = Team::getTotalDistance(selectedTeams);
              ui->hiddenLabel->setVisible(false);
              ui->hiddenLabel->setText(QString::fromStdString(to_string(distance)));
-             str+="</ol><h4>Total Kilometers: "+QString::number(distance)+" KM</h4>";
+             str+="</ol><h4>Total Milage: "+QString::number(distance)+" M</h4>";
              txtLabel->setText(str);
         }
          hBoxLayout1->addWidget(txtLabel);
          formLayout1->addRow(hBoxLayout1);
-
-
-
 
 
 
@@ -342,12 +456,12 @@ void CustomVacation::updateCartDistance()
                   {
                      QListWidgetItem* itemX = ui->souvSelected->item(ii);
                      QStringList list1 = itemX->text().split(QLatin1Char('('));
-                     QLabel *FoodName = new QLabel;
-                     FoodName->setText(list1[0]);
-                     FoodName->setFixedSize(180,10);
+                     QLabel *souvName = new QLabel;
+                     souvName->setText(list1[0]);
+                     souvName->setFixedSize(180,10);
                      QSpinBox *spin= new QSpinBox;
                      spin->setProperty("spin_id", itemX->data( Qt::UserRole+1).toInt());
-                     spin->setRange(1,10);
+                     spin->setRange(1,1000);
                      spin->setObjectName("cart_quantity_"+itemX->data( Qt::UserRole+1).toString());
 
                      connect(spin, QOverload<int>::of(&QSpinBox::valueChanged),this,
@@ -370,16 +484,22 @@ void CustomVacation::updateCartDistance()
 
                      });
 
-                     QLabel *FoodCost = new QLabel;
-                     FoodCost->setAlignment(Qt::AlignRight | Qt::AlignVCenter );
-                     FoodCost->setText("$"+QString::fromStdString(Team::formateNumbers(itemX->data( Qt::UserRole+2).toFloat())));
+                     QLabel *souvCost = new QLabel;
+                     souvCost->setAlignment(Qt::AlignRight | Qt::AlignVCenter );
+                     souvCost->setText("$"+QString::fromStdString(Team::formateNumbers(itemX->data( Qt::UserRole+2).toFloat())));
                      string x =  "price_"+ to_string(itemX->data( Qt::UserRole+1).toInt());
-                     FoodCost->setProperty(x.c_str(), itemX->data( Qt::UserRole+2).toFloat());
-                     FoodCost->setObjectName("cart_cost_"+itemX->data( Qt::UserRole+1).toString());
+                     souvCost->setProperty(x.c_str(), itemX->data( Qt::UserRole+2).toFloat());
+                     souvCost->setObjectName("cart_cost_"+itemX->data( Qt::UserRole+1).toString());
                      QHBoxLayout * hBoxLayout= new QHBoxLayout;
-                     hBoxLayout->addWidget(FoodName);
+                     hBoxLayout->addWidget(souvName);
+                    // hBoxLayout->setMargin(11);
+
                      hBoxLayout->addWidget(spin);
-                     hBoxLayout->addWidget(FoodCost);
+
+                     hBoxLayout->addWidget(souvCost);
+
+
+
                      formLayout->addRow(hBoxLayout);
                      formLayout->setSpacing(2);
                      total+=  itemX->data( Qt::UserRole+2).toFloat() * spin->value();
@@ -395,11 +515,11 @@ void CustomVacation::updateCartDistance()
                   totalLabel->setFixedSize(180,20);
 
                   hBoxLayout->addWidget(totalLabel);
-                  QLabel *FoodCost2 = new QLabel;
-                  FoodCost2->setAlignment(Qt::AlignRight | Qt::AlignVCenter );
-                  FoodCost2->setText("<b>$"+QString::fromStdString(Team::formateNumbers(total))+"</b>");
-                  FoodCost2->setObjectName("cartTotal");
-                  hBoxLayout->addWidget(FoodCost2);
+                  QLabel *souvCost2 = new QLabel;
+                  souvCost2->setAlignment(Qt::AlignRight | Qt::AlignVCenter );
+                  souvCost2->setText("<b>$"+QString::fromStdString(Team::formateNumbers(total))+"</b>");
+                  souvCost2->setObjectName("cartTotal");
+                  hBoxLayout->addWidget(souvCost2);
                   formLayout->addRow(hBoxLayout);
 
 
@@ -421,17 +541,16 @@ void CustomVacation::updateCartDistance()
 
 
 
-void CustomVacation::on_thirteenTeamPlan_clicked()
+void CustomVacation::on_allTeamPlan_clicked()
 {
-
-    //int row=0;
+    selectedTeams.clear();
+    associatedDistance.clear();
     ui->listWidgetFirst->clear();
     ui->listWidgetSecond->clear();
     ui->souvAvailable->clear();
     ui->souvSelected->clear();
 
-
-
+    Team startedTeam;
      for (auto it = Team::teams.begin(); it != Team::teams.end(); ++it)
      {
 
@@ -440,13 +559,23 @@ void CustomVacation::on_thirteenTeamPlan_clicked()
            QListWidgetItem *newItem = new QListWidgetItem;
            newItem->setData( Qt::UserRole, it->getTeamId());
            newItem->setText(text);
-           newItem->setFlags( newItem->flags() | Qt::ItemIsUserCheckable); // set checkable flag
-           if (text != "Berlin")
+           newItem->setFlags( newItem->flags() | Qt::ItemIsUserCheckable);
+            int TeamID = it->getTeamId();
+           // set checkable flag
+           if (TeamID != 22)
+           {
                newItem->setCheckState(Qt::Unchecked);
-           else
-               newItem->setCheckState(Qt::Checked);
 
-           int TeamID = it->getTeamId();
+
+           }
+           else
+           {
+               newItem->setCheckState(Qt::Checked);
+               startedTeam = *it;
+
+           }
+
+
            vector<SouvenirType*> souvenirV = Team::getSouvenirByTeamId(TeamID);
             for(auto it = souvenirV.begin(); it!= souvenirV.end();++it)
                 {
@@ -455,7 +584,9 @@ void CustomVacation::on_thirteenTeamPlan_clicked()
                     newItem2->setData( Qt::UserRole, (*it)->TeamID);
                     newItem2->setData( Qt::UserRole+1, (*it)->souvenirID);
                     newItem2->setData( Qt::UserRole+2, (*it)->price);
-                    newItem2->setText(QString::fromStdString( (*it)->SouvenirName)+" ($"+QString::fromStdString(Team::formateNumbers((*it)->price))+")");
+                    newItem2->setText(QString::fromStdString( (*it)->SouvenirName)+ " - " +Team::getTeamNameById(TeamID)+ " - " +" ($"+QString::fromStdString(Team::formateNumbers((*it)->price))+")");
+
+                    //newItem2->setText(QString::fromStdString( (*it)->SouvenirName)+" ($"+QString::fromStdString(Team::formateNumbers((*it)->price))+")");
                     ui->souvAvailable->insertItem(  ui->souvAvailable->count(),newItem2);
                 }
             ui->souvAvailable->sortItems();
@@ -464,6 +595,48 @@ void CustomVacation::on_thirteenTeamPlan_clicked()
 
           // row++;
      }
+
+
+
+         int size_ =( (int)unicorn::Stadium::stadiums.size())+1;
+         Graph dijk(size_);
+         for(auto i = Stadium::stadiums.begin(); i != Stadium::stadiums.end();++i)
+         {
+             vector<Distance*> dist = (*i)->getDistanceFromOthers();
+             for( auto  it= dist.begin() ;it!=dist.end();++it  )
+             {
+                  dijk.addEdge((*i)->getStadiumId(), (*it)->OtherStaduimID, *(*it)->StadiumIDPtr , *(*it)->OtherStaduimIDPtr );
+
+             }
+
+          }
+         vector<int> visitedStadiums;
+         dijk.reset();
+         dijk.dijkstra(22);
+         selectedTeams.push_back(startedTeam);
+         associatedDistance.push_back(0);
+         visitedStadiums.push_back(22);
+        // dijk.printMST();
+         Team nextKey = dijk.minKeyVertex(visitedStadiums);
+         int distance = dijk.minKeyDistance(visitedStadiums);
+
+         int vertex = nextKey.getTeamId();
+         visitedStadiums.push_back(vertex);
+         selectedTeams.push_back(nextKey);
+         associatedDistance.push_back(distance);
+         while(selectedTeams.size()< unicorn::Team::teams.size())
+         {
+             dijk.reset();
+             dijk.dijkstra(vertex);
+             Team nextKey = dijk.minKeyVertex(visitedStadiums);
+             int distance = dijk.minKeyDistance(visitedStadiums);
+
+             vertex = nextKey.getTeamId();
+              visitedStadiums.push_back(vertex);
+             selectedTeams.push_back(nextKey);
+             associatedDistance.push_back(distance);
+         }
+
      updateCartDistance();
 
 }
@@ -474,9 +647,9 @@ void CustomVacation::on_bookYourTrip_clicked()
     {
         //cartTotal
         float totatDistance= ui->hiddenLabel->text().toFloat() ;
-        float totalFoodCost=0;
+        float totalsouvCost=0;
 
-        std::vector<souvinerArr> mySelectedFood;
+        std::vector<souvinerArr> mySelectedsouv;
         if(ui->listWidgetSecond->count()>0)
         {
         float total=0;
@@ -496,37 +669,47 @@ void CustomVacation::on_bookYourTrip_clicked()
                            x.Price = cost;
                            x.Quantity = spins[ii]->value();
                            x.souvenirID = souvID;
-                           mySelectedFood.push_back(x);
+                           mySelectedsouv.push_back(x);
                            total+=  spins[ii]->value()* cost;
                        }
                    }
                 }
 
 
-
+                QString sql = "insert into vacations  ( IdUser, TotalDistance, TotalCost) values ( 2, "+QString::fromStdString(to_string(totatDistance) )+" , "+QString::fromStdString(to_string(total))+" )";
                 QSqlQuery query;
-                 query.exec("insert into vacations  ( IdUser, TotalDistance, TotalCost) values ( 2, "+QString::fromStdString(to_string(totatDistance) )+" , "+QString::fromStdString(to_string(total))+" )");
+                 query.exec(sql);
+                 qDebug()<<sql;
+
 
                 int last_id = query.lastInsertId().toInt();
                  qDebug()<<"last auto increment is"<<last_id ;
 
-                 auto it = selectedTeams.begin();
-                 for (; it != selectedTeams.end(); ++it)
+                  int teamid ;
+                 for(int count = 0; count <ui->listWidgetSecond->count() ; count++)
                  {
-                    query.exec("insert into vacations_teams (IdVacation, IdTeam) values ("+QString::fromStdString(to_string(last_id))+" , "+QString::fromStdString(to_string(it->getTeamId()))+" )");
+
+                        QListWidgetItem* itemX = ui->listWidgetSecond->item(count);
+                        teamid = itemX->data( Qt::UserRole).toInt();
+                        sql = "insert into vacations_stadiums (IdVacation, IdStadium) values ( 1 ,"+QString::number(teamid)+" )";
+                        query.exec(sql);
+                        //qDebug() <<sql;
+
                  }
 
-                 auto it2 = mySelectedFood.begin();
-                 for (; it2 != mySelectedFood.end(); ++it2)
+
+                 auto it2 = mySelectedsouv.begin();
+                 for (; it2 != mySelectedsouv.end(); ++it2)
                  {
-                    query.exec("insert into vacations_souvenir (IdVacation, IdSouvenir, SouvenirPrice, Quantity) values ("+QString::fromStdString(to_string(last_id))+" , "+QString::fromStdString(to_string(it2->souvenirID))+" , "+QString::fromStdString(to_string(it2->Price))+" , "+QString::fromStdString(to_string(it2->Quantity))+" )");
+                     sql = "insert into vacations_souvenir (IdVacation, IdSouvenir, SouvenirPrice, Quantity) values ( 1 , "+QString::fromStdString(to_string(it2->souvenirID))+" , "+QString::fromStdString(to_string(it2->Price))+" , "+QString::fromStdString(to_string(it2->Quantity))+" )";
+                    query.exec(sql);
                  }
 
                  //ui->result_lbl->setText("<span style=\"color:red\">Your Trip added successfully</span>");
                  ui->bookYourTrip->setVisible(false);
                  this->hide();
                  showVacationInfo();
-                // showTripInfo();
+
 
 
            }
@@ -562,13 +745,16 @@ void CustomVacation::resetUI()
     connect(ui->pushButtonSouv1,SIGNAL(clicked()),this, SLOT(pushButtonSouv1_clicked()));
     connect(ui->pushButtonSouv2,SIGNAL(clicked()),this, SLOT(pushButtonSouv2_clicked()));
     connect(ui->listWidgetSecond, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(populateStartTeam(QListWidgetItem*)));
-    connect(ui->thirteenTeamPlan,SIGNAL(clicked()), this, SLOT(on_thirteenTeamPlan_clicked()));
+    connect(ui->allTeamPlan,SIGNAL(clicked()), this, SLOT(on_allTeamPlan_clicked()));
     connect(ui->bookYourTrip, SIGNAL(clicked()), this, SLOT(on_bookYourTrip_clicked()));
-    connect(ui->NumberTripPushButton, SIGNAL(clicked()), this, SLOT(on_NumberTripPushButton_clicked()));
+     connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(on_pushButton_clicked()));
+      connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(on_pushButton_2_clicked()));
+      connect(ui->pushButton_3, SIGNAL(clicked()), this, SLOT(on_pushButton_3_clicked()));
+   // connect(ui->NumberTripPushButton, SIGNAL(clicked()), this, SLOT(on_NumberTripPushButton_clicked()));
 
     int maximumChoice = Team::getTeams().size();
-    ui->numberOfCitiesSpinBox->setMinimum(2);
-    ui->numberOfCitiesSpinBox->setMaximum(maximumChoice);
+   // ui->numberOfCitiesSpinBox->setMinimum(2);
+    //ui->numberOfCitiesSpinBox->setMaximum(maximumChoice);
 
     show();
 }
@@ -578,7 +764,7 @@ void CustomVacation::showVacationInfo()
 
    currentVacation = new VacationInfo();
    currentVacation->show();
-  // connect(currentVacation,SIGNAL(backToCustomVacation()),this,SLOT(resetUI()));
+   connect(currentVacation,SIGNAL(backToCustomVacation()),this,SLOT(resetUI()));
 }
 
 
@@ -587,112 +773,37 @@ void CustomVacation::showDisplayData(QString str)
 QWidget *parent = nullptr;
    dataToBeDisplayed = new DisplayData(str,parent);
    dataToBeDisplayed->show();
-   //connect(dataToBeDisplayed,SIGNAL(backToCustomVacation()),this,SLOT(resetUI()));
+   connect(dataToBeDisplayed,SIGNAL(backToCustomVacation()),this,SLOT(resetUI()));
 }
 
 
-void CustomVacation::on_NumberTripPushButton_clicked()
-{
-    ui->listWidgetFirst->clear();
-    ui->listWidgetSecond->clear();
-    ui->souvAvailable->clear();
-    ui->souvSelected->clear();
 
-
-    int numberOfTeam = ui->numberOfCitiesSpinBox->value();
-    int startingTeamID = -1;
-
-    vector<Team> allCities = Team::getTeams();
-    vector<Team> tripCities;
-
-
-    for (auto it = Team::teams.begin(); it != Team::teams.end() ; ++it)
-    {
-           QString text = QString::fromStdString(it->getTeamName() );
-           if (text == ("Paris"))
-           {
-               startingTeamID = it->getTeamId();
-               break;
-           }
-    }
-
-
-
-    Team::orderTeamsByDistance(allCities, startingTeamID);
-    for (int i = 0; i < numberOfTeam; i++)
-        tripCities.push_back(allCities[i]);
-
-    for (auto it2 = tripCities.begin(); it2 != tripCities.end(); ++it2)
-    {
-
-          QString text = QString::fromStdString(it2->getTeamName() );
-
-          QListWidgetItem *newItem = new QListWidgetItem;
-          newItem->setData( Qt::UserRole, it2->getTeamId());
-          newItem->setText(text);
-          newItem->setFlags( newItem->flags() | Qt::ItemIsUserCheckable); // set checkable flag
-          int teamID = it2->getTeamId();
-
-          if (teamID != startingTeamID)
-              newItem->setCheckState(Qt::Unchecked);
-          else
-              newItem->setCheckState(Qt::Checked);
-
-          vector<SouvenirType*> souvenirV = Team::getSouvenirByTeamId(teamID);
-           for(auto it = souvenirV.begin(); it!= souvenirV.end();++it)
-               {
-
-                   QListWidgetItem *newItem2 = new QListWidgetItem;
-                   newItem2->setData( Qt::UserRole, (*it)->TeamID);
-                   newItem2->setData( Qt::UserRole+1, (*it)->souvenirID);
-                   newItem2->setData( Qt::UserRole+2, (*it)->price);
-                   newItem2->setText(QString::fromStdString( (*it)->SouvenirName)+" ($"+QString::fromStdString(Team::formateNumbers((*it)->price))+")");
-                   ui->souvAvailable->insertItem(  ui->souvAvailable->count(),newItem2);
-               }
-           ui->souvAvailable->sortItems();
-
-          ui->listWidgetSecond->addItem(newItem);
-
-          //row++;
-    }
-    updateCartDistance();
-
-    for (int i = numberOfTeam; i < allCities.size(); ++i)
-    {
-          QListWidgetItem * item = new QListWidgetItem;
-          QString text = QString::fromStdString(allCities[i].getTeamName() );
-          item->setData( Qt::UserRole, allCities[i].getTeamId());
-          item->setText(text);
-
-          ui->listWidgetFirst->addItem(item);
-    }
-
-
-
-
-}
 
 void CustomVacation::performDFS(int vert)
 {
 
-    GraphDFS gDFS(unicorn::Stadium::stadiums.size());
+
+    int size_ = (int)unicorn::Stadium::stadiums.size();
+    GraphDFS gDFS(size_+1);
     for(auto i = Stadium::stadiums.begin(); i != Stadium::stadiums.end();++i)
     {
         vector<Distance*> dist = (*i)->getDistanceFromOthers();
         for( auto  it= dist.begin() ;it!=dist.end();++it  )
         {
-
              gDFS.addEdge((*i)->getStadiumId(), *(*it)->OtherStaduimIDPtr );
 
         }
 
      }
 
+
    gDFS.DFS(vert);
    QString str = gDFS.printDFS();
-   unicorn::Team::initializeTeams();
+    unicorn::Team::initializeTeams();
+
    this->close();
-   showDisplayData(str);
+  showDisplayData(str);
+//
 
 
 
@@ -743,3 +854,33 @@ void CustomVacation::performBFS(int vert)
    showDisplayData(str);
 
 }
+
+void CustomVacation::on_pushButton_3_clicked()
+{
+//unicorn::Team::initializeTeams();
+    int size_ =( (int)unicorn::Stadium::stadiums.size())+1;
+   // cout<<"-----"<< size_ <<endl;
+
+    Graph mst(size_);
+    for(auto i = Stadium::stadiums.begin(); i != Stadium::stadiums.end();++i)
+    {
+        vector<Distance*> dist = (*i)->getDistanceFromOthers();
+        for( auto  it= dist.begin() ;it!=dist.end();++it  )
+        {
+             mst.addEdge((*i)->getStadiumId(), (*it)->OtherStaduimID, *(*it)->StadiumIDPtr , *(*it)->OtherStaduimIDPtr );
+
+        }
+
+     }
+
+     mst.reset();
+    mst.primMST();
+
+    this->close();
+    QString str = mst.printMST();
+    showDisplayData(str);
+
+}
+
+
+

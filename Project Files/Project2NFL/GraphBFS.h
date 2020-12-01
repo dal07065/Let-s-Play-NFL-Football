@@ -45,11 +45,11 @@ public:
         {
             if((*it)->StadiumID == (*it)->StartPoint )
             {
-                str+="<tr><td style=\"border:solid 1px #000;width:50%\"><b>Stadium:</b> "+QString::fromStdString( (*it)->StadiumIDPtr->getStadiumName())+"<br/>"+(*it)->StadiumIDPtr->getTeamsName()+"</td><td style=\"text-align:center;valign:middle\">("+QString::number( (*it)->distance)+"M)<br/>&#8594;</td> <td style=\"border:solid 1px #000;width:50%\"><b>Stadium:</b> "+QString::fromStdString((*it)->OtherStaduimIDPtr->getStadiumName())+"<br/>"+(*it)->OtherStaduimIDPtr->getTeamsName()+"</td></tr>";
+                str+="<tr><td style=\"border:solid 1px #666;width:50%\"><b>Stadium:</b> "+QString::fromStdString( (*it)->StadiumIDPtr->getStadiumName())+"<br/>"+(*it)->StadiumIDPtr->getTeamsName()+"</td><td style=\"text-align:center;valign:middle\">("+QString::number( (*it)->distance)+"M)<br/>&#8594;</td> <td style=\"border:solid 1px #666;width:50%\"><b>Stadium:</b> "+QString::fromStdString((*it)->OtherStaduimIDPtr->getStadiumName())+"<br/>"+(*it)->OtherStaduimIDPtr->getTeamsName()+"</td></tr>";
             }
             else
             {
-                str+="<tr><td style=\"border:solid 1px #000;width:50%\"><b>Stadium:</b> "+QString::fromStdString( (*it)->OtherStaduimIDPtr->getStadiumName())+"<br/>"+(*it)->OtherStaduimIDPtr->getTeamsName()+"</td><td style=\"text-align:center;valign:middle\" >("+QString::number((*it)->distance)+"M)<br/>&#8594;</td> <td style=\"border:solid 1px #000;width:50%\"><b>Stadium:</b> "+QString::fromStdString((*it)->StadiumIDPtr->getStadiumName())+"<br/>"+(*it)->StadiumIDPtr->getTeamsName()+"</td></tr>";
+                str+="<tr><td style=\"border:solid 1px #666;width:50%\"><b>Stadium:</b> "+QString::fromStdString( (*it)->OtherStaduimIDPtr->getStadiumName())+"<br/>"+(*it)->OtherStaduimIDPtr->getTeamsName()+"</td><td style=\"text-align:center;valign:middle\" >("+QString::number((*it)->distance)+"M)<br/>&#8594;</td> <td style=\"border:solid 1px #000;width:50%\"><b>Stadium:</b> "+QString::fromStdString((*it)->StadiumIDPtr->getStadiumName())+"<br/>"+(*it)->StadiumIDPtr->getTeamsName()+"</td></tr>";
             }
 
         i++;
@@ -60,7 +60,7 @@ public:
 
     }
 
-    string printBFS2()
+    void printBFS2()
     {
        // cout<< "----BFS using adjacency matrix----"<<endl;
         QString str="";
