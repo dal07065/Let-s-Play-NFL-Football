@@ -33,6 +33,7 @@ vector<Team*> getTeams(){
     return teams;
 }
 
+    ~Stadium(){}
 QString getTeamsName();
 
 void addTeam(Team* team){teams.push_back(team);}
