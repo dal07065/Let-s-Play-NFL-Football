@@ -22,6 +22,19 @@ QString Stadium::getTeamsName(){
 
 }
 
+ Stadium* Stadium::getStadiumPtrById(int stadiumID){
+
+            for(auto i = stadiums.begin(); i != stadiums.end();++i)
+            {
+                if(stadiumID == (*i)->getStadiumId())
+                {
+                    return *i;
+                }
+            }
+            return 0;
+}
+
+
 string Stadium::getStadiumName(){
     return stadiumName;
 

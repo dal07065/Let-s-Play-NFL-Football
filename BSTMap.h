@@ -4,17 +4,145 @@
 template <class elemType>
 class BST {
 
-    struct node {
-        int key;
-        elemType value;
-        node* left;
-        node* right;
-    };
+    /**
+     * @brief The TeamType struct represents the trip information
+     * stored for fan
+     *
+     * TeamType_ containing the teamID, and team name,
+     */
+        struct node {
+            int key;
+            elemType value;
+            node* left;
+            node* right;
+        };
+
+
     int maxSize;
     elemType* treeNodes;
     node* root;
     int size;
 
+public:
+
+    /**
+     * @brief Default constructor
+     */
+    BST() {
+        root = NULL;
+        maxSize =100;
+        treeNodes= new elemType[maxSize]();
+        size=0;
+
+    }
+
+    /**
+     * @brief Destructor
+     */
+    ~BST() {
+        if(root !=NULL){
+        root = makeEmpty(root);
+
+
+        }
+    }
+
+    /**
+     * @brief Function to insert new object into tree
+     * @param key: integer key of node
+     * @param obj: object to be inserted
+     *
+     */
+
+    void insert(int key, elemType obj) {
+        node * temp = find(root, key);
+        if(temp != NULL)
+        {
+            temp->value = obj;
+        }
+        else
+        {
+            root = insert(key, root, obj);
+            size++;
+        }
+    }
+
+    /**
+     * @brief Function to remove object from tree
+     * @param key: integer key of node
+     *
+     */
+
+    void remove(int key) {
+        root = remove(key, root);
+    }
+
+
+    /**
+     * @brief Function to display object from tree
+     */
+
+    void display() {
+        inorder(root);
+        //std::cout << endl;
+    }
+
+
+    /**
+     * @brief Function to search object
+     * @param key: integer key of node
+     *
+     */
+
+    void search(int key) {
+        root = find(root, key);
+    }
+
+
+    /**
+     * @brief Function to destroy tree
+     *
+     */
+
+    void destroyTree() {
+        makeEmpty(root);
+        root = NULL;
+        delete [] treeNodes;
+        size =0;
+    }
+
+    /**
+     * @brief Function to get tree size
+     * @return size
+     */
+
+    int getBSTSize(){
+        return size;
+    }
+
+    /**
+     * @brief Function to get tree size
+     * @return size
+     */
+    int getSize(){return size;}
+
+    /**
+     * @brief Function get tree nodes
+     * @return pointer to first node
+     */
+
+    elemType* getTreeNodes()
+    {
+        return treeNodes;
+    }
+
+private:
+
+    /**
+     * @brief Function empty tree
+     * @param node: pointer to node to be deleted
+     *
+     */
 
     node* makeEmpty(node* t) {
         if(t == NULL)
@@ -27,21 +155,39 @@ class BST {
         return NULL;
     }
 
-    node* insert(int x, node* t, elemType obj)
+
+    /**
+     * @brief Function to insert new object into tree
+     * @param key: integer key of node
+     * @param node: pointer to position that will be used to insert new object
+     * @param obj: object to be inserted
+     * @return pointer to new element
+     */
+
+    node* insert(int key, node* t, elemType obj)
     {
         if(t == NULL)
         {
             t = new node;
-            t->key = x;
+            t->key = key;
             t->value = obj;
             t->left = t->right = NULL;
         }
-        else if(x < t->key)
-            t->left = insert(x, t->left, obj);
-        else if(x > t->key)
-            t->right = insert(x, t->right, obj);
+        else if(key < t->key)
+            t->left = insert(key, t->left, obj);
+        else if(key > t->key)
+            t->right = insert(key, t->right, obj);
         return t;
     }
+
+
+    /**
+     * @brief Function to insert new object into tree
+     * @param key: integer key of node
+     * @param node: pointer to position that will be used to insert new object
+     * @param obj: object to be inserted
+     * @return pointer to new element
+     */
 
     node* findMin(node* t)
     {
@@ -53,63 +199,89 @@ class BST {
             return findMin(t->left);
     }
 
-    node* findMax(node* t) {
-        if(t == NULL)
+
+    /**
+     * @brief Function to find maximum node
+     * @param ptr: integer key of node
+     * @return pointer to max element
+     */
+
+    node* findMax(node* ptr) {
+        if(ptr == NULL)
             return NULL;
-        else if(t->right == NULL)
-            return t;
+        else if(ptr->right == NULL)
+            return ptr;
         else
-            return findMax(t->right);
+            return findMax(ptr->right);
     }
 
-    node* remove(int x, node* t) {
+    /**
+     * @brief Function to remove node
+     * @param ptr: integer key of node
+     * @param key: element key
+     * @return pointer to max element
+     */
+
+    node* remove(int key, node* ptr) {
         node* temp;
-        if(t == NULL)
+        if(ptr == NULL)
             return NULL;
-        else if(x < t->key)
-            t->left = remove(x, t->left);
-        else if(x > t->key)
-            t->right = remove(x, t->right);
-        else if(t->left && t->right)
+        else if(key < ptr->key)
+            ptr->left = remove(key, ptr->left);
+        else if(key > ptr->key)
+            ptr->right = remove(key, ptr->right);
+        else if(ptr->left && ptr->right)
         {
-            temp = findMin(t->right);
-            t->key = temp->key;
-            t->right = remove(t->key, t->right);
+            temp = findMin(ptr->right);
+            ptr->key = temp->key;
+            ptr->right = remove(ptr->key, ptr->right);
         }
         else
         {
-            temp = t;
-            if(t->left == NULL)
-                t = t->right;
-            else if(t->right == NULL)
-                t = t->left;
+            temp = ptr;
+            if(ptr->left == NULL)
+                ptr = ptr->right;
+            else if(ptr->right == NULL)
+                ptr = ptr->left;
             delete temp;
             size--;
         }
 
-        return t;
+        return ptr;
     }
 
-    void inorder(node* t) {
-        if(t == NULL)
+
+    /**
+     * @brief Function to display inorder traversal
+     * @param ptr: integer key of node
+     */
+
+    void inorder(node* ptr) {
+        if(ptr == NULL)
             return;
-        inorder(t->left);
-        treeNodes[t->key] = t->value;
+        inorder(ptr->left);
+        treeNodes[ptr->key] = ptr->value;
         //std::cout << t->key << ":"<<t->value<< " ";
-        inorder(t->right);
+        inorder(ptr->right);
     }
 
 
 
-    node* find(node* t, int x) {
-        if(t == NULL)
+    /**
+     * @brief Function to find node
+     * @param ptr: integer key of node
+     * @param key: element key
+     * @return pointer to element
+     */
+    node* find(node* ptr, int key) {
+        if(ptr == NULL)
             return NULL;
-        else if(x < t->key)
-            return find(t->left, x);
-        else if(x > t->key)
-            return find(t->right, x);
+        else if(key < ptr->key)
+            return find(ptr->left, key);
+        else if(key > ptr->key)
+            return find(ptr->right, key);
         else
-            return t;
+            return ptr;
     }
 
 
@@ -117,66 +289,7 @@ class BST {
 
 
 
-public:
-    BST() {
-        root = NULL;
-        maxSize =100;
-        treeNodes= new elemType[maxSize]();
-        size=0;
 
-    }
-
-    ~BST() {
-        if(root !=NULL){
-        root = makeEmpty(root);
-
-
-        }
-    }
-
-    void insert(int x, elemType obj) {
-        node * temp = find(root, x);
-        if(temp != NULL)
-        {
-            temp->value = obj;
-        }
-        else
-        {
-            root = insert(x, root, obj);
-            size++;
-        }
-    }
-
-    void remove(int x) {
-        root = remove(x, root);
-    }
-
-    void display() {
-        inorder(root);
-        //std::cout << endl;
-    }
-
-    void search(int x) {
-        root = find(root, x);
-    }
-
-    void destroyTree() {
-        makeEmpty(root);
-        root = NULL;
-        delete [] treeNodes;
-        size =0;
-    }
-
-    int getBSTSize(){
-        return size;
-    }
-
-    int getSize(){return size;}
-
-    elemType* getTreeNodes()
-    {
-        return treeNodes;
-    }
 };
 
 #endif // BST_H

@@ -41,10 +41,10 @@ signals:
     void backToCustomVacation();
 private slots:
     /**
-     * @brief Function to let the tourist plan another trip
+     * @brief Function to let the fan plan another trip
      *
      * After the tourist presses "Delete Trip", the current trip will be deleted,
-     *  and tourist will be redirected to the plan trip page.
+     *  and fan will be redirected to the plan trip page.
      */
     void on_pushButton_clicked();
 

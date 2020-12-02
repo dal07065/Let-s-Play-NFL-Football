@@ -23,16 +23,26 @@ class DisplayData : public QWidget
     Q_OBJECT
 
 public:
+    /**
+     * @brief Class Constructor
+     * @param parent: QWidget pointer
+     *
+     * Function to set up the UI for the trip info page
+     */
     explicit DisplayData(QString str="" , QWidget *parent = nullptr);
+
+    /**
+     *  @brief Class Destructor
+     */
     ~DisplayData();
 signals:
     void backToCustomVacation();
 private slots:
     /**
-     * @brief Function to let the tourist plan another trip
+     * @brief Function to let the FAN plan another trip
      *
-     * After the tourist presses "Delete Trip", the current trip will be deleted,
-     *  and tourist will be redirected to the plan trip page.
+     * After the fan presses "Delete Trip", the current trip will be deleted,
+     *  and fan will be redirected to the plan trip page.
      */
     void on_pushButton_clicked();
 private:

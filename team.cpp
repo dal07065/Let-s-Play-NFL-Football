@@ -108,21 +108,9 @@ if(teamsBSTMap.getSize()>0)
 
 
 
- std->addTeam(team);
- team->setTeamStadium(std);
+         std->addTeam(team);
+         team->setTeamStadium(std);
 
-
-
-
-
-       // team->setTeamStadium(std);
-
-//            std::vector<Team*>::iterator itr = std::find_if(
-//               std->getTeams().begin(), std->getTeams().end(),
-//               [&id](const Team* x) { return x->TeamID == id.toInt();});
-//            if(itr== std->getTeams().end() ){
-//               std->addTeam(team);
-//            }
 
 
 

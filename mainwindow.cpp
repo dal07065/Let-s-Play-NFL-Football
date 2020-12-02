@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
         return;
     }
     qApp->setStyleSheet(styleSheet.readAll());
-
+    ui->tableView->horizontalHeader()->setStretchLastSection(true);
     on_actionLogOut_triggered();
     ui->actionLogOut->setVisible(false);
 
@@ -37,39 +37,39 @@ MainWindow::MainWindow(QWidget *parent)
     ui->teamComboBox->setModel(model);
 
 
-//    Team* ptr = Team::teamsBSTMap.getTreeNodes();
-//    Team::teamsBSTMap.display();
-//    int max = Team::teamsBSTMap.getBSTSize();
+    Team* ptr = Team::teamsBSTMap.getTreeNodes();
+    Team::teamsBSTMap.display();
+    int max = Team::teamsBSTMap.getBSTSize();
 
-//        for(int i=0;i<max;i++)
-//        {
-
-
-//                   std::cout <<"--------Team start here--------"<<endl;
-//                   std::cout<< (*(ptr+i)).getTeamId() << (*(ptr+i)).getTeamName()<<endl;
-//                   vector<Distance*> distanceV= (*(ptr+i)).getTeamStadium()->getDistanceFromOthers();
-//                           vector<SouvenirType*> souv= (*(ptr+i)).getSouvenirType();
+        for(int i=0;i<max;i++)
+        {
 
 
-//                          std::cout <<"--------Distances--------"<<endl;
-//                          for (auto it2= distanceV.begin(); it2 !=  distanceV.end(); ++it2) {
+                   std::cout <<"--------Team start here--------"<<endl;
+                   std::cout<< (*(ptr+i)).getTeamId() << (*(ptr+i)).getTeamName()<<endl;
+                   vector<Distance*> distanceV= (*(ptr+i)).getTeamStadium()->getDistanceFromOthers();
+                           vector<SouvenirType*> souv= (*(ptr+i)).getSouvenirType();
 
 
-//                               std::cout << (*it2)->OtherStaduimName
-//                                        << (*it2)->OtherStaduimID
-//                                        <<  (*it2)->distance<<endl;
-//                           }
-//                           std::cout <<"--------Souviner--------"<<endl;
+                          std::cout <<"--------Distances--------"<<endl;
+                          for (auto it2= distanceV.begin(); it2 !=  distanceV.end(); ++it2) {
 
-//                           for (auto it3= souv.begin(); it3 !=  souv.end(); ++it3) {
 
-//                                std::cout  << (*it3)->SouvenirName
-//                                         << (*it3)->souvenirID
-//                                         <<  (*it3)->TeamID
-//                                         <<  (*it3)->price<<endl;
-//                            }
-//                    std::cout <<"--------Team end here--------"<<endl<<endl;
-//        }
+                               std::cout << (*it2)->OtherStaduimName
+                                        << (*it2)->OtherStaduimID
+                                        <<  (*it2)->distance<<endl;
+                           }
+                           std::cout <<"--------Souviner--------"<<endl;
+
+                           for (auto it3= souv.begin(); it3 !=  souv.end(); ++it3) {
+
+                                std::cout  << (*it3)->SouvenirName
+                                         << (*it3)->souvenirID
+                                         <<  (*it3)->TeamID
+                                         <<  (*it3)->price<<endl;
+                            }
+                    std::cout <<"--------Team end here--------"<<endl<<endl;
+        }
 
 
 }
@@ -341,6 +341,14 @@ void MainWindow::on_show_SeatingCapacity_clicked()
     QList<QString> stadiumList;
     int seatCount = 0;
     int count = 0;
+    int total=0;
+
+    query.exec("select sum(SeatingCapacity) as capacity from stadiums");
+    while(query.next())
+    {
+        total = query.value("capacity").toInt();
+
+    }
 
     query.prepare(QString("SELECT stadiums.SeatingCapacity,stadiums.StadiumName,teams.teamName "
                           "FROM stadiums "
@@ -371,7 +379,8 @@ void MainWindow::on_show_SeatingCapacity_clicked()
         ui->tableView->show();
         ui->tableView->setModel(search);
 
-        ui->numberLabel->setText(QString::number(seatCount) + " Total Seats");
+       // ui->numberLabel->setText(QString::number(seatCount) + " Total Seats");
+        ui->numberLabel->setText(QString::number(total) + " Total Seats");
 
     }
 }

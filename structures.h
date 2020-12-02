@@ -39,6 +39,13 @@ struct SouvenirType{
 
 };
 
+/**
+ * @brief The path struct represents the paths
+ *
+ * path containing the integer vector of vertix_id,
+ * and distance associated,
+ * and the quantity
+ */
 struct path{
     vector<int> paths;
     int distance;
@@ -90,7 +97,7 @@ struct souvinerArr{
 
 /**
  * @brief The tripInfo_ struct represents the trip information
- * stored for tourist
+ * stored for fan
  *
  * tripInfo_ containing the souvenir items, the list of cities,
  * total distance and total cost for the trip
@@ -103,14 +110,29 @@ struct tripInfo_{
 
 };
 
+
+/**
+ * @brief The TeamType struct represents the trip information
+ * stored for fan
+ *
+ * TeamType_ containing the teamID, and team name,
+ */
+
 struct TeamType
 {
    int teamID;
    string teamName;
-
 };
 
 
+
+/**
+ * @brief The PathFromSrcToDest struct represents the edge
+ * between two stadiums
+ *
+ * PathFromSrcToDest Distance Type vectoe, and total distance,
+ * stadium type starting stadium and ending stadium
+ */
 struct PathFromSrcToDest{
     vector<Distance*> edges;
     int totalDistance;
