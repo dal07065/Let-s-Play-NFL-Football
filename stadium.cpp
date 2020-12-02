@@ -90,19 +90,26 @@ void Stadium::setStadiumSurface(string surface_){
 void Stadium::initializeStadiums(){
 
 
-    Team* ptr = Team::teamsBSTMap.getTreeNodes();
-    Team::teamsBSTMap.display();
-    int max = Team::teamsBSTMap.getBSTSize();
-    int * arr = new int[max]();
-        for(int i=0;i<max;i++)
+//    Team* ptr = Team::teamsBSTMap.getTreeNodes();
+//    Team::teamsBSTMap.display();
+//    int max = Team::teamsBSTMap.getBSTSize();
+
+//    Team* ptr = Team::teams.begin();
+//    int * arr = new int[max]();
+//        for(int i=0;i<max;i++)
+//        {
+//            if(arr[(ptr+i)->getTeamStadium()->getStadiumId()]!=1)
+//            {
+//                 stadiums.push_back((ptr+i)->getTeamStadium());
+//                 arr[(ptr+i)->getTeamStadium()->getStadiumId()]=1;
+//            }
+//        }
+
+        for(auto it= Team::teams.begin(); it != Team::teams.end();++it)
         {
-            if(arr[(ptr+i)->getTeamStadium()->getStadiumId()]!=1)
-            {
-                 stadiums.push_back((ptr+i)->getTeamStadium());
-                 arr[(ptr+i)->getTeamStadium()->getStadiumId()]=1;
-            }
+            stadiums.push_back(it->getTeamStadium());
         }
-        delete [] arr;
+        //delete [] arr;
 
 
 
@@ -118,19 +125,19 @@ void Stadium::initializeStadiums(){
          }
 
 
-        for(auto i = stadiums.begin(); i != stadiums.end();++i)
-        {
-           // cout <<"======" << (*i)->getStadiumName()<<endl;
-            vector<Distance*> dist = (*i)->getDistanceFromOthers();
-            for( auto  it= dist.begin() ;it!=dist.end();++it  )
-            {
-               // cout<< (*it)->StadiumID <<",,,"<< (*it)->OtherStaduimID<<endl;
+//        for(auto i = stadiums.begin(); i != stadiums.end();++i)
+//        {
+//           // cout <<"======" << (*i)->getStadiumName()<<endl;
+//            vector<Distance*> dist = (*i)->getDistanceFromOthers();
+//            for( auto  it= dist.begin() ;it!=dist.end();++it  )
+//            {
+//                cout<< (*it)->StadiumID <<",,,"<< (*it)->OtherStaduimID<<endl;
 
-              //  cout<<"self:"<< (*it)->StadiumIDPtr->getStadiumName()<<endl;
-            //    cout<<"other"<< (*it)->OtherStaduimIDPtr->getStadiumName()<<endl;
-            }
+//                cout<<"self:"<< (*it)->StadiumIDPtr->getStadiumName()<<endl;
+//                cout<<"other"<< (*it)->OtherStaduimIDPtr->getStadiumName()<<endl;
+//            }
 
-        }
+//        }
 
 
 
