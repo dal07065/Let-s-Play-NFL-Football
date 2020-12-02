@@ -6,53 +6,59 @@ namespace unicorn{
 
 class GraphDFS
 {
-    int V; // No. of vertices
-
-    // Pointer to an array containing
-    // adjacency lists
-    list<Stadium> *adj;
-    vector<Distance*> dfsPath; // store dfs path
-    set<Distance*> allEdgs; // store all edges discover and back
-    int totalDistance;
-     stack <Distance*> visitedEdgesStack;
 
 
-    // Mark all the vertices as not visited
-    bool *visited ;
-
-    // A recursive function used by DFS
-    void DFSUtil(int v);
 public:
-    GraphDFS(int v); // Constructor
+
+    /**
+     * @brief Default constructor
+     */
+    GraphDFS(int v);
     int visitedVert();
 
-    // function to add an edge to graph
-    void addEdge(int v, Stadium& w);
+    /**
+     * @brief Function to build adjecency list
+     * @param index:vertex
+     * @param obj: object to be added
+     */
+    void addEdge(int index, Stadium& obj);
 
-    // DFS traversal of the vertices
-    // reachable from v
+    /**
+     * @brief Function to perform DFS
+     */
     void DFS(int v);
 
-     QString printDFS();
+
+    /**
+     * @brief Function to print DFS path
+     * @return text: path as QString
+     */
+    QString printDFS();
 
 
+    /**
+     * @brief function to display total distance
+     * @return distance: integer
+     */
+   int getTotalEdgeType();
 
-   int getTotalEdgeType(){
+private:
+   int V; // No. of vertices
 
-        set<Distance*>::iterator ed;
-
-                for (ed = allEdgs.begin(); ed != allEdgs.end(); ++ed)
-                {
-                    if((*ed)->Discovered )
-                    {
-                        totalDistance+= (*ed)->distance;
-                    }
-
-                }
-               return  totalDistance;
-    }
+   // Pointer to an array containing
+   // adjacency lists
+   list<Stadium> *adj;
+   vector<Distance*> dfsPath; // store dfs path
+   set<Distance*> allEdgs; // store all edges discover and back
+   int totalDistance;
+    stack <Distance*> visitedEdgesStack;
 
 
+   // Mark all the vertices as not visited
+   bool *visited ;
+
+   // A recursive function used by DFS
+   void DFSUtil(int v);
 
 };
 
@@ -69,6 +75,24 @@ GraphDFS::GraphDFS(int v)
             visited[i] = false;
     visited[0] = true;
 }
+
+
+
+int GraphDFS::getTotalEdgeType(){
+
+     set<Distance*>::iterator ed;
+
+             for (ed = allEdgs.begin(); ed != allEdgs.end(); ++ed)
+             {
+                 if((*ed)->Discovered )
+                 {
+                     totalDistance+= (*ed)->distance;
+                 }
+
+             }
+            return  totalDistance;
+ }
+
 
 
 

@@ -4,6 +4,56 @@
 namespace unicorn{
 class GraphBFS {
 
+public:
+
+    /**
+     * @brief Default constructor
+     */
+    GraphBFS(int v);
+
+    /**
+     * @brief Function to add edge between 2 vertices
+     * @param src: first vertex
+     * @param dest: second vertex
+     * @param nodeSrc: first vertex object
+     * @param nodeDest: second  vertex object
+     */
+    void addEdge(int src, int dest, Stadium& nodeSrc, Stadium& nodeDest );
+    /**
+     * @brief function to perform BFS
+     * @param start: starting vertex
+     */
+    void BFS(int start);
+
+    /**
+     * @brief function to display total distance
+     * @return distance: integer
+     */
+    int getTotalDistance(){
+        cout<<endl;
+        cout<<"Total distance BFS: "<< totalDistance<<endl;
+        return totalDistance;
+    }
+
+    /**
+     * @brief function to print BFS Path
+     * @return text: QString
+     */
+    QString printBFS();
+
+
+    /**
+     * @brief function to print BFS Path
+     */
+    void printBFS2();
+
+    /**
+     * @brief function to get total of path
+     * @return total: integer
+     */
+    int getTotalEdgeType();
+
+private:
     // Number of vertex
     int v;
 
@@ -17,87 +67,70 @@ class GraphBFS {
     bool *visited ;
 
 
-public:
-    // To create the initial adjacency matrix
-    GraphBFS(int v);
-
-    // Function to insert a new edge
-    void addEdge(int src, int dest, Stadium& nodeSrc, Stadium& nodeDest );
-
-    void BFS(int start);
-
-    int getTotalDistance(){
-        cout<<endl;
-        cout<<"Total distance BFS: "<< totalDistance<<endl;
-        return totalDistance;
-    }
-
-
-
-    QString printBFS()
-    {
-
-        vector<Distance*>::iterator it;
-        QString str="<table  cellpadding=\"5\" border=\"0\" cellspacing=\"5\"  width=\"100%\" style=\"table-layout:fixed;\" ><h3>BFS Traversal (Total Distance: "+QString::number(getTotalEdgeType())+" Miles) </h3>";
-
-        int i=1;
-        for(it= bfsPath.begin(); it!= bfsPath.end();++it)
-        {
-            if((*it)->StadiumID == (*it)->StartPoint )
-            {
-                str+="<tr><td style=\"border:solid 1px #666;width:50%\"><b>Stadium:</b> "+QString::fromStdString( (*it)->StadiumIDPtr->getStadiumName())+"<br/>"+(*it)->StadiumIDPtr->getTeamsName()+"</td><td style=\"text-align:center;valign:middle\">("+QString::number( (*it)->distance)+"M)<br/>&#8594;</td> <td style=\"border:solid 1px #666;width:50%\"><b>Stadium:</b> "+QString::fromStdString((*it)->OtherStaduimIDPtr->getStadiumName())+"<br/>"+(*it)->OtherStaduimIDPtr->getTeamsName()+"</td></tr>";
-            }
-            else
-            {
-                str+="<tr><td style=\"border:solid 1px #666;width:50%\"><b>Stadium:</b> "+QString::fromStdString( (*it)->OtherStaduimIDPtr->getStadiumName())+"<br/>"+(*it)->OtherStaduimIDPtr->getTeamsName()+"</td><td style=\"text-align:center;valign:middle\" >("+QString::number((*it)->distance)+"M)<br/>&#8594;</td> <td style=\"border:solid 1px #000;width:50%\"><b>Stadium:</b> "+QString::fromStdString((*it)->StadiumIDPtr->getStadiumName())+"<br/>"+(*it)->StadiumIDPtr->getTeamsName()+"</td></tr>";
-            }
-
-        i++;
-        }
-           str+="</table>";
-
-        return  str;
-
-    }
-
-    void printBFS2()
-    {
-       // cout<< "----BFS using adjacency matrix----"<<endl;
-        QString str="";
-        vector<Distance*>::iterator it;
-        int i=1;
-        for(it= bfsPath.begin(); it!= bfsPath.end();++it)
-        {
-            if((*it)->StadiumID == (*it)->StartPoint )
-            {
-                cout<< i << (*it)->StadiumIDPtr->getStadiumName()<<"->"<< (*it)->OtherStaduimIDPtr->getStadiumName() <<"("<< (*it)->distance<< ")"<<endl ;
-            }
-            else
-            {
-                cout<< i <<(*it)->OtherStaduimIDPtr->getStadiumName()<<"->"<< (*it)->StadiumIDPtr->getStadiumName() <<"("<< (*it)->distance<< ")"<<endl ;
-            }
-        i++;
-
-
-        }
-    }
-
-    int getTotalEdgeType(){
-         set<Distance*>::iterator ed;
-
-                 for (ed = allEdgs.begin(); ed != allEdgs.end(); ++ed)
-                 {
-                     if((*ed)->Discovered )
-                     {
-                         totalDistance+= (*ed)->distance;
-                     }
-
-                 }
-                return  totalDistance;
-     }
-
-
 };
+
+void GraphBFS::printBFS2()
+{
+   // cout<< "----BFS using adjacency matrix----"<<endl;
+    QString str="";
+    vector<Distance*>::iterator it;
+    int i=1;
+    for(it= bfsPath.begin(); it!= bfsPath.end();++it)
+    {
+        if((*it)->StadiumID == (*it)->StartPoint )
+        {
+            cout<< i << (*it)->StadiumIDPtr->getStadiumName()<<"->"<< (*it)->OtherStaduimIDPtr->getStadiumName() <<"("<< (*it)->distance<< ")"<<endl ;
+        }
+        else
+        {
+            cout<< i <<(*it)->OtherStaduimIDPtr->getStadiumName()<<"->"<< (*it)->StadiumIDPtr->getStadiumName() <<"("<< (*it)->distance<< ")"<<endl ;
+        }
+    i++;
+
+
+    }
+}
+
+
+int GraphBFS::getTotalEdgeType(){
+     set<Distance*>::iterator ed;
+
+             for (ed = allEdgs.begin(); ed != allEdgs.end(); ++ed)
+             {
+                 if((*ed)->Discovered )
+                 {
+                     totalDistance+= (*ed)->distance;
+                 }
+
+             }
+            return  totalDistance;
+ }
+
+QString GraphBFS::printBFS()
+{
+
+    vector<Distance*>::iterator it;
+    QString str="<table  cellpadding=\"5\" border=\"0\" cellspacing=\"5\"  width=\"100%\" style=\"table-layout:fixed;\" ><h3>BFS Traversal (Total Distance: "+QString::number(getTotalEdgeType())+" Miles) </h3>";
+
+    int i=1;
+    for(it= bfsPath.begin(); it!= bfsPath.end();++it)
+    {
+        if((*it)->StadiumID == (*it)->StartPoint )
+        {
+            str+="<tr><td style=\"border:solid 1px #666;width:50%\"><b>Stadium:</b> "+QString::fromStdString( (*it)->StadiumIDPtr->getStadiumName())+"<br/>"+(*it)->StadiumIDPtr->getTeamsName()+"</td><td style=\"text-align:center;valign:middle\">("+QString::number( (*it)->distance)+"M)<br/>&#8594;</td> <td style=\"border:solid 1px #666;width:50%\"><b>Stadium:</b> "+QString::fromStdString((*it)->OtherStaduimIDPtr->getStadiumName())+"<br/>"+(*it)->OtherStaduimIDPtr->getTeamsName()+"</td></tr>";
+        }
+        else
+        {
+            str+="<tr><td style=\"border:solid 1px #666;width:50%\"><b>Stadium:</b> "+QString::fromStdString( (*it)->OtherStaduimIDPtr->getStadiumName())+"<br/>"+(*it)->OtherStaduimIDPtr->getTeamsName()+"</td><td style=\"text-align:center;valign:middle\" >("+QString::number((*it)->distance)+"M)<br/>&#8594;</td> <td style=\"border:solid 1px #000;width:50%\"><b>Stadium:</b> "+QString::fromStdString((*it)->StadiumIDPtr->getStadiumName())+"<br/>"+(*it)->StadiumIDPtr->getTeamsName()+"</td></tr>";
+        }
+
+    i++;
+    }
+       str+="</table>";
+
+    return  str;
+
+}
 
 // Function to fill the empty adjacency matrix
 GraphBFS::GraphBFS(int v)

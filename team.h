@@ -59,7 +59,7 @@ public:
     static void initializeTeams();
 
     /**
-     * @brief Function to return a food static vector from a specific team
+     * @brief Function to return a souvenir static vector from a specific team
      * @param id: team id
      * @return: the static vector of SouvenirType from the specific team
      */
@@ -94,8 +94,8 @@ public:
 
 
     /**
-     * @brief Function to get the vector containing all the food
-     * @return: vector of foodType
+     * @brief Function to get the vector containing all the souvenir
+     * @return: vector of souvenirType
      */
     vector<SouvenirType*> getSouvenirType(){
         return souvenir;
@@ -111,8 +111,8 @@ public:
 
 
     /**
-     * @brief Function to add the food into the food vector
-     * @param food: SouvenirType object to add into food vector
+     * @brief Function to add the souvenir into the souvenir vector
+     * @param souv: SouvenirType object to add into souvenir vector
      */
     void addSouvenir(SouvenirType* souv){
         souvenir.push_back(souv);
