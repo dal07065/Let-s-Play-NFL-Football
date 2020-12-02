@@ -11,7 +11,7 @@ VacationInfo::VacationInfo(QWidget *parent) :
     tripInfo_ VacInfo;
     QSqlQuery query,query2;
     userID=2;
-   query.exec("SELECT * FROM vacations where IdUser="+QString::number(userID)+" limit 0,1");
+   query.exec("SELECT * FROM vacations where IdUser=2 limit 0,1");
 
     string toHtml = "";
 
@@ -20,25 +20,26 @@ VacationInfo::VacationInfo(QWidget *parent) :
         vacationID= query.value("_id").toInt();
         VacInfo.Total_cost = query.value("TotalCost").toFloat();
         VacInfo.total_distance = query.value("TotalDistance").toInt();
-        QString sql = "select cities.CityName, vacations_cities.IdCity from vacations_cities join cities on cities._id= vacations_cities.IdCity where idVacation= "+query.value("_id").toString()+" order by CityName";
+        QString sql = "select teams.teamName, vacations_stadiums.IdStadium from vacations_stadiums join teams on teams._id= vacations_stadiums.IdStadium where idVacation= 1 order by TeamName";
         query2.exec(sql);
         while(query2.next())
         {
-           // qDebug()<<"city: "<<query2.value("CityName").toString();
-            VacInfo.teams.insert(pair<int,string>( query2.value("IdCity").toInt() , query2.value("CityName").toString().toStdString()));
+            //qDebug()<<"city: "<<query2.value("CityName").toString();
+            VacInfo.teams.insert(pair<int,string>( query2.value("IdStadium").toInt() , query2.value("TeamName").toString().toStdString()));
         }
 
-        query2.exec("select cities_foods.FoodName, cities_foods.IdCity , vacations_foods.IdFood, vacations_foods.foodPrice, vacations_foods.Quantity from vacations_foods join cities_foods on cities_foods._id= vacations_foods.IdFood where idVacation= "+query.value("_id").toString()+" order by FoodName");
+        query2.exec("select teams_souvenir._id as souvId, teams_souvenir.SouvenirName as souvName, teams_souvenir.TeamId, teams_souvenir.TeamId, teams_souvenir.Price, vacations_souvenir.Quantity from vacations_souvenir join teams_souvenir on teams_souvenir._id= vacations_souvenir.IdSouvenir where idVacation= 1 order by SouvenirName");
         while(query2.next())
         {
-            //qDebug()<<"food: "<<query2.value("FoodName").toString();
             SouvenirType souvToBeAdded;
-            souvToBeAdded.price = query2.value("foodPrice").toFloat();
-            souvToBeAdded.TeamID = query2.value("IdCity").toInt();
+            souvToBeAdded.price = query2.value("Price").toFloat();
+            souvToBeAdded.TeamID = query2.value("TeamId").toInt();
             souvToBeAdded.quantity = query2.value("Quantity").toInt();
-            souvToBeAdded.TeamID = query2.value("IdFood").toInt();
-            souvToBeAdded.SouvenirName = query2.value("FoodName").toString().toStdString();
+            souvToBeAdded.souvenirID = query2.value("souvId").toInt();
+            souvToBeAdded.SouvenirName = query2.value("souvName").toString().toStdString();
             VacInfo.selectedSouvenir.push_back(souvToBeAdded);
+
+            cout<< "xxxxx"<<endl;
 
         }
 
@@ -48,7 +49,7 @@ VacationInfo::VacationInfo(QWidget *parent) :
     std::map<int, string>::iterator it = VacInfo.teams.begin();
     float totalCity=0;
     float total=0;
-    toHtml+="<h3>Vacation Summary ( Total Distance: "+ to_string(VacInfo.total_distance) +" KM)</h3><table  cellpadding=\"5\" cellspacing=\"1\" width=\"98%\"style=\"border-collapse: collapse;border: 1px solid black;margin-top:5px;\" ><tr><td align=\"center\" style=\"border: 1px solid black;font-weight:bold\" >Food Name</td><td  align=\"center\" style=\"border: 1px solid black;font-weight:bold\" >Quantity</td><td  align=\"right\" style=\"border: 1px solid black;font-weight:bold\">Price</td><td  align=\"right\" style=\"border: 1px solid black;font-weight:bold\">Total</td></tr>";
+    toHtml+="<h3>Vacation Summary ( Total Distance: "+ to_string(VacInfo.total_distance) +" Miles)</h3><table  cellpadding=\"5\" cellspacing=\"1\" width=\"98%\"style=\"border-collapse: collapse;border: 1px solid black;margin-top:5px;\" ><tr><td align=\"center\" style=\"border: 1px solid black;font-weight:bold\" >Souvenir Name</td><td  align=\"center\" style=\"border: 1px solid black;font-weight:bold\" >Quantity</td><td  align=\"right\" style=\"border: 1px solid black;font-weight:bold\">Price</td><td  align=\"right\" style=\"border: 1px solid black;font-weight:bold\">Total</td></tr>";
     for(; it!=VacInfo.teams.end();++it )
     {
         totalCity=0;
@@ -96,13 +97,13 @@ VacationInfo::~VacationInfo()
 void VacationInfo::on_pushButton_clicked()
 {
     QSqlQuery query;
-    query.prepare("delete from vacations where IdUser =2");
+    query.prepare("delete from vacations");
     query.exec();
 
-    query.prepare("delete from vacations_teams where IdVacation =1");
+    query.prepare("delete from vacations_stadiums");
     query.exec();
 
-    query.prepare("delete from vacations_souvenir where IdVacation =1");
+    query.prepare("delete from vacations_souvenir");
     query.exec();
 
     emit backToCustomVacation();
