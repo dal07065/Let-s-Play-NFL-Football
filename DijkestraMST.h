@@ -277,11 +277,6 @@ class Graph {
 
             // build distance array
             constructPaths(src);
-
-            // display
-
-
-//cout<< "pathsToVer size:"<< pathsToVer.size() <<endl;
             int i=1;
             for(auto it=pathsToVer.begin(); it!= pathsToVer.end();++it)
             {

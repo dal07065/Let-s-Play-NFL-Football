@@ -22,9 +22,7 @@ CustomVacation::CustomVacation(QWidget *parent) :
     connect(ui->pushButtonSouv2,SIGNAL(clicked()),this, SLOT(pushButtonSouv2_clicked()));
     connect(ui->listWidgetSecond, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(populateStartTeam(QListWidgetItem*)));
     connect(ui->allTeamPlan ,SIGNAL(clicked()),this, SLOT(on_allTeamPlan_clicked()));
-    int maximumChoice = Team::getTeams().size();
-    //ui->numberOfCitiesSpinBox->setMinimum(2);
-    //ui->numberOfCitiesSpinBox->setMaximum(maximumChoice);
+
 
 
 
@@ -242,13 +240,14 @@ void CustomVacation::applyDijkestraRecursively(vector<int> teams)
          int i=0;
          int initialSize = (int)teams.size();
          int minKey;
-         teams.erase(std::remove(teams.begin(), teams.end(), vertex), teams.end());
+        // teams.erase(std::remove(teams.begin(), teams.end(), vertex), teams.end());
+          visitedStadiums.push_back(vertex);
         while( (int)visitedStadiums.size()<initialSize )
         {
+             teams.erase(std::remove(teams.begin(), teams.end(), vertex), teams.end());
              dijk.reset();
              dijk.dijkstra(vertex);
 
-             visitedStadiums.push_back(vertex);
              int * res = dijk.getDist();
              int minDistance = INT_MAX;
              for(auto it= teams.begin();it!= teams.end();++it)
@@ -264,7 +263,14 @@ void CustomVacation::applyDijkestraRecursively(vector<int> teams)
              selectedTeams.push_back(nextKey);
              associatedDistance.push_back(distance);
              vertex = minKey;
-          teams.erase(std::remove(teams.begin(), teams.end(), vertex), teams.end());
+              visitedStadiums.push_back(vertex);
+              if(teams.size()==1)
+              {
+                  nextKey = Team::getTeamByIdByValue(vertex);
+                  selectedTeams.push_back(nextKey);
+                  associatedDistance.push_back(0);
+              }
+
 
         }
 
@@ -290,9 +296,6 @@ void CustomVacation::applyDijkestraTwoPoints(vector<int> currentTeams)
 
      }
 
-    //int startVert = *currentTeams.begin();
-
-   // vector<int> visitedStadiums;
 
     int vertex ;
     for (int i=0; i< (int)currentTeams.size(); i++)
