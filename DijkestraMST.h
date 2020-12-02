@@ -8,6 +8,7 @@ class Graph {
         int v;
         // Adjacency matrix
         Stadium ** adj;
+        int ** metrix;
         // Mark all the vertices as not visited
 
 
@@ -77,6 +78,10 @@ class Graph {
             }
             return minDist;
         }
+
+
+
+
 
         void printMatrix()
         {
@@ -297,48 +302,47 @@ class Graph {
         }
 
 
+        bool createsMST(int u, int v, vector<bool> inMST){
+           if (u == v)
+              return false;
+           if (inMST[u] == false && inMST[v] == false)
+              return false;
+           else if (inMST[u] == true && inMST[v] == true)
+              return false;
+           return true;
+        }
 
-        void primMST()
+        void MST()
         {
-        dist[1] = 1;
-        parent[1] = -1;
 
-            for (int count = 1; count < v-1 ; count++)
+            vector<bool> inMST(v-1, false);
+            inMST[0] = true;
+            int edgeNo = 0, MSTcost = 0;
+            while (edgeNo < v - 2)
             {
-                int u = minKey();
-                cout<< "xxxx"<< u << " ,count:" << count<<endl;
-
-                // Add the picked vertex to the MST Set
-                visited[u] = true;
-
-                for (int i = 1; i < v; i++)
-                {
-
-                    if(isEdge(u, i)!= 0 && i !=u && adj[u][i].getStadiumId()>0  )
-                    {
-                        cout<< "Edge"<<u << " - "<<i<< "-" <<adj[u][i].getStadiumId() << endl;
-                        int distance = getNodeEdge(u,i)->distance;
-
-                        if (!visited[i]  && distance < dist[i])
-                        {
-                            parent[i] = u;
-                            dist[i] = distance ;
+               int min = INT_MAX, a = -1, b = -1;
+               for (int i = 0; i < v-1; i++) {
+                  for (int j = 0; j < v-1; j++) {
+                     if (metrix[i][j] < min) {
+                        if (createsMST(i, j, inMST)) {
+                           min = metrix[i][j];
+                           a = i;
+                           b = j;
                         }
+                     }
+                  }
+               }
+               if (a != -1 && b != -1) {
 
-                    }
-                }
+                   if(isEdge(a+1, b+1))
+                   {
+                       mstEdges.push_back(getNodeEdge(a+1,b+1));
+                   }
+                   cout<<"Edge "<<edgeNo++<<" : ("<<a<<" , "<<b<<" ) : cost = "<<min<<endl;
+                  MSTcost += min;
+                  inMST[b] = inMST[a] = true;
+               }
             }
-
-            for (int i = 1; i < v; i++)
-            {
-                if(isEdge(i, parent[i]))
-                {
-                    mstEdges.push_back(getNodeEdge(i,parent[i]));
-                }
-            }
-
-            // print the constructed MST
-            //printMST();
         }
 
         QString printMST()
@@ -349,15 +353,15 @@ class Graph {
             for (auto it = mstEdges.begin(); it != mstEdges.end(); ++it)
             {
                 str+="<tr><td style=\"border:solid 1px #000;width:50%\"><b>Stadium:</b> "+QString::fromStdString( (*it)->StadiumIDPtr->getStadiumName() )+"<br/>"+(*it)->StadiumIDPtr->getTeamsName()+"</td><td style=\"text-align:center;valign:middle\">("+QString::number( (*it)->distance)+"M)<br/>&#8594;</td> <td style=\"border:solid 1px #000;width:50%\"><b>Stadium:</b> "+QString::fromStdString((*it)->OtherStaduimIDPtr->getStadiumName())+"<br/>"+(*it)->OtherStaduimIDPtr->getTeamsName()+"</td></tr>";
-              //  cout<<"|"<< (*it)->StadiumIDPtr->getStadiumName() << " - " << (*it)->OtherStaduimIDPtr->getStadiumName()<< " ," << (*it)->distance<<endl;
                 total+=(*it)->distance;
             }
 
-          //  cout<<"|Total Mileage: "<<total<<" M" <<endl;
-            ss="<table cellpadding=\"5\" border=\"0\" cellspacing=\"5\" width=\"100%\" ><h3>MST Traversal (Total Distance: "+QString::number(total)+" Miles) </h3>";
+            ss="<table cellpadding=\"5\" border=\"0\" cellspacing=\"5\" width=\"100%\" ><h3>DFS Traversal (Total Distance: "+QString::number(total)+" Miles) </h3>";
             return ss+str;
         }
-    };
+
+
+};
     // Function to fill the empty adjacency matrix
    Graph::Graph(int v)
     {
@@ -368,6 +372,8 @@ class Graph {
         parent = new int[v];
         dist = new int[v];
         pathsArr = new path[v]();
+        metrix = new int*[v-1];
+
 
 
         for (int row = 0; row < v; row++) {
@@ -376,6 +382,14 @@ class Graph {
                 dist[row]= INT_MAX;
                 visited[row] = false;
                 parent[row]=-1;
+                if(row<v-1)
+                {
+                    metrix[row]= new int[v-1];
+                    for(int i=0; i<v-1;i++ )
+                    {
+                        metrix[row][i] = INT_MAX;
+                    }
+                }
         }
 
 
@@ -387,15 +401,11 @@ class Graph {
 
     pathsToVer.clear();
     mstEdges.clear();
-pathsArr = new path[v]();
+    pathsArr = new path[v]();
 
-//        delete [] parent;
-//        delete []dist;
- //        pathsArr = nullptr;
-
-        visited = new bool[v];
-        parent = new int[v];
-        dist = new int[v];
+    visited = new bool[v];
+    parent = new int[v];
+    dist = new int[v];
 
         for (int row = 0; row < v; row++) {
                 dist[row]= INT_MAX;
@@ -464,6 +474,10 @@ pathsArr = new path[v]();
         // diagonal
         adj[src][src] = nodeSrc;
         adj[dest][dest] = nodeDest;
+        if(isEdge(src,dest))
+        {
+             metrix[src-1][dest-1] = getNodeEdge(src,dest)->distance;
+        }
 
 
     }

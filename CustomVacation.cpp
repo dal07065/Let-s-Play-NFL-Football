@@ -747,11 +747,9 @@ void CustomVacation::resetUI()
     connect(ui->listWidgetSecond, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(populateStartTeam(QListWidgetItem*)));
     connect(ui->allTeamPlan,SIGNAL(clicked()), this, SLOT(on_allTeamPlan_clicked()));
     connect(ui->bookYourTrip, SIGNAL(clicked()), this, SLOT(on_bookYourTrip_clicked()));
-     connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(on_pushButton_clicked()));
-      connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(on_pushButton_2_clicked()));
-      connect(ui->pushButton_3, SIGNAL(clicked()), this, SLOT(on_pushButton_3_clicked()));
-   // connect(ui->NumberTripPushButton, SIGNAL(clicked()), this, SLOT(on_NumberTripPushButton_clicked()));
-
+    connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(on_pushButton_clicked()));
+    connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(on_pushButton_2_clicked()));
+    connect(ui->pushButton_3, SIGNAL(clicked()), this, SLOT(on_pushButton_3_clicked()));
     int maximumChoice = Team::getTeams().size();
    // ui->numberOfCitiesSpinBox->setMinimum(2);
     //ui->numberOfCitiesSpinBox->setMaximum(maximumChoice);
@@ -857,9 +855,8 @@ void CustomVacation::performBFS(int vert)
 
 void CustomVacation::on_pushButton_3_clicked()
 {
-//unicorn::Team::initializeTeams();
+
     int size_ =( (int)unicorn::Stadium::stadiums.size())+1;
-   // cout<<"-----"<< size_ <<endl;
 
     Graph mst(size_);
     for(auto i = Stadium::stadiums.begin(); i != Stadium::stadiums.end();++i)
@@ -873,8 +870,8 @@ void CustomVacation::on_pushButton_3_clicked()
 
      }
 
-     mst.reset();
-    mst.primMST();
+    // mst.reset();
+    mst.MST();
 
     this->close();
     QString str = mst.printMST();

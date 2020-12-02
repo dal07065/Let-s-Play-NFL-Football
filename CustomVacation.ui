@@ -320,7 +320,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Perform PFS</string>
+    <string>Perform BFS</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton_3">

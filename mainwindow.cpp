@@ -532,6 +532,10 @@ void MainWindow::on_actionReset_Database_triggered()
     {
         QMessageBox::warning(this, "Fail", "Query did not execute");
     }
+
+    QSqlQueryModel* model = new QSqlQueryModel();
+    model->setQuery(QString("SELECT TeamName FROM teams"));
+    ui->teamComboBox->setModel(model);
 }
 
 void MainWindow::on_actionLoad_Team_triggered()

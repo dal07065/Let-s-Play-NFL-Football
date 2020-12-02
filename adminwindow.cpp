@@ -52,6 +52,8 @@ void adminWindow::loadTeams()
         temp.first = teamID[i];
         nameAndIndex.push_back(temp);
     }
+
+    unicorn::Team::initializeTeams();
 }
 
 void adminWindow::loadTeamData(int index)
@@ -120,6 +122,7 @@ void adminWindow::loadTeamData(int index)
         }
     }
 
+        unicorn::Team::initializeTeams();
 }
 
 void adminWindow::on_comboBox_Team_Selection_activated(int index)
@@ -176,6 +179,8 @@ void adminWindow::on_pushButton_SelectSouvenir_SetPrice_clicked()
 
     ui->comboBox_SelectSouvenir->clear();
     ui->doubleSpinBox_SelectSouvenir_Price->clear();
+
+    unicorn::Team::initializeTeams();
 }
 
 void adminWindow::on_pushButton_SelectSouvenir_Delete_clicked()
@@ -198,6 +203,8 @@ void adminWindow::on_pushButton_SelectSouvenir_Delete_clicked()
 
     ui->comboBox_SelectSouvenir->clear();
     ui->doubleSpinBox_SelectSouvenir_Price->clear();
+
+    unicorn::Team::initializeTeams();
 }
 
 void adminWindow::on_pushButton_SelectStadium_SetCapacity_clicked()
@@ -225,6 +232,8 @@ void adminWindow::on_pushButton_SelectStadium_SetCapacity_clicked()
 
     ui->comboBox_SelectStadium->clear();
     ui->spinBox_SelectStadium_SetCapacity->clear();
+
+    unicorn::Team::initializeTeams();
 }
 
 void adminWindow::on_pushButton_NewSouvenir_Add_clicked()
@@ -257,6 +266,8 @@ void adminWindow::on_pushButton_NewSouvenir_Add_clicked()
 
     ui->lineEdit_NewSouvenir_Name->clear();
     ui->doubleSpinBox_NewSouvenir_Price->clear();
+
+    unicorn::Team::initializeTeams();
 }
 
 void adminWindow::on_pushButton_NewStadium_Add_clicked()
