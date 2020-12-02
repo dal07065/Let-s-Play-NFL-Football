@@ -65,6 +65,14 @@ public:
      */
     static vector<SouvenirType*> getSouvenirByTeamId(int id);
 
+
+    /**
+     * @brief Function to return team name using team id
+     * @param id: team id
+     * @return the team name string
+     */
+    static QString getTeamNameById(int id);
+
     /**
      * @brief Function to format a float number with 2 decimal places
      * @param number: number that needs to be formatted
@@ -78,33 +86,10 @@ public:
      * @param idTeamStart: id of the starting team
      *
      */
-    static void orderTeamsByDistance(vector<Team>& vacTeams, int idTeamStart);
 
-    /**
-     * @brief Function to get the team object from team id
-     * @param TeamId: id of the needed team
-     * @return the team object that has the exact id
-     *
-     * Function going through the list of teams to find the one with
-     * that exact id
-     */
     static Team& getTeamById(int TeamId);
 
-    /**
-     * @brief Function to get the total distance going through
-     * the list of teams in order
-     * @param vacTeams: vector containing the list of teams in order of shortest distance
-     * @return the total distance of the trip
-     */
-    static int getTotalDistance(vector<Team>& vacTeams);
-
-    /**
-     * @brief Function to recursively put the list of teams in the correct order
-     * of shortest distance
-     * @param vacTeams: list of teams
-     * @param position: the current position in the vector
-     */
-    static void calcDistancRecursively(vector<Team>& vacTeams, int position);
+    static Team getTeamByIdByValue(int TeamId);
 
 
 

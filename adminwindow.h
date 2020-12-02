@@ -7,6 +7,12 @@
 #include <QSqlQuery>
 #include <QFileInfo>
 #include <QMessageBox>
+#include <vector>
+#include <QString>
+using std::vector;
+#include <QPair>
+#include <QDebug>
+#include "team.h"
 
 namespace Ui {
 class adminWindow;
@@ -25,12 +31,27 @@ public:
 
     // This function loads all stadium and souvenir data from the
     // database into the respective feilds
-    void loadTeamData();
+    void loadTeamData(int index);
+
+private slots:
+   void on_comboBox_Team_Selection_activated(int index);
+
+    void on_comboBox_SelectSouvenir_activated(const QString &arg1);
+
+    void on_pushButton_SelectSouvenir_SetPrice_clicked();
+
+    void on_pushButton_SelectSouvenir_Delete_clicked();
+
+    void on_pushButton_NewSouvenir_Add_clicked();
+
+    void on_pushButton_NewStadium_Add_clicked();
+
+    void on_pushButton_SelectStadium_SetCapacity_clicked();
 
 private:
     Ui::adminWindow *ui;
     QSqlDatabase data;
-
+    vector<QPair<int, QString>> nameAndIndex;
 };
 
 #endif // ADMINWINDOW_H

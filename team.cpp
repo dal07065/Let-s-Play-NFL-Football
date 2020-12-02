@@ -3,72 +3,9 @@ vector<unicorn::Team> unicorn::Team::teams;
 BST<unicorn::Team> unicorn::Team::teamsBSTMap;
 namespace unicorn {
 
-int Team::getTotalDistance(vector<Team> &vacTeams)
-{
-//    int total=0;
-//    for(int i =0; i<=(int)vacTeams.size()-2 ;i++)
-//    {
-//       vector<Distance*> dist = vacTeams[i].teamStadium->getDistanceFromOthers();
-//       for(auto it = dist.begin(); it!= dist.end() ;++it)
-//       {
-//           if((*it)->OtherStaduimID == vacTeams[i+1].getTeamId() )
-//                total+= (*it)->distance;
-//       }
-//    }
-//    return total;
-
-}
 
 
-void Team::calcDistancRecursively(vector<Team>& vacTeams, int position)
-{
-//   if(position == (int)vacTeams.size() )
-//   {
-//       return;
-//   }
-//   int min=0;
-//   int minTeamId=0;
-//   int minPosition =0;
-//   for(int i= position;i<(int)vacTeams.size();i++)
-//   {
-//      for(auto it = vacTeams[position-1].teamStadium->getDistanceFromOthers().begin(); it!= vacTeams[position-1].teamStadium->getDistanceFromOthers().end() ;++it)
-//      {
-//          //qDebug()<< vacTeams[i].teamStadium.getStadiumId() << "---"<<it->OtherStaduimID ;
-//          if((min ==0 || (*it)->distance < min ) && (*it)->distance !=0 && vacTeams[i].teamStadium->getStadiumId()==(*it)->OtherStaduimID )
-//          {
-//              min= (*it)->distance;
-//              minTeamId= vacTeams[i].getTeamId();
-//              minPosition=i;
-//          }
 
-//      }
-
-//   }
-
-//    std::iter_swap(vacTeams.begin()+minPosition,vacTeams.begin()+position);
-//    calcDistancRecursively(vacTeams, position+1);
-}
-
-
-void Team::orderTeamsByDistance(vector<Team>& vacCities, int idTeamStart)
-{
-    if(vacCities[0].getTeamId()!= idTeamStart)
-    {
-        for (auto it =vacCities.begin(); it != vacCities.end(); ++it)
-        {
-            if(it->getTeamId() == idTeamStart)
-            {
-                std::iter_swap(it,vacCities.begin());
-                break;
-            }
-        }
-    }
-
-    if(vacCities.size()>1)
-    {
-       calcDistancRecursively(vacCities, 1);
-    }
-}
 
 
 
@@ -99,13 +36,16 @@ string Team::formateNumbers(float number)
 
 void Team::initializeTeams(){
 
+if (teams.size()>0) teams.clear();
+if(teamsBSTMap.getSize()>0)
+{
+      teamsBSTMap.~BST();
+   Stadium::stadiums.clear();
 
-Stadium *stad[50] = {NULL};
-     teamsBSTMap.destroyTree();
-    //teamsBSTMap.~BST();
-    Stadium::stadiums.clear();
+}
+
     QSqlQuery query,query2;
-    query.exec("SELECT * , teams._id as teamID  FROM teams join stadiums on teams.StadiumID= stadiums._id   ORDER BY TeamName ASC  ");
+    query.exec("SELECT * , teams._id as teamID  FROM teams join stadiums on teams.StadiumID= stadiums._id    ORDER BY TeamName ASC  ");
     int i=0;
     while(query.next())
     {
@@ -114,7 +54,7 @@ Stadium *stad[50] = {NULL};
         QString id;
         string name;
 
-        Stadium * std= new Stadium;
+        Stadium * std= new Stadium();
 
         QString stadiumID;
         string stadiumName;
@@ -133,29 +73,21 @@ Stadium *stad[50] = {NULL};
         team->setTeamId(id.toInt());
         team->setTeamName(name);
 
-        if(stad[stadiumID.toInt()] ==NULL)
-        {
-         stad[stadiumID.toInt()] = new Stadium;
-        stad[stadiumID.toInt()] = std;
         stadiumName = query.value("StadiumName").toString().toStdString() ;
         capacity = query.value("SeatingCapacity").toString() ;
         location = query.value("Location").toString().toStdString() ;
         conference = query.value("Conference").toString().toStdString() ;
         division = query.value("Division").toString().toStdString() ;
         surface = query.value("SurfaceType").toString().toStdString() ;
-
-        //stad[stadiumID.toInt()]= std;
-        stad[stadiumID.toInt()]->setStadiumId(stadiumID.toInt());
-        stad[stadiumID.toInt()]->setStadiumName(stadiumName);
-        stad[stadiumID.toInt()]->setStadiumCapacity(capacity.toInt());
-        stad[stadiumID.toInt()]->setStadiumLocation(location);
-        stad[stadiumID.toInt()]->setStadiumConference(conference);
-        stad[stadiumID.toInt()]->setStadiumSurface(surface);
-        stad[stadiumID.toInt()]->setStadiumDivision(division);
+        std->setStadiumId(stadiumID.toInt());
+        std->setStadiumName(stadiumName);
+        std->setStadiumCapacity(capacity.toInt());
+        std->setStadiumLocation(location);
+        std->setStadiumConference(conference);
+        std->setStadiumSurface(surface);
+        std->setStadiumDivision(division);
 
 
-
-//cout<<stadiumName<<endl;
                 query2.exec("SELECT *, (select StadiumName from stadiums where _id= stadiums_distances.ToStadiumId) as StadiumName  from stadiums_distances where FromStadiumId="+stadiumID+ "  group by FromStadiumId ,  ToStadiumId  order by distance ASC ");
                 while(query2.next())
                 {
@@ -165,21 +97,19 @@ Stadium *stad[50] = {NULL};
                     dist->OtherStaduimID = query2.value("ToStadiumId").toInt();
                     dist->distance = query2.value("Distance").toInt();
                     dist->OtherStaduimName = query2.value("StadiumName").toString().toStdString();
-                    dist->StadiumIDPtr = stad[stadiumID.toInt()];
+                    dist->StadiumIDPtr = std;
 
 
-                    stad[stadiumID.toInt()]->addDistance(dist);
+                    std->addDistance(dist);
                 }
 
 
 
 
-//cout<<"kkkkk"<<stadiumID.toInt()<<endl;
 
-        }
- stad[stadiumID.toInt()]->addTeam(team);
 
-        team->setTeamStadium(stad[stadiumID.toInt()]);
+ std->addTeam(team);
+ team->setTeamStadium(std);
 
 
 
@@ -213,10 +143,26 @@ Stadium *stad[50] = {NULL};
 
     i++;
     }
+
+
     Stadium::initializeStadiums();
 
 
 
+}
+
+QString Team::getTeamNameById(int id){
+    auto it = Team::teams.begin();
+    for (; it != Team::teams.end(); ++it)
+    {
+        if(it->getTeamId()==id)
+        {
+            string name = it->getTeamName();
+            return QString::fromStdString( name);
+            break;
+        }
+    }
+    return 0;
 }
 
 Team& Team::getTeamById(int TeamId)
@@ -231,6 +177,21 @@ Team& Team::getTeamById(int TeamId)
         }
     }
     return *it;
+}
+
+Team Team::getTeamByIdByValue(int TeamId)
+{
+    auto it = Team::teams.begin();
+    for (; it != Team::teams.end(); ++it)
+    {
+        if(it->getTeamId()==TeamId)
+        {
+
+            break;
+        }
+    }
+    return *it;
+
 }
 
 }

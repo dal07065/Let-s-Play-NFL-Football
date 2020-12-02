@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1367</width>
-    <height>776</height>
+    <width>1240</width>
+    <height>804</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <widget class="QTableView" name="tableView">
     <property name="geometry">
      <rect>
-      <x>370</x>
+      <x>270</x>
       <y>150</y>
       <width>951</width>
       <height>531</height>
@@ -27,62 +27,62 @@
    <widget class="QPushButton" name="show_Teams">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>10</x>
       <y>150</y>
-      <width>161</width>
+      <width>111</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>Show Teams</string>
+     <string>3.Show Teams</string>
     </property>
    </widget>
    <widget class="QPushButton" name="show_NFCNorth">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>10</x>
       <y>270</y>
-      <width>161</width>
+      <width>111</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>Show NFC North</string>
+     <string>7.Show NFC North</string>
     </property>
    </widget>
    <widget class="QPushButton" name="show_AFC_Teams">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>10</x>
       <y>210</y>
-      <width>161</width>
+      <width>111</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>Show AFC Teams</string>
+     <string>5.Show AFC Teams</string>
     </property>
    </widget>
    <widget class="QPushButton" name="show_NFC_Teams">
     <property name="geometry">
      <rect>
-      <x>200</x>
+      <x>140</x>
       <y>210</y>
-      <width>151</width>
+      <width>111</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>Show NFC Teams</string>
+     <string>6.Show NFC Teams</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>600</y>
-      <width>331</width>
-      <height>41</height>
+      <x>10</x>
+      <y>630</y>
+      <width>241</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
@@ -111,88 +111,93 @@
    <widget class="QPushButton" name="show_Stadiums">
     <property name="geometry">
      <rect>
-      <x>200</x>
+      <x>140</x>
       <y>150</y>
-      <width>151</width>
+      <width>111</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>Show Stadiums</string>
+     <string>4.Show Stadiums</string>
     </property>
    </widget>
    <widget class="QPushButton" name="show_StadiumsByDate">
     <property name="geometry">
      <rect>
-      <x>200</x>
+      <x>140</x>
       <y>270</y>
-      <width>151</width>
+      <width>111</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string> Stadiums by Date</string>
+     <string>8.Stadiums by Date</string>
     </property>
    </widget>
    <widget class="QPushButton" name="show_openRoof">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>10</x>
       <y>330</y>
-      <width>161</width>
+      <width>111</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>Open Roof</string>
+     <string>9.Open Roof</string>
     </property>
    </widget>
    <widget class="QPushButton" name="show_SeatingCapacity">
     <property name="geometry">
      <rect>
-      <x>200</x>
+      <x>140</x>
       <y>330</y>
-      <width>151</width>
+      <width>111</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>Seating Capacity</string>
+     <string>10.Seating Capacity</string>
     </property>
    </widget>
    <widget class="QPushButton" name="show_Conference">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>390</y>
-      <width>161</width>
+      <x>10</x>
+      <y>400</y>
+      <width>111</width>
       <height>51</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>7</pointsize>
+     </font>
+    </property>
     <property name="text">
-     <string>Teams by Conference</string>
+     <string>11.Teams by Conference</string>
     </property>
    </widget>
    <widget class="QPushButton" name="show_BermudaGrass">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>390</y>
-      <width>151</width>
+      <x>140</x>
+      <y>400</y>
+      <width>111</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>Bermuda Grass</string>
+     <string>12.Bermuda Grass</string>
     </property>
    </widget>
    <widget class="QPushButton" name="show_Selection_S">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>550</y>
-      <width>331</width>
-      <height>41</height>
+      <x>10</x>
+      <y>560</y>
+      <width>241</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
@@ -226,20 +231,20 @@
    <widget class="QComboBox" name="teamComboBox">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>450</y>
-      <width>331</width>
-      <height>41</height>
+      <x>30</x>
+      <y>470</y>
+      <width>201</width>
+      <height>22</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="show_Selection">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>10</x>
       <y>500</y>
-      <width>331</width>
-      <height>41</height>
+      <width>241</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
@@ -248,9 +253,31 @@
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1240</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionAdmin"/>
+    <addaction name="actionLogOut"/>
+    <addaction name="actionExit"/>
+    <addaction name="actionAdmin_Functions"/>
+    <addaction name="actionLoad_Team"/>
+    <addaction name="actionReset_Database"/>
+   </widget>
+   <addaction name="menuFile"/>
+  </widget>
   <action name="actionAdmin">
    <property name="text">
-    <string>Admin...</string>
+    <string>Admin Login</string>
    </property>
   </action>
   <action name="actionLogOut">
@@ -266,6 +293,16 @@
   <action name="actionAdmin_Functions">
    <property name="text">
     <string>Admin Functions</string>
+   </property>
+  </action>
+  <action name="actionLoad_Team">
+   <property name="text">
+    <string>Load Team</string>
+   </property>
+  </action>
+  <action name="actionReset_Database">
+   <property name="text">
+    <string>Reset Database</string>
    </property>
   </action>
  </widget>

@@ -57,7 +57,9 @@ private slots:
 
     void on_actionAdmin_Functions_triggered();
     
+    void on_actionReset_Database_triggered();
 
+    void on_actionLoad_Team_triggered();
 
 
 private:
