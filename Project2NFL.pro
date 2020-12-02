@@ -27,6 +27,7 @@ HEADERS += \
     GraphBFS.h \
     GraphDFS.h \
     adminwindow.h \
+    DijkestraMST.h \
     database.h \
     displaydata.h \
     login.h \

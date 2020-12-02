@@ -354,7 +354,7 @@ class Graph {
             }
 
           //  cout<<"|Total Mileage: "<<total<<" M" <<endl;
-            ss="<table cellpadding=\"5\" border=\"0\" cellspacing=\"5\" width=\"100%\" ><h3>DFS Traversal (Total Distance: "+QString::number(total)+" Miles) </h3>";
+            ss="<table cellpadding=\"5\" border=\"0\" cellspacing=\"5\" width=\"100%\" ><h3>MST Traversal (Total Distance: "+QString::number(total)+" Miles) </h3>";
             return ss+str;
         }
     };

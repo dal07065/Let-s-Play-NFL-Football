@@ -7,6 +7,7 @@
 #include <QDesktopWidget>
 #include <QTableWidget>
 #include <QList>
+#include <QSqlQuery>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -30,45 +31,45 @@ MainWindow::MainWindow(QWidget *parent)
     on_actionLogOut_triggered();
     ui->actionLogOut->setVisible(false);
 
-    ui->tableView->horizontalHeader()->setStretchLastSection(true);
+
     QSqlQueryModel* model = new QSqlQueryModel();
     model->setQuery(QString("SELECT TeamName FROM teams"));
     ui->teamComboBox->setModel(model);
 
 
-    Team* ptr = Team::teamsBSTMap.getTreeNodes();
-    Team::teamsBSTMap.display();
-    int max = Team::teamsBSTMap.getBSTSize();
+//    Team* ptr = Team::teamsBSTMap.getTreeNodes();
+//    Team::teamsBSTMap.display();
+//    int max = Team::teamsBSTMap.getBSTSize();
 
-        for(int i=0;i<max;i++)
-        {
-
-
-                   std::cout <<"--------Team start here--------"<<endl;
-                   std::cout<< (*(ptr+i)).getTeamId() << (*(ptr+i)).getTeamName()<<endl;
-                   vector<Distance*> distanceV= (*(ptr+i)).getTeamStadium()->getDistanceFromOthers();
-                           vector<SouvenirType*> souv= (*(ptr+i)).getSouvenirType();
+//        for(int i=0;i<max;i++)
+//        {
 
 
-                          std::cout <<"--------Distances--------"<<endl;
-                          for (auto it2= distanceV.begin(); it2 !=  distanceV.end(); ++it2) {
+//                   std::cout <<"--------Team start here--------"<<endl;
+//                   std::cout<< (*(ptr+i)).getTeamId() << (*(ptr+i)).getTeamName()<<endl;
+//                   vector<Distance*> distanceV= (*(ptr+i)).getTeamStadium()->getDistanceFromOthers();
+//                           vector<SouvenirType*> souv= (*(ptr+i)).getSouvenirType();
 
 
-                               std::cout << (*it2)->OtherStaduimName
-                                        << (*it2)->OtherStaduimID
-                                        <<  (*it2)->distance<<endl;
-                           }
-                           std::cout <<"--------Souviner--------"<<endl;
+//                          std::cout <<"--------Distances--------"<<endl;
+//                          for (auto it2= distanceV.begin(); it2 !=  distanceV.end(); ++it2) {
 
-                           for (auto it3= souv.begin(); it3 !=  souv.end(); ++it3) {
 
-                                std::cout  << (*it3)->SouvenirName
-                                         << (*it3)->souvenirID
-                                         <<  (*it3)->TeamID
-                                         <<  (*it3)->price<<endl;
-                            }
-                    std::cout <<"--------Team end here--------"<<endl<<endl;
-        }
+//                               std::cout << (*it2)->OtherStaduimName
+//                                        << (*it2)->OtherStaduimID
+//                                        <<  (*it2)->distance<<endl;
+//                           }
+//                           std::cout <<"--------Souviner--------"<<endl;
+
+//                           for (auto it3= souv.begin(); it3 !=  souv.end(); ++it3) {
+
+//                                std::cout  << (*it3)->SouvenirName
+//                                         << (*it3)->souvenirID
+//                                         <<  (*it3)->TeamID
+//                                         <<  (*it3)->price<<endl;
+//                            }
+//                    std::cout <<"--------Team end here--------"<<endl<<endl;
+//        }
 
 
 }
@@ -78,12 +79,11 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::on_show_Teams_clicked()
 
 {
-
     ui->numberLabel->setText("");
             QSqlQuery query;
 
 
-            query.prepare(QString("SELECT TeamName FROM teams"));
+            query.prepare(QString("SELECT TeamName FROM teams ORDER BY TeamName ASC"));
 
 
             //Error check
@@ -340,6 +340,7 @@ void MainWindow::on_show_SeatingCapacity_clicked()
     QSqlQuery query;
     QList<QString> stadiumList;
     int seatCount = 0;
+    int count = 0;
 
     query.prepare(QString("SELECT stadiums.SeatingCapacity,stadiums.StadiumName,teams.teamName "
                           "FROM stadiums "
@@ -356,12 +357,13 @@ void MainWindow::on_show_SeatingCapacity_clicked()
         while(query.next())
         {
             QString name = query.value(1).toString();
-            int count = query.value(0).toInt();
+            count = query.value(0).toInt();
             if(!stadiumList.contains(name))
             {
                 stadiumList.append(name);
                 seatCount += count;
             }
+
         }
 
         QSqlQueryModel *search = new QSqlTableModel;
@@ -481,15 +483,19 @@ void MainWindow::userIsAdmin()
 
     ui->actionLogOut->setVisible(true);
     ui->actionAdmin_Functions->setVisible(true);
+    ui->actionLoad_Team->setVisible(true);
+    ui->actionReset_Database->setVisible(true);
     ui->actionAdmin->setVisible(false);
+
 }
 
 void MainWindow::on_actionLogOut_triggered()
 {
     ui->actionAdmin->setVisible(true);
     ui->actionLogOut->setVisible(false);
-
     ui->actionAdmin_Functions->setVisible(false);
+    ui->actionLoad_Team->setVisible(false);
+    ui->actionReset_Database->setVisible(false);
 }
 
 void MainWindow::on_actionAdmin_Functions_triggered()
@@ -504,4 +510,52 @@ void MainWindow::on_pushButton_clicked()
      CustomVacation *vacWindow = new CustomVacation();
      vacWindow->show();
 
+}
+
+void MainWindow::on_actionReset_Database_triggered()
+{
+    QSqlQuery query;
+    query.prepare(QString("DELETE FROM stadiums_distances WHERE _id>=117 AND _id<= 122"));
+    if (!query.exec())
+    {
+        QMessageBox::warning(this, "Fail", "Query did not execute");
+    }
+
+    query.prepare(QString("DELETE FROM teams WHERE _id=33"));
+    if (!query.exec())
+    {
+        QMessageBox::warning(this, "Fail", "Query did not execute");
+    }
+
+    query.prepare(QString("DELETE FROM stadiums WHERE _id=33"));
+    if (!query.exec())
+    {
+        QMessageBox::warning(this, "Fail", "Query did not execute");
+    }
+}
+
+void MainWindow::on_actionLoad_Team_triggered()
+{
+    QSqlQuery query;
+    query.prepare(QString("INSERT INTO teams SELECT * FROM teams_sanDeigo"));
+    if (!query.exec())
+    {
+        QMessageBox::warning(this, "Fail", "Query did not execute");
+    }
+
+    query.prepare(QString("INSERT INTO stadiums SELECT * FROM stadiums_sanDeigo"));
+    if (!query.exec())
+    {
+        QMessageBox::warning(this, "Fail", "Query did not execute");
+    }
+
+    query.prepare(QString("INSERT INTO stadiums_distances SELECT * FROM stadiums_distances_sanDeigo;"));
+    if (!query.exec())
+    {
+        QMessageBox::warning(this, "Fail", "Query did not execute");
+    }
+
+    QSqlQueryModel* model = new QSqlQueryModel();
+    model->setQuery(QString("SELECT TeamName FROM teams"));
+    ui->teamComboBox->setModel(model);
 }

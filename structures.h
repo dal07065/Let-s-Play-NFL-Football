@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <iostream>
-#include<strings.h>
+//#include<strings.h>
 #include<vector>
 #include "database.h"
 #include <iomanip>
@@ -38,6 +38,13 @@ struct SouvenirType{
     int quantity;
 
 };
+
+struct path{
+    vector<int> paths;
+    int distance;
+};
+
+
 
 /**
  * @brief The Distance struct represents the distance from a souviner
@@ -100,6 +107,15 @@ struct TeamType
 {
    int teamID;
    string teamName;
+
+};
+
+
+struct PathFromSrcToDest{
+    vector<Distance*> edges;
+    int totalDistance;
+    Stadium * start;
+    Stadium * end;
 
 };
 
